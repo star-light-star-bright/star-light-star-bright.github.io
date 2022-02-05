@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="github,blogs">
+    <meta name="keywords" content="Atlas, github,blogs">
     <meta name="description" content="这是我的博客网站">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>star-light-star-bright Blog</title>
+    <title>Atlas | star-light-star-bright Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -312,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Atlas</h1>
                 </div>
             </div>
         </div>
@@ -431,12 +431,33 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/CDH/">
+                                <span class="chip bg-color">CDH</span>
+                            </a>
+                        
+                            <a href="/tags/Atlas/">
+                                <span class="chip bg-color">Atlas</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/CDH/" class="post-category">
+                                CDH
+                            </a>
+                        
+                            <a href="/categories/CDH/Atlas/" class="post-category">
+                                Atlas
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -445,7 +466,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-19
+                    2022-01-27
                 </div>
                 
 
@@ -454,14 +475,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    168
+                    2.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    11 分
                 </div>
                 
 
@@ -484,14 +505,161 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>docker只能运行在64位的系统的上。</p>
-<p>Docker通常的话是web应用的自动化打包和发布，自动化的测试和持续集成发布、服务器环境中部署和调整数据库或其他的后台应用。从头编译或者扩展现有的openshift平台来搭建自己的paas环境。</p>
-<p>Docker是Go语言进行编写的，是一个开源的引擎，可以轻松地为任何引用创建一个轻量级的、可移植的、自给自足的容器</p>
-<p>Docker公司目前有两个版本:Docker CE(社区版)、Docker EE（企业版）</p>
-<p>容器技术</p>
-<p>容器镜像</p>
-<p>容器网络</p>
-<p>容器存储</p>
+                <h1 id="Atlas"><a href="#Atlas" class="headerlink" title="Atlas"></a>Atlas</h1><h2 id="Atlas是什么"><a href="#Atlas是什么" class="headerlink" title="Atlas是什么"></a>Atlas是什么</h2><p>Atlas 是一组可扩展和可扩展的核心基础<strong>治理</strong>服务——使企业能够有效且高效地满足其在 Hadoop 中的合规性要求，并允许与整个企业数据生态系统集成。</p>
+<p>Apache Atlas 为组织提供开放的<strong>元数据管理</strong>和<strong>治理功能</strong>，以构建其数据资产的目录，对这些资产进行分类和治理，并为数据科学家、分析师和数据治理团队提供围绕这些数据资产的协作能力。</p>
+<p>如果想要对这些数据做好管理，光用文字、文档等东西是不够的，必须用图。Atlas就是把元数据变成图的工具。</p>
+<h2 id="Atlas架构"><a href="#Atlas架构" class="headerlink" title="Atlas架构"></a>Atlas架构</h2><p>Atlas包括以下组件：</p>
+<p>采用Hbase存储元数据</p>
+<p>采用Solr实现索引</p>
+<p>Ingest/Export 采集导出组件 Type System类型系统 Graph Engine图形引擎 共同构成Atlas的核心机制</p>
+<p>所有功能通过API向用户提供，也可以通过Kafka消息系统进行集成</p>
+<p>Atlas支持各种源获取元数据：Hive，Sqoop，Storm。。。</p>
+<p>还有优秀的UI支持</p>
+<p><strong>Atlas High Level Architecture - Overview</strong></p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/architecture.png" alt="**Atlas High Level Architecture - Overview**"></p>
+<h3 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h3><p>atlas 的核心功能层： core –相当于 javaee 里面的 service 层 atlas 对外提供服务的一层：integration（api 层） </p>
+<p>atlas 的核心功能层： core –相当于 javaee 里面的 service 层 </p>
+<p>atlas 对外提供服务的一层：integration（api 层） </p>
+<p><strong>Core Type System</strong>: Atlas 允许用户为他们想要管理的元数据对象定义一个模型。该模型由称为 “Type” 的定 义组成。”类型” 的 实例被称为 “实体” 表示被管理的实际元数据对象。类型系统是一个组件，允许 用户定义和管理类型和实体。由 Atlas 管理的所有元数据对象（例如 Hive 表）都使用类型进行建模， 并表示为实体。要在 Atlas 中存储新类型的元数据，需要了解类型系统组件的概念。</p>
+<p><strong>Ingest/Export</strong>：Ingest 组件允许将元数据添加到 Atlas。类似地，Export 组件暴露由 Atlas 检测到的元 数据更改，以作为事件引发，消费者可以使用这些更改事件来实时响应元数据更改。</p>
+<p><strong>Graph Engine</strong>：在内部，Atlas 通过使用图模型管理元数据对象。以实现元数据对象之间的巨大灵活性 和丰富的关系。图引擎是负责在类型系统的类型和实体之间进行转换的组件，以及基础图形模型。除 了管理图对象之外，图引擎还为元数据对象创建适当的索引，以便有效地搜索它们。 </p>
+<p><strong>JanusGraph</strong>：Atlas 使用 JanusGraph 图数据库来存储元数据对象。</p>
+<p> JanusGraph 使用两个存储：<strong>默认情况下元数据存储配置为 HBase ，索引存储配置为 Solr。</strong></p>
+<h3 id="Integration"><a href="#Integration" class="headerlink" title="Integration"></a>Integration</h3><p>用户可以使用两种方法管理 Atlas 中的元数据： </p>
+<p><strong>API：Atlas</strong> 的所有功能都可以通过 REST API 提供给最终用户，允许创建，更新和删除类型和实体。 它也是查询和发现通过 Atlas 管理的类型和实体的主要方法。 </p>
+<p><strong>Messaging</strong>：除了 API 之外，用户还可以选择使用基于 Kafka 的消息接口与 Atlas 集成。这对于将 元数据对象传输到 Atlas 以及从 Atlas 使用可以构建应用程序的元数据更改事件都非常有用。如果希 望使用与 Atlas 更松散耦合的集成，这可以允许更好的可扩展性，可靠性等，消息传递接口是特别有 用的。</p>
+<p>Atlas 使用 Apache Kafka 作为通知服务器用于钩子和元数据通知事件的下游消费者之间的通 信。事件由钩子(hook)和 Atlas 写到不同的 Kafka 主题: </p>
+<p><strong>ATLAS_HOOK</strong>: 来自各个组件的 Hook 的元数据通知事件通过写入到名为 ATLAS_HOOK 的 Kafka topic 发送到 Atlas； ATLAS_ENTITIES：从 Atlas 到其他集成组件</p>
+<p>（如 Ranger）的事件写入到名为 ATLAS_ENTITIES 的 Kafka topic；</p>
+<h3 id="Metadata-source"><a href="#Metadata-source" class="headerlink" title="Metadata source"></a>Metadata source</h3><p>Atlas 支持与许多元数据源的集成，将来还会添加更多集成。目前，Atlas 支持从以下数据源获取和管理元数据：</p>
+<p><strong>Hive</strong>：通过 hive bridge，可以接入 Hive 的元数据，包括 hive_db/hive_table/hive_column/hive_process </p>
+<p><strong>Sqoop</strong> ： 通 过 sqoop bridge ， 可 以 接 入 关 系 型 数 据 库 的 元 数 据 ， 包 括 sqoop_operation_type/ sqoop_dbstore_usage/sqoop_process/sqoop_dbdatastore </p>
+<p><strong>Falcon</strong>：通过 falcon bridge，atlas 可以接入 Falcon 的元数据，包括 falcon_cluster/falcon_feed /falcon_feed_creation/falcon_feed_replication/ falcon_process </p>
+<p><strong>Storm</strong>:通过 storm bridge，atlas 可以接入流式处理的元数据，包括 storm_topology/storm_spout/storm_bolt</p>
+<p>Atlas 集成大数据组件的元数据源需要实现以下两点： </p>
+<p>首先，需要基于 atlas 的类型系统定义能够表达大数据组件元数据对象的元数据模型(例如 Hive 的元数据模型实现在 org.apache.atlas.hive.model.HiveDataModelGenerator)； </p>
+<p>然后，需要提供 hook 组件去从大数据组件的元数据源中提取元数据对象，实时侦听元数据的变更并反馈给 atlas；</p>
+<h3 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h3><p><strong>Atlas Admin UI</strong>: 该组件是一个基于 Web 的应用程序，允许数据管理员和数据分析师发现和注释元数据。</p>
+<p>Admin UI 提供了搜索界面和 类 SQL 的查询语言，可以用来查询由 Atlas 管理的元数据类型 和对象。Admin UI 使用 Atlas 的 REST</p>
+<h2 id="Atlas特性"><a href="#Atlas特性" class="headerlink" title="Atlas特性"></a>Atlas特性</h2><p>Atlas支持各种Hadoop和非Hadoop元数据类型<br>提供了丰富的REST API进行集成<br>对数据血缘的追溯达到了字段级别，这种技术还没有其实类似框架可以实现<br>对权限也有很好的控制</p>
+<p>atlas 的核心功能层： core –相当于 javaee 里面的 service 层 atlas 对外提供服务的一层：integration（api 层） </p>
+<h2 id="下载安装启动"><a href="#下载安装启动" class="headerlink" title="下载安装启动"></a>下载安装启动</h2><p><a target="_blank" rel="noopener" href="https://atlas.apache.org/#/Downloads">https://atlas.apache.org/#/Downloads</a></p>
+<p>1.下载源码包，没有编译好的代码。需要自己编译</p>
+<p>2.解压</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">tar -zxf apache-atlas-2.0.0-sources.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>3.linux使用maven来编译项目</p>
+<p>​    3.1 没有maven，就先下载安装好 maven，配好 maven 的环境变量。添加国内下载镜像。</p>
+<p>​    3.2 注意，atlas 可以使用内嵌的 hbase-solr 作为底层索引存储和搜索组件，也可以使用外置的 hbase 和 solr 如果要使用内嵌的 hbase-solr:则使用如下命令进行编译打包:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@h4 ~]# cd apache-atlas-sources-2.0.0/
+[root@h4 apache-atlas-sources-2.0.0]# export MAVEN_OPTS="-Xms2g -Xmx2g"
+//不适用内嵌hbase-solr
+[root@h4 apache-atlas-sources-2.0.0]# mvn clean -DskipTests package -Pdist
+//使用内嵌hbase-solr
+[root@h4 apache-atlas-sources-2.0.0]# mvn clean -DskipTests package -Pdist,embedded-hbase-solr<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>视网络速度，耐心等待，并且可能要反复重试几次，最好是能开一个速度不错的 vpn</p>
+<p>最要命的是，atlas 的 webui 子模块中依赖了 nodejs，会从 nodejs 的中央仓库去下载相关 </p>
+<p>编译完成之后，会产生打包结果，所在位置是：源码目录中的新出现的 distro/target 目录</p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128135046413.png" alt="image-20220128135046413"></p>
+<p>如果失败，一定要清干净下载的东西，建议做之前自己电脑搞一个系统快照。</p>
+<p>4.编译好后，安装好相关组件</p>
+<p>​    4.1 安装 zookeeper（内嵌版不需要安装）每一台都要起）</p>
+<pre class="line-numbers language-none"><code class="language-none">bin/zkServer.sh start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​    4.2 安装安装 kafka（内嵌版不需要安装）每一台都要起）</p>
+<pre class="line-numbers language-none"><code class="language-none">bin/kafka-server-start.sh config/server.properties
+
+bin/kafka-topics.sh --list --zookeeper h1:2181,h2:2181,h3:2181<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>​    4.3 安装 hbase（自带版不需要安装）每一台都要起）</p>
+<pre class="line-numbers language-none"><code class="language-none">bin/kafka-topics.sh --list --zookeeper h1:2181,h2:2181,h3:2181<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​    4.4 安装 hbase（自带版不需要安装）每一台都要起）</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">bin/start-hbase.sh
+bin/hbase shell
+base(main):001:0&gt; status
+1 active master, 0 backup masters, 3 servers, 0 dead, 0.6667 average load<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    4.5 安装 solr（自带版不需要安装）</p>
+<p>包直接解压就可以</p>
+<pre class="line-numbers language-none"><code class="language-none">bin/solr start -c -z h1:2181,h2:2181,h3:2181 -p 8984 -forc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">${SOLR}/bin/solr create -c vertex_index -shards 1 -replicationFactor 1 -force
+${SOLR}/bin/solr create -c edge_index -shards 1 -replicationFactor 1 -force
+${SOLR}/bin/solr create -c fulltext_index -shards 1 -replicationFactor 1 -force
+
+
+// 创建文档集 1个分片  1个副本  强制执行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128160155574.png" alt="image-20220128160155574"></p>
+<p>5.上传 atlas 编译好之后的安装包</p>
+<p>6.修改配置文件</p>
+<p><strong>vi atlas-env.sh</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">export JAVA_HOME=/opt/app/jdk1.8.0_191/
+export MANAGE_LOCAL_HBASE=false (如果要使用内嵌的 zk 和 hbase，则改为 true)
+export MANAGE_LOCAL_SOLR=false （如果要是用内嵌的 solr，则改为 true）
+export HBASE_CONF_DIR=/opt/apps/hbase-2.0.6/conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>vi atlas-application.properties</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># Hbase 地址配置
+atlas.graph.storage.hostname=doitedu01:2181,doitedu02:2181,doitedu03:2181（如果使用内嵌 hbase，则填写 localhost:2181）
+# Solr 地址配置
+#Solr http mode properties
+atlas.graph.index.search.solr.mode=http
+atlas.graph.index.search.solr.http-urls=http://h3:8984/solr（solr 服务地址）
+# Kafka 地址配置
+atlas.notification.embedded=false （如果要使用内嵌的 kafka，则改为 true）
+atlas.kafka.zookeeper.connect=doitedu01:2181,doitedu02:2181,doitedu03:2181
+atlas.kafka.bootstrap.servers=doitedu01:9092,doitedu02:9092,doitedu03:9092
+######### Server Properties #########
+atlas.rest.address=http://doitedu01:21000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>7.启动 atlas</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@h3 apache-atlas-2.0.0]# bin/atlas_start.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>8.访问web页面</p>
+<p>账号和密码默认都是admin</p>
+<pre class="line-numbers language-none"><code class="language-none">ip:21000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128195253572.png" alt="image-20220128195253572"></p>
+<h2 id="注入元数据"><a href="#注入元数据" class="headerlink" title="注入元数据"></a>注入元数据</h2><h3 id="1-Hive配置Hook"><a href="#1-Hive配置Hook" class="headerlink" title="1.Hive配置Hook"></a>1.Hive配置Hook</h3><p>在外部组件中安装配置 <strong>Hook</strong> ，配置完毕后，在 hive 中做任何操作，都会被钩子所感应到，并以事件的形式发布到 kafka， 然后，atlas 的 Ingest 模块会消费到 kafka 中的消息，并解析生成相应的 atlas 元数据写入底层的 Janus 图数据库来存储管理；</p>
+<p><strong>修改 hive-env.sh</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">export HIVE_AUX_JARS_PATH=/opt/apps/apache-atlas-2.1.0/hook/hive <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><strong>修改 hive-site.xml</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;property&gt;
+&lt;name&gt;hive.exec.post.hooks&lt;/name&gt;
+&lt;value&gt;org.apache.atlas.hive.hook.HiveHook&lt;/value&gt;
+&lt;/property&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>同步配置</strong></p>
+<p>拷贝 atlas 配置文件 atlas-application.properties 到 hive 配置目录</p>
+<p>添加两行配置：</p>
+<pre class="line-numbers language-none"><code class="language-none">atlas.hook.hive.synchronous=false
+atlas.hook.hive.numRetries=3
+atlas.hook.hive.queueSize=10000
+//异步
+//重试次数
+//队列大小<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-Hive历史元数据import导入"><a href="#2-Hive历史元数据import导入" class="headerlink" title="2.Hive历史元数据import导入"></a>2.Hive历史元数据import导入</h3><p>在 atlas 安装之前，hive 中已存在的表，钩子是不会自动感应并生成相关元数据的；</p>
+<p>可以通过 atlas 的一个工具，来对已存在的 hive 库或表进行元数据导入；</p>
+<p>它是通过访问Rest Api 来</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">bin/import-hive.sh
+#默认会全部数据都导入atlas
+bin/import-hive.sh [-d &lt;database regex&gt; OR --database &lt;database regex&gt;] [-t &lt;table regex&gt; OR --table &lt;table regex&gt;]
+bin/import-hive.sh [-f &lt;filename&gt;]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128195337932.png" alt="image-20220128195337932"></p>
+<h2 id="WEB-UI的使用"><a href="#WEB-UI的使用" class="headerlink" title="WEB-UI的使用"></a>WEB-UI的使用</h2><p>Apache ADMIN_UI 功能包括 4 部分：</p>
+<h3 id="1-create-entity"><a href="#1-create-entity" class="headerlink" title="1.create entity"></a>1.create entity</h3><p>创建实体（创建数据资产的元数据–人工录入元数据） </p>
+<p>（在 atlas 中，有大量的对各类数据资产适配的描述定义：实体类型！ hive_table; hive_db;hive_column;hive_process;hdfs_path,…..，如果我们有一个数据资产，没有对应的内置实体类型，可以自己去定义一个你的实体类型，来描述你的这个数据资产） </p>
+<p><strong>示例</strong>：比如 hdfs 中有一个目录/aaa/bbb，需要进行描述</p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128205841996.png" alt="image-20220128205841996"></p>
+<h3 id="2-search"><a href="#2-search" class="headerlink" title="2.search"></a>2.search</h3><p>搜索查看</p>
+<h3 id="3-classfication"><a href="#3-classfication" class="headerlink" title="3.classfication"></a>3.classfication</h3><p>分类管理。</p>
+<p>1.先定义好类别</p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128210455008.png" alt="image-20220128210455008"></p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128210512983.png" alt="image-20220128210512983"></p>
+<p>2.类别体系创建好，为数据资产分配类别</p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128210645142.png" alt="image-20220128210645142"></p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128210700162.png" alt="image-20220128210700162"></p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128210715374.png" alt="image-20220128210715374"></p>
+<h3 id="4-glossary"><a href="#4-glossary" class="headerlink" title="4.glossary"></a>4.glossary</h3><p>词汇表：对数据资产标记“术语 term”（标签）</p>
+<p>1.创建<strong>词汇表</strong> </p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128210957012.png" alt="image-20220128210957012"></p>
+<p>2.在创建好的 <strong>glossay</strong>（词汇）中添加 <strong>term</strong>（词）</p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128211154725.png" alt="image-20220128211154725"></p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128211201741.png" alt="image-20220128211201741"></p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128211209810.png" alt="image-20220128211209810"></p>
+<p>3.glossay 创建后，就可以为数据资产打上 glossay 标记</p>
+<p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128211234874.png" alt="image-20220128211234874"></p>
+<h2 id="查看血缘"><a href="#查看血缘" class="headerlink" title="查看血缘"></a>查看血缘</h2><p><img src="/star-light-star-bright.github.io/2022/01/27/atlas/atlas/image-20220128211334305.png" alt="image-20220128211334305"></p>
 
                 
             </div>
@@ -518,7 +686,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/star-light-star-bright.github.io/2021/10/19/docker/docker-bi-ji/">https://github.com/star-light-star-bright.github.io/2021/10/19/docker/docker-bi-ji/</a>
+                    <a href="https://github.com/star-light-star-bright.github.io/2022/01/27/atlas/atlas/">https://github.com/star-light-star-bright.github.io/2022/01/27/atlas/atlas/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -555,7 +723,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/CDH/">
+                                    <span class="chip bg-color">CDH</span>
+                                </a>
+                            
+                                <a href="/tags/Atlas/">
+                                    <span class="chip bg-color">Atlas</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -729,13 +905,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/10/26/shu-ju-cang-ku/id-mapping/">
+                <a href="/2022/01/29/docker/docker-bi-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="ID_MAPPING">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Docker">
                         
-                        <span class="card-title">ID_MAPPING</span>
+                        <span class="card-title">Docker</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -746,14 +922,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-26
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-29
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E4%BB%93/" class="post-category">
-                                    数仓
+                            <a href="/categories/Docker/" class="post-category">
+                                    Docker
                                 </a>
                             
                             
@@ -763,8 +939,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ID-Mapping/">
-                        <span class="chip bg-color">ID_Mapping</span>
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                 </div>
@@ -778,13 +954,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/07/02/flink/flink/">
+                <a href="/2022/01/26/linux/you-jian-ke-hu-duan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Flink学习笔记">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="linux配置邮件服务器">
                         
-                        <span class="card-title">Flink学习笔记</span>
+                        <span class="card-title">linux配置邮件服务器</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -795,14 +971,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Flink/" class="post-category">
-                                    Flink
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
                                 </a>
                             
                             
@@ -812,8 +988,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Flink/">
-                        <span class="chip bg-color">Flink</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
@@ -1017,7 +1193,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">379.9k</span>&nbsp;字
+                class="white-color">389.3k</span>&nbsp;字
             
             
             

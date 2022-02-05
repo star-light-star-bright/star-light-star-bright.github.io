@@ -467,7 +467,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.9k
+                    6k
                 </div>
                 
 
@@ -499,6 +499,7 @@
             <div id="articleContent">
                 <h1 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h1><p>当阅读本书时，将会遇到有关 Elasticsearch 分布式特性的补充章节。这些章节将介绍有关集群扩容、故障转移(<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/distributed-cluster.html"><em>集群内的原理</em></a>) 、应对文档存储(<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/distributed-docs.html"><em>分布式文档存储</em></a>) 、执行分布式搜索(<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/distributed-search.html"><em>执行分布式检索</em></a>) ，以及分区（shard）及其工作原理(<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/inside-a-shard.html"><em>分片内部原理</em></a>) 。</p>
 <p>这些章节并非必读，完全可以无需了解内部机制就使用 Elasticsearch，但是它们将从另一个角度帮助你了解更完整的 Elasticsearch 知识。可以根据需要跳过它们，或者想更完整地理解时再回头阅读也无妨。</p>
+<p>一般存储文档库和索引库。</p>
 <h2 id="Elasticsearch是什么"><a href="#Elasticsearch是什么" class="headerlink" title="Elasticsearch是什么"></a>Elasticsearch是什么</h2><p>Elasticsearch 是一个开源的搜索引擎，建立在一个全文搜索引擎库 <a target="_blank" rel="noopener" href="https://lucene.apache.org/core/">Apache Lucene™</a> 基础之上。 Lucene 可以说是当下最先进、高性能、全功能的搜索引擎库—无论是开源还是私有。</p>
 <p>但是 Lucene 仅仅只是一个库。为了充分发挥其功能，你需要使用 Java 并将 Lucene 直接集成到应用程序中。 更糟糕的是，您可能需要获得信息检索学位才能了解其工作原理。Lucene <em>非常</em> 复杂。</p>
 <p>Elasticsearch 不仅仅是 Lucene，并且也不仅仅只是一个全文搜索引擎。 它可以被下面这样准确的形容：</p>
@@ -519,46 +520,46 @@
 </ul>
 <h2 id="Elasticsearch-安装"><a href="#Elasticsearch-安装" class="headerlink" title="Elasticsearch 安装"></a>Elasticsearch 安装</h2><p>1、在安装好jdk8.0以上版本的情况下，上传elasticSearch的jar包，进行解压，<strong>解压到普通目录下，除了root目录</strong>。</p>
 <p>2、修改配置文件config下面的elasticsearch.yml配置文件</p>
-<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"><span class="token comment"># ---------------------------------- Cluster -----------------------------------</span>
-<span class="token comment">#</span>
-<span class="token comment"># Use a descriptive name for your cluster:</span>
-<span class="token comment">#集群名称</span>
-<span class="token key atrule">cluster.name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>application
-<span class="token comment">#</span>
-<span class="token comment"># ------------------------------------ Node ------------------------------------</span>
-<span class="token comment">#</span>
-<span class="token comment"># Use a descriptive name for the node:</span>
-<span class="token comment">#指定当前节点名称</span>
-<span class="token key atrule">node.name</span><span class="token punctuation">:</span> node<span class="token punctuation">-</span><span class="token number">1</span>
-<span class="token comment">#</span>
-<span class="token comment"># Add custom attributes to the node:</span>
-<span class="token comment">#</span>
-<span class="token comment">#node.attr.rack: r1</span>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"># ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#集群名称
+cluster.name: my-application
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#指定当前节点名称
+node.name: node-1
+#
+# Add custom attributes to the node:
+#
+#node.attr.rack: r1
 
-<span class="token comment"># ---------------------------------- Network -----------------------------------</span>
-<span class="token comment">#</span>
-<span class="token comment"># Set the bind address to a specific IP (IPv4 or IPv6):</span>
-<span class="token comment">#当前节点地址</span>
-<span class="token key atrule">network.host</span><span class="token punctuation">:</span> 192.168.247.20
-<span class="token comment">#</span>
-<span class="token comment"># Set a custom port for HTTP:</span>
-<span class="token comment"># 指定http访问端口(默认9200)</span>
-<span class="token key atrule">http.port</span><span class="token punctuation">:</span> <span class="token number">9200</span>
-<span class="token comment">#</span>
-<span class="token comment"># For more information, consult the network module documentation.</span>
-<span class="token comment">#</span>
-<span class="token comment"># --------------------------------- Discovery ----------------------------------</span>
-<span class="token comment">#</span>
-<span class="token comment"># Pass an initial list of hosts to perform discovery when new node is started:</span>
-<span class="token comment"># The default list of hosts is ["127.0.0.1", "[::1]"]</span>
-<span class="token comment">#配置为集群中所有节点的ip地址</span>
-<span class="token key atrule">discovery.zen.ping.unicast.hosts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Linux01"</span><span class="token punctuation">,</span> <span class="token string">"Linux02"</span><span class="token punctuation">,</span><span class="token string">"Linux03"</span><span class="token punctuation">]</span>
-<span class="token comment">#</span>
-<span class="token comment"># Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):</span>
-<span class="token comment">#配置集群节点数量(nodes/2+1)</span>
-<span class="token key atrule">discovery.zen.minimum_master_nodes</span><span class="token punctuation">:</span> <span class="token number">2</span>
-<span class="token comment">#</span>
-<span class="token comment"># For more information, consult the zen discovery module documentation.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#当前节点地址
+network.host: 192.168.247.20
+#
+# Set a custom port for HTTP:
+# 指定http访问端口(默认9200)
+http.port: 9200
+#
+# For more information, consult the network module documentation.
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
+#配置为集群中所有节点的ip地址
+discovery.zen.ping.unicast.hosts: ["Linux01", "Linux02","Linux03"]
+#
+# Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
+#配置集群节点数量(nodes/2+1)
+discovery.zen.minimum_master_nodes: 2
+#
+# For more information, consult the zen discovery module documentation.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>3、创建新用户</p>
 <pre class="line-numbers language-none"><code class="language-none">//因为es不能用root来开启，得新建立一个用户来开启es
 useradd elk
@@ -734,7 +735,7 @@ geo_point(点)、geo_shape(形状)
 允许对同一个字段采用不同的配置，比如分词，例如对人名实现拼音搜索，只需要在人名中新增一个子字段为pinyin即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="dynamic-严格性设置"><a href="#dynamic-严格性设置" class="headerlink" title="dynamic  严格性设置"></a>dynamic  严格性设置</h3><p>a.true：允许自动新增字段（默认的配置）<br>b.False：不允许自动新增字段，但是文档可以正常写入，无法对字段进行查询操作(可写不能查询)<br>c.strict：文档不能写入（如果写入会报错）</p>
 <h3 id="数据类型text和keyword的区别"><a href="#数据类型text和keyword的区别" class="headerlink" title="数据类型text和keyword的区别"></a>数据类型text和keyword的区别</h3><p>text:text类型的字段值 保存入的数据会被进行分词处理<br>keyword:保存入的数据不会被分词处理</p>
-<h2 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h2><p>Elasticsearch 使用一种称为 <em>倒排索引</em> 的结构，它适用于快速的全文搜索。一个倒排索引由文档中所有不重复词的列表构成，对于其中每个词，有一个包含它的文档列表。</p>
+<h2 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h2><p>Elasticsearch 使用一种称为 <em>倒排索引</em> 的结构，它适用于快速的全文搜索。一个倒排索引由文档中所有不重复词的列表构成，对于其中每个词，有一个包含它的文档列表。内存空间不够冷热交替，热点key放内存，冷的放磁盘，为了避免这个问题，设定好es的内存大小。</p>
 <p>例如，假设我们有两个文档，每个文档的 <code>content</code> 域包含如下内容：</p>
 <ol>
 <li>The quick brown fox jumped over the lazy dog</li>
@@ -1736,7 +1737,7 @@ DELETE index_name<span aria-hidden="true" class="line-numbers-rows"><span></span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">379.9k</span>&nbsp;字
+                class="white-color">389.3k</span>&nbsp;字
             
             
             

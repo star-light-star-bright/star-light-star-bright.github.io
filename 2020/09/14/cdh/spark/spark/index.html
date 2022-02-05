@@ -1928,7 +1928,15 @@ spark.sql.shuffle.partitions 200
 <p>比如批次处理数据数据量会很大，那么这个数据很可能产生内存溢出，map算子随便遍历次数比较多，但是能够一个一个处理</p>
 <h5 id="2-foreachPartition算子"><a href="#2-foreachPartition算子" class="headerlink" title="2)foreachPartition算子"></a>2)foreachPartition算子</h5><p>使用场景一般都是在链接数据库并且写出数据的时候</p>
 <h5 id="3-filter算子在使用的时候最好加上coalesce算子"><a href="#3-filter算子在使用的时候最好加上coalesce算子" class="headerlink" title="3)filter算子在使用的时候最好加上coalesce算子"></a>3)filter算子在使用的时候最好加上coalesce算子</h5><p>因为数据减少很多，分区中的数据不需要一个单独的线程进行处理会浪费资源，coalsec算子进行分区的合并，数据合并的时候可能出现数据倾斜<br>1.可以先找出数据的一个分部情况<br>2.如果倾斜的比例比较多 repartition使用shuffle流程操作<br>分区合并的情况<br>多数分区合并为少数分区，合并的比例比较大 coalsce算子<br>数据的量的差别比较大 shuffle–&gt;repartition<br>某一个单独的分区数据量特别大，其他的都比较小<br>扩容分区repartition</p>
-<h5 id="4-sparksql的并行度设置和其他普通阶段的并行度不关联"><a href="#4-sparksql的并行度设置和其他普通阶段的并行度不关联" class="headerlink" title="4)sparksql的并行度设置和其他普通阶段的并行度不关联"></a>4)sparksql的并行度设置和其他普通阶段的并行度不关联</h5><p>sparksql的并行度其实是不允许用户设置的，会根据读取的文件位置的blk数量自己生成<br>可能会出现task任务的处理数据量要很大，压力太大，<br>手动的使用repartition算子进行重新分区</p>
+<h5 id="4-sparksql的并行度设置和其他普通阶段的并行度不关联"><a href="#4-sparksql的并行度设置和其他普通阶段的并行度不关联" class="headerlink" title="4)sparksql的并行度设置和其他普通阶段的并行度不关联"></a>4)sparksql的并行度设置和其他普通阶段的并行度不关联</h5><p>SparkSQL并行度是SparkSQL的第一个调优点，默认的并行度是200，需要根据实际情况进行设置，它有有两种设置方法</p>
+<pre class="line-numbers language-none"><code class="language-none">val spark = SparkSession.builder()
+      .config("spark.sql.shuffle.partitions",100)//设置并行度100
+      .getOrCreate()
+
+2.提交任务时指定
+--conf spark.sql.shuffle.partitions=100 \<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
 <h5 id="5-reduceByKey算子，相当于存在一个map端的reduce也就是combiner"><a href="#5-reduceByKey算子，相当于存在一个map端的reduce也就是combiner" class="headerlink" title="5)reduceByKey算子，相当于存在一个map端的reduce也就是combiner"></a>5)reduceByKey算子，相当于存在一个map端的reduce也就是combiner</h5><p>1.本地聚合后在map端的数据量减少很多<br>2.shuffle read阶段复制的数据要减少<br>3.shuffleRead端的内存使用减少<br>4.map端存在聚合所有reduce端聚合数据减少<br>groupByKey和reduceBykey的区别</p>
 <h3 id="9、故障处理"><a href="#9、故障处理" class="headerlink" title="9、故障处理"></a>9、故障处理</h3><h5 id="一、shuffle-file-cannot-find：磁盘小文件找不到"><a href="#一、shuffle-file-cannot-find：磁盘小文件找不到" class="headerlink" title="一、shuffle file cannot find：磁盘小文件找不到"></a>一、shuffle file cannot find：磁盘小文件找不到</h5><h6 id="1-connection-timeout-—-shuffle-file-cannot-find"><a href="#1-connection-timeout-—-shuffle-file-cannot-find" class="headerlink" title="1)  connection timeout —-shuffle file cannot find"></a>1)  connection timeout —-shuffle file cannot find</h6><p>提高建立连接的超时时间，或者降低gc，降低gc了那么spark不能堆外提供服务的时间就少了，那么超时的可能就会降低。</p>
 <h6 id="2-fetch-data-fail-—-shuffle-file-cannot-find"><a href="#2-fetch-data-fail-—-shuffle-file-cannot-find" class="headerlink" title="2)  fetch data fail —- shuffle file cannot find"></a>2)  fetch data fail —- shuffle file cannot find</h6><p>提高拉取数据的重试次数以及间隔时间。</p>
@@ -2570,7 +2578,7 @@ rdd.saveTextFile()<span aria-hidden="true" class="line-numbers-rows"><span></spa
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">379.9k</span>&nbsp;字
+                class="white-color">389.3k</span>&nbsp;字
             
             
             

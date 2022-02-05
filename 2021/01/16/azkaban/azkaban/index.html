@@ -467,14 +467,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    144
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -497,8 +497,102 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Azkaban"><a href="#Azkaban" class="headerlink" title="Azkaban"></a>Azkaban</h2><h3 id="azkaban是什么"><a href="#azkaban是什么" class="headerlink" title="azkaban是什么"></a>azkaban是什么</h3><p>linkedin公司推出的一个<strong>批量工作流任务调度器</strong>，主要用在一个工作流内以一个特定的顺序运行一组工作和流程，配置是通过key：value对的形式，通过配置中的dependencies来设置依赖关系，Azkaban使用job配置文件建立任务之间的依赖关系，并提供一个易于使用的web用户界面维护和跟踪你的工作流</p>
-<p>azkaban只支持mysql，需安装mysql服务器，在已安装好mysql服务器，建立root用户和密码</p>
+                <h2 id="Azkaban"><a href="#Azkaban" class="headerlink" title="Azkaban"></a>Azkaban</h2><p>azkaban官网使用文档：<a target="_blank" rel="noopener" href="https://azkaban.github.io/azkaban/docs/latest/#azkaban-execserver">https://azkaban.github.io/azkaban/docs/latest/#azkaban-execserver</a></p>
+<h3 id="azkaban是什么"><a href="#azkaban是什么" class="headerlink" title="azkaban是什么"></a>azkaban是什么</h3><p>Azkaban是由Linkedin公司推出的一个批量工作流任务调度器，主要用于在一个工作流内以一个特定的顺序运行一组工作和流程，它的配置是通过简单的key:value对的方式，通过配置中的dependencies 来设置依赖关系，这个依赖关系必须是无环的，否则会被视为无效的工作流。Azkaban使用job配置文件建立任务之间的依赖关系，并提供一个易于使用的web用户界面维护和跟踪你的工作流。</p>
+<h2 id="Azkaban架构"><a href="#Azkaban架构" class="headerlink" title="Azkaban架构"></a>Azkaban架构</h2><p>Azkaban由 3 个关键部分组成：</p>
+<ul>
+<li>关系数据库 (MySQL)</li>
+<li>AzkabanWeb服务器</li>
+<li>AzkabanExecutorServer</li>
+</ul>
+<h3 id="关系型数据库（MySQL）"><a href="#关系型数据库（MySQL）" class="headerlink" title="关系型数据库（MySQL）"></a>关系型数据库（MySQL）</h3><p>Azkaban使用数据库存储大部分状态，AzkabanWebServer和AzkabanExecutorServer都需要访问数据库。</p>
+<h4 id="AzkabanWebServer-如何使用数据库？"><a href="#AzkabanWebServer-如何使用数据库？" class="headerlink" title="AzkabanWebServer 如何使用数据库？"></a>AzkabanWebServer 如何使用数据库？</h4><p>Web 服务器使用 db 的原因如下：</p>
+<ul>
+<li><strong>项目管理</strong>- 项目、项目的权限以及上传的文件。</li>
+<li><strong>Executing Flow State</strong> - 跟踪正在执行的流程以及哪个 Executor 正在运行它们。</li>
+<li><strong>以前的流程/作业</strong>- 搜索以前执行的作业和流程以及访问它们的日志文件。</li>
+<li><strong>调度程序</strong>- 保持已调度作业的状态。</li>
+<li><strong>SLA</strong> - 保留所有 SLA 规则</li>
+</ul>
+<h4 id="AzkabanExecutorServer使用数据库的原因如下："><a href="#AzkabanExecutorServer使用数据库的原因如下：" class="headerlink" title="AzkabanExecutorServer使用数据库的原因如下："></a>AzkabanExecutorServer使用数据库的原因如下：</h4><ul>
+<li>访问项目：从数据库检索项目文件。</li>
+<li>执行流程/作业：检索和更新正在执行的作业流的数据</li>
+<li>日志：将作业和工作流的输出日志存储到数据库中。</li>
+<li>交互依赖关系：如果一个工作流在不同的执行器上运行，它将从数据库中获取状态。</li>
+</ul>
+<h3 id="AzkabanWebServer"><a href="#AzkabanWebServer" class="headerlink" title="AzkabanWebServer"></a>AzkabanWebServer</h3><p>AzkabanWebServer是整个Azkaban工作流系统的主要管理者，它负责project管理、用户登录认证、定时执行工作流、跟踪工作流执行进度等一系列任务。同时，它还提供Web服务操作的接口，利用该接口，用户可以使用curl或其他ajax的方式，来执行azkaban的相关操作。操作包括：用户登录、创建project、上传workflow、执行workflow、查询workflow的执行进度、杀掉workflow等一系列操作，且这些操作的返回结果均是json的格式。并且Azkaban使用方便，Azkaban使用以.job为后缀名的键值属性文件来定义工作流中的各个任务，以及使用dependencies属性来定义作业间的依赖关系链。这些作业文件和关联的代码最终以*.zip的方式通过Azkaban UI上传到Web服务器上。</p>
+<h3 id="AzkabanExecutorServer"><a href="#AzkabanExecutorServer" class="headerlink" title="AzkabanExecutorServer"></a>AzkabanExecutorServer</h3><p>以前版本的Azkaban在单个服务中具有AzkabanWebServer和AzkabanExecutorServer功能，目前Azkaban已将AzkabanExecutorServer分离成独立的服务器，拆分AzkabanExecutorServer的原因有如下几点：</p>
+<p>某个任务流失败后，可以更方便的将其重新执行<br>便于Azkaban升级，AzkabanExecutorServer主要负责具体的工作流的提交、执行，可以启动多个执行服务器，它们通过mysql数据库来协调任务的执行。</p>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://azkaban.github.io/azkaban/docs/latest/#database-setup">设置数据库</a></li>
+<li><a target="_blank" rel="noopener" href="https://azkaban.github.io/azkaban/docs/latest/#webserver-setup">下载并安装 Web 服务器</a></li>
+<li><a target="_blank" rel="noopener" href="https://azkaban.github.io/azkaban/docs/latest/#executor-setup">下载并安装执行服务器</a></li>
+<li><a target="_blank" rel="noopener" href="https://azkaban.github.io/azkaban/docs/latest/#plugin-setup">安装 Azkaban 插件</a></li>
+</ol>
+<p>配置时区</p>
+<pre class="line-numbers language-none"><code class="language-none">1、先生成时区配置文件Asia/Shanghai，用交互式命令 tzselect 即可
+2、拷贝该时区文件，覆盖系统本地时区配置
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  
+
+检验是否生效： date
+Tue Mar 24 17:25:45 CST 2020<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h2 id="Azkaban架构的三种运行模式"><a href="#Azkaban架构的三种运行模式" class="headerlink" title="Azkaban架构的三种运行模式"></a>Azkaban架构的三种运行模式</h2><p>在版本3.0中，Azkaban提供了以下三种模式：</p>
+<p>solo server mode：最简单的模式，数据库内置的H2数据库，AzkabanWebServer和AzkabanExecutorServer都在一个进程中运行，任务量不大项目可以采用此模式。<br>two server mode：数据库为MySQL，管理服务器和执行服务器在不同进程，这种模式下，AzkabanWebServer和AzkabanExecutorServer互不影响。<br>multiple executor mode：该模式下，AzkabanWebServer和AzkabanExecutorServer运行在不同主机上，且AzkabanExecutorServer可以有多个。</p>
+<h2 id="Job编写"><a href="#Job编写" class="headerlink" title=".Job编写"></a>.Job编写</h2><h4 id="start-job"><a href="#start-job" class="headerlink" title="start.job"></a>start.job</h4><pre class="line-numbers language-none"><code class="language-none">type=command
+command=echo "start"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="end-job"><a href="#end-job" class="headerlink" title="end.job"></a>end.job</h4><pre class="line-numbers language-none"><code class="language-none">type=command
+dependencies=start
+//等start执行完毕在执行
+command=echo "end"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="sh-job"><a href="#sh-job" class="headerlink" title="sh.job"></a>sh.job</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">type=command
+command= sh test.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="parameter-sh"><a href="#parameter-sh" class="headerlink" title="parameter.sh"></a>parameter.sh</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#!/bin/bash
+
+#############################################
+#                                           #
+#  @author hunter@doitedu                   #
+#  @date   2020-10-10                       #
+#  @desc   id绑定评分计算任务启动脚本       #
+#                                           #
+#############################################
+
+
+export SPARK_HOME=/opt/apps/spark-2.4.4
+
+
+${SPARK_HOME}/bin/spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--class cn.doitedu.spark.WordCount \
+--name wordcount \
+--driver-memory 1024M \
+--executor-memory 2G \
+--queue default \
+--num-executors 1 azkaban_demos-1.0.jar $1 $2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="失败选项"><a href="#失败选项" class="headerlink" title="失败选项"></a>失败选项</h3><p>当流程中的作业失败时，您可以控制流程的其余部分如何成功。</p>
+<ul>
+<li><strong>Finish Current Running</strong>将完成当前正在运行的作业，但不会启动新作业。一旦一切完成，流程将进入<code>FAILED FINISHING</code>状态并设置为 FAILED。</li>
+<li><strong>Cancel All</strong>将立即终止所有正在运行的作业并将执行流程的状态设置为 FAILED。</li>
+<li>只要满足其依赖关系，<strong>Finish All Possible将继续在流程中执行作业。</strong>一旦一切完成，流程将进入<code>FAILED FINISHING</code>状态并设置为 FAILED。</li>
+</ul>
+<h3 id="并发选项"><a href="#并发选项" class="headerlink" title="并发选项"></a>并发选项</h3><p>如果在流程并发执行时调用流程执行，则可以设置几个选项。</p>
+<ul>
+<li><p><strong>如果流程已在运行，则跳过执行</strong>选项将不会运行该流程。</p>
+</li>
+<li><p><strong>Run Concurrently</strong>选项将运行流程，无论其是否正在运行。执行被赋予不同的工作目录。</p>
+</li>
+<li><p>管道</p>
+<p>以新执行不会超出并发执行的方式运行流程。</p>
+<ul>
+<li>级别 1：阻塞执行<strong>作业 A</strong>，直到前一个流程的<strong>作业 A</strong>完成。</li>
+<li>级别 2：阻止执行<strong>作业 A</strong>，直到前一个流的<strong>作业 A</strong>的子级完成。如果您需要在已经执行的流程后面几个步骤运行流程，这很有用。</li>
+</ul>
+</li>
+</ul>
 
                 
             </div>
@@ -1032,7 +1126,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">379.9k</span>&nbsp;字
+                class="white-color">389.3k</span>&nbsp;字
             
             
             

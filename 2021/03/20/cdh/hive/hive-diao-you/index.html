@@ -467,14 +467,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    7 分
                 </div>
                 
 
@@ -498,7 +498,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="Hive调优"><a href="#Hive调优" class="headerlink" title="Hive调优"></a>Hive调优</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI2MDQzOTk3MQ==&amp;mid=2247485048&amp;idx=1&amp;sn=5fc1219f4947bea9743cd938cec510c7&amp;chksm=ea68ecb4dd1f65a2df364d79272e0e472a394c5b13b5d55d848c89d9498ccb7ea78a933fbdea&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=MzI2MDQzOTk3MQ==&amp;mid=2247485048&amp;idx=1&amp;sn=5fc1219f4947bea9743cd938cec510c7&amp;chksm=ea68ecb4dd1f65a2df364d79272e0e472a394c5b13b5d55d848c89d9498ccb7ea78a933fbdea&amp;scene=21#wechat_redirect</a></p>
-<h2 id="1、数据压缩和存储格式选择"><a href="#1、数据压缩和存储格式选择" class="headerlink" title="1、数据压缩和存储格式选择"></a>1、数据压缩和存储格式选择</h2><p><img src="/star-light-star-bright.github.io/2021/03/20/cdh/hive/hive-diao-you/640" alt="图片"></p>
+<h2 id="1、存储压缩"><a href="#1、存储压缩" class="headerlink" title="1、存储压缩"></a>1、存储压缩</h2><p><img src="/star-light-star-bright.github.io/2021/03/20/cdh/hive/hive-diao-you/640" alt="图片"></p>
 <ul>
 <li>map阶段落地压缩算法选择</li>
 </ul>
@@ -514,7 +514,7 @@
 <span class="token keyword">set</span> mapred<span class="token punctuation">.</span>output<span class="token punctuation">.</span>compression<span class="token punctuation">.</span>codec<span class="token operator">=</span>org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>io<span class="token punctuation">.</span>compress<span class="token punctuation">.</span>SnappyCodec
  
 <span class="token comment">## 当然，也可以在hive建表时指定表的文件格式和压缩编码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="2、sql优化"><a href="#2、sql优化" class="headerlink" title="2、sql优化"></a>2、sql优化</h2><p>关系型数据库语句会自动优化sql，但是hive不会</p>
+<h2 id="2、Sql优化"><a href="#2、Sql优化" class="headerlink" title="2、Sql优化"></a>2、Sql优化</h2><p>关系型数据库语句会自动优化sql，但是hive不会</p>
 <ol>
 <li>先where在join</li>
 </ol>
@@ -551,7 +551,7 @@
 <span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">optimize</span><span class="token punctuation">.</span>bucketmapjoin <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>  
 <span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">optimize</span><span class="token punctuation">.</span>bucketmapjoin<span class="token punctuation">.</span>sortedmerge <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>  
 <span class="token keyword">set</span> hive<span class="token punctuation">.</span>auto<span class="token punctuation">.</span><span class="token keyword">convert</span><span class="token punctuation">.</span>sortmerge<span class="token punctuation">.</span><span class="token keyword">join</span><span class="token punctuation">.</span>noconditionaltask<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3、hive的参数优化"><a href="#3、hive的参数优化" class="headerlink" title="3、hive的参数优化"></a>3、hive的参数优化</h2><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">
+<h2 id="3、hive的参数调优"><a href="#3、hive的参数调优" class="headerlink" title="3、hive的参数调优"></a>3、hive的参数调优</h2><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">
 <span class="token comment">-- 让可以不走mapreduce任务的，就不走mapreduce任务</span>
 hive<span class="token operator">&gt;</span> <span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">fetch</span><span class="token punctuation">.</span>task<span class="token punctuation">.</span>conversion<span class="token operator">=</span>more<span class="token punctuation">;</span>
  
@@ -593,7 +593,7 @@ hive<span class="token operator">&gt;</span> <span class="token keyword">set</sp
 
 <span class="token comment">-- 开启 map 端 combiner（不影响最终业务逻辑）</span>
 <span class="token keyword">set</span> hive<span class="token punctuation">.</span>map<span class="token punctuation">.</span>aggr<span class="token operator">=</span><span class="token boolean">true</span>；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="4、分区分桶"><a href="#4、分区分桶" class="headerlink" title="4、分区分桶"></a>4、分区分桶</h2><p>表分区：分区是将表的数据在物理上分成不同的文件夹，以便于在查询时可以精准指定所要读取的分区目录，从来降低读取的数据量</p>
+<h2 id="4、合理分区分桶"><a href="#4、合理分区分桶" class="headerlink" title="4、合理分区分桶"></a>4、合理分区分桶</h2><p>表分区：分区是将表的数据在物理上分成不同的文件夹，以便于在查询时可以精准指定所要读取的分区目录，从来降低读取的数据量</p>
 <p>表分桶：表数据按照hash散列分散在不同文件夹。将来查询时，hive可以根据分桶结构，快速定位到一行数据所在的分桶文件，从来提高读取效率</p>
 <h2 id="5、Hive数据倾斜"><a href="#5、Hive数据倾斜" class="headerlink" title="5、Hive数据倾斜"></a>5、Hive数据倾斜</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zuochang_liu/article/details/105274316">https://blog.csdn.net/zuochang_liu/article/details/105274316</a></p>
 <ol>
@@ -619,6 +619,27 @@ hive<span class="token operator">&gt;</span> <span class="token keyword">set</sp
 <p>点评：它使计算变成了两个 mapreduce，先在第一个中在 shuffle 过程 partition 时随机</p>
 <p>给 key 打标记，使每个 key 随机均匀分布到各个 reduce 上计算，但是这样只能完成部分计算，因为相同 key 没有分配到相同 reduce 上。</p>
 <p>所以需要第二次的 mapreduce,这次就回归正常 shuffle,但是数据分布不均匀的问题在第一次 mapreduce 已经有了很大的改善，因此基本解决数据倾斜。因为大量计算已经在第一次mr 中随机分布到各个节点完成。</p>
+<h2 id="6、小文件的调优"><a href="#6、小文件的调优" class="headerlink" title="6、小文件的调优"></a>6、小文件的调优</h2><p>小文件的产生有三个地方，map输入，map输出，reduce输出，小文件过多也会影响hive的分析效率：</p>
+<p>设置map输入的小文件合并</p>
+ <pre class="line-numbers language-none"><code class="language-none">
+set mapred.max.split.size=256000000;  
+//一个节点上split的至少的大小(这个值决定了多个DataNode上的文件是否需要合并)
+set mapred.min.split.size.per.node=100000000;
+//一个交换机下split的至少的大小(这个值决定了多个交换机上的文件是否需要合并)  
+set mapred.min.split.size.per.rack=100000000;
+//执行Map前进行小文件合并
+set hive.input.format=org.apache.hadoop.hive.ql.io.CombineHiveInputFormat;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<p>设置map输出和reduce输出进行合并的相关参数：</p>
+ <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">//设置map端输出进行合并，默认为true
+set hive.merge.mapfiles = true
+//设置reduce端输出进行合并，默认为false
+set hive.merge.mapredfiles = true
+//设置合并文件的大小
+set hive.merge.size.per.task = 256*1000*1000
+//当输出文件的平均大小小于该值时，启动一个独立的MapReduce任务进行文件merge。
+set hive.merge.smallfiles.avgsize=16000000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -1148,7 +1169,7 @@ hive<span class="token operator">&gt;</span> <span class="token keyword">set</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">379.9k</span>&nbsp;字
+                class="white-color">389.3k</span>&nbsp;字
             
             
             

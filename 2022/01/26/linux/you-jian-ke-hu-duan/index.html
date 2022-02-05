@@ -467,7 +467,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    8
+                    221
                 </div>
                 
 
@@ -497,7 +497,31 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Mailx"><a href="#Mailx" class="headerlink" title="Mailx"></a>Mailx</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/dingkailinux/p/8723378.html">https://www.cnblogs.com/dingkailinux/p/8723378.html</a></p>
+                <h2 id="邮件系统组成"><a href="#邮件系统组成" class="headerlink" title="邮件系统组成"></a>邮件系统组成</h2><p>1.用户代理MUA（Mail User Agent）：“邮件用户代理”MUA是用在客户端的软件 ，主要的功能就是接收邮件主机的电 子邮件，并提供用户浏览与编写邮件的功能<br>2.邮件传输代理MTA（mail Transfer agent） ：将来自于MUA的邮件转发给指定用户<br>3.邮件投递代理MDA（mail delivery agent）：将来MTA的邮件保存到本机的收件箱中</p>
+<table>
+<thead>
+<tr>
+<th>简单邮件传输协议</th>
+<th>STMP</th>
+<th>用来发送或者中转转发的邮件</th>
+<th>tcp占用端口 25</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第三版邮局协议</td>
+<td>pop3</td>
+<td>用于将服务器上把邮件存储到本地主机</td>
+<td>tcp占用端口110</td>
+</tr>
+<tr>
+<td>第四版互联网信息访问协议</td>
+<td>IMAP4</td>
+<td>用于本地主机上访问邮件</td>
+<td>tcp占用端口143</td>
+</tr>
+</tbody></table>
+<h2 id="安装和使用"><a href="#安装和使用" class="headerlink" title="安装和使用"></a>安装和使用</h2><p>先安装<strong>postfix</strong>和<strong>dovecot</strong>。 </p>
+<h4 id="Mailx"><a href="#Mailx" class="headerlink" title="Mailx"></a>Mailx</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/dingkailinux/p/8723378.html">https://www.cnblogs.com/dingkailinux/p/8723378.html</a></p>
 
                 
             </div>
@@ -735,18 +759,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/01/26/linux/you-jian-ke-hu-duan/">
+                <a href="/2022/01/27/atlas/atlas/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="linux配置邮件服务器">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Atlas">
                         
-                        <span class="card-title">linux配置邮件服务器</span>
+                        <span class="card-title">Atlas</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -756,27 +779,34 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-26
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-27
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/CDH/" class="post-category">
+                                    CDH
+                                </a>
+                            
+                            <a href="/categories/CDH/Atlas/" class="post-category">
+                                    Atlas
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/CDH/">
+                        <span class="chip bg-color">CDH</span>
+                    </a>
+                    
+                    <a href="/tags/Atlas/">
+                        <span class="chip bg-color">Atlas</span>
                     </a>
                     
                 </div>
@@ -1029,7 +1059,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">379.9k</span>&nbsp;字
+                class="white-color">389.3k</span>&nbsp;字
             
             
             
