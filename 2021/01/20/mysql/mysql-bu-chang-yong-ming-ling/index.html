@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Mysql不常用命令总结, github,blogs">
+    <meta name="keywords" content="Mysql命令总结, github,blogs">
     <meta name="description" content="这是我的博客网站">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Mysql不常用命令总结 | star-light-star-bright Blog</title>
+    <title>Mysql命令总结 | star-light-star-bright Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -312,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Mysql不常用命令总结</h1>
+                    <h1 class="description center-align post-title">Mysql命令总结</h1>
                 </div>
             </div>
         </div>
@@ -431,25 +431,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Mysql/">
-                                <span class="chip bg-color">Mysql</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/Mysql/" class="post-category">
-                                Mysql
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -467,7 +454,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    2.2k
                 </div>
                 
 
@@ -661,6 +648,18 @@ set autocommit = 0/1;
 
 
 <h2 id="备份数据库"><a href="#备份数据库" class="headerlink" title="备份数据库"></a>备份数据库</h2><p>Mysql中数据备份使用的命令是:<strong><em>\</em>mysqldump**</strong>命令将数据库中的数据备份成一个<strong>文本文件</strong>。表的结构和表中的数据将存储在生成的文本文件中。</p>
+<pre class="line-numbers language-none"><code class="language-none">#### 
+
+数据库中全局锁，存在以下问题：
+
+1.做了主从复制，读写分离。在主库上备份，那么备份期间都不能执行更新，业务完全停止。
+
+2.在从库上备份，备份期间从库不能同步主库的二进制文件(binlog)，会导致主从延迟。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>备份时开启全局锁，InnoDB引擎，在备份时可以加上参数–single-transaction 参数来完成不加锁的一致性数据备份。</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysqldump <span class="token comment">--single-transaction -h 192.168.111.11 -u root -p 123456 test &gt;test.sql</span>
+<span class="token comment">#快照的方式</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
 <p>mysqldump不要再mysql中执行，要在外部执行</p>
 <img src="/star-light-star-bright.github.io/2021/01/20/mysql/mysql-bu-chang-yong-ming-ling/image-20210119133604603.png" alt="image-20210119133604603" style="zoom:150%;">
 
@@ -681,6 +680,10 @@ set autocommit = 0/1;
 <p>2、在Mysql命令行使用</p>
 <p><img src="/star-light-star-bright.github.io/2021/01/20/mysql/mysql-bu-chang-yong-ming-ling/image-20210119134547594.png" alt="image-20210119134547594"></p>
 <pre class="line-numbers language-none"><code class="language-none">source .sql文件地址<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="查看-ibd文件"><a href="#查看-ibd文件" class="headerlink" title="查看.ibd文件"></a>查看.ibd文件</h2><p>/var/lib/mysql/itcast/</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">ibd2sdi tablename.ibd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
 <h2 id="创建数据库规则"><a href="#创建数据库规则" class="headerlink" title="创建数据库规则"></a>创建数据库规则</h2><p> （Rule）规则 就是数据库中对存储在表的列或用户自定义数据类型中的值的规定和限制。规则是单独存储的独立的数据库对象。规则与其作用的表或用户自定义数据类型是相互独立的，即表或用户自定义对象的删除、修改不会对与之相连的规则产生影响。规则和约束可以同时使用，表的列可以有一个规则及多个CHECK 约束。规则与CHECK 约束很相似，相比之下，使用在ALTERTABLE 或CREATE TABLE 命令中的CHECK 约束是更标准的限制列值的方法，但CHECK 约束不能直接作用于用户自定义数据类型。</p>
 <pre class="line-numbers language-none"><code class="language-none">CREATE RULE rule_name AS condition_expression
 其中condition_expression 子句是规则的定义。condition_expression 子句可以是能用于 WHERE 条件子句中的任何表达式，它可以包含算术运算符、关系运算符和谓词（如IN、LIKE、 BETWEEN 等）。
@@ -750,11 +753,7 @@ set autocommit = 0/1;
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Mysql/">
-                                    <span class="chip bg-color">Mysql</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -949,31 +948,11 @@ set autocommit = 0/1;
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Spring/" class="post-category">
-                                    Spring
-                                </a>
-                            
-                            <a href="/categories/Spring/Spring-Sentinel/" class="post-category">
-                                    Spring Sentinel
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Spring/">
-                        <span class="chip bg-color">Spring</span>
-                    </a>
-                    
-                    <a href="/tags/Spring-Sentinel/">
-                        <span class="chip bg-color">Spring Sentinel</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -985,13 +964,13 @@ set autocommit = 0/1;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/18/cdh/centos7-chi-xian-an-zhuang-cdh5.16-ji-qun/">
+                <a href="/2021/01/20/mysql/mysql-cun-chu-yin-qing-he-suo-yin/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="CDH的搭建">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Mysql存储引擎和索引">
                         
-                        <span class="card-title">CDH的搭建</span>
+                        <span class="card-title">Mysql存储引擎和索引</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1002,27 +981,15 @@ set autocommit = 0/1;
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-20
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/CDH/" class="post-category">
-                                    CDH
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/CDH/">
-                        <span class="chip bg-color">CDH</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1224,7 +1191,7 @@ set autocommit = 0/1;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">389.3k</span>&nbsp;字
+                class="white-color">402.6k</span>&nbsp;字
             
             
             

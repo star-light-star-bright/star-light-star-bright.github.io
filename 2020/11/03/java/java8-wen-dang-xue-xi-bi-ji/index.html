@@ -431,25 +431,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Java/">
-                                <span class="chip bg-color">Java</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/Java/" class="post-category">
-                                Java
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -467,7 +454,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9.3k
+                    9.4k
                 </div>
                 
 
@@ -855,6 +842,8 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
 <p>这意味着在你不再需要某个对象之前，如果必须执行某些动作，你得自己去做。Java 没有析构器或类似的概念，所以你必须得自己创建一个普通的方法完成这项清理工作。例如，对象在创建的过程中会将自己绘制到屏幕上。如果不是明确地从屏幕上将其擦除，它可能永远得不到清理。如果在 <code>finalize()</code> 方法中加入某种擦除功能，那么当垃圾回收发生时，<code>finalize()</code> 方法被调用（不保证一定会发生），图像就会被擦除，要是”垃圾回收”没有发生，图像则仍会保留下来。</p>
 <p>也许你会发现，只要程序没有濒临内存用完的那一刻，对象占用的空间就总也得不到释放。如果程序执行结束，而垃圾回收器一直没有释放你创建的任何对象的内存，则当程序退出时，那些资源会全部交还给操作系统。这个策略是恰当的，因为垃圾回收本身也有开销，要是不使用它，那就不用支付这部分开销了。</p>
 <h3 id="终结条件-1"><a href="#终结条件-1" class="headerlink" title="终结条件"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=%E7%BB%88%E7%BB%93%E6%9D%A1%E4%BB%B6">终结条件</a></h3><p>通常，不能指望 <code>finalize()</code> ，你必须创建其他的”清理”方法，并明确地调用它们。所以看起来，<code>finalize()</code> 只对大部分程序员很难用到的一些晦涩内存清理里有用了。但是，<code>finalize()</code> 还有一个有趣的用法，它不依赖于每次都要对 <code>finalize()</code> 进行调用，这就是对象终结条件的验证。）。</p>
+<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>那什么是日志？日志就是Logging，它的目的是为了取代<code>System.out.println()</code>。</p>
+<p>JDK的Logging定义了7个日志级别，从严重到普通</p>
 
                 
             </div>
@@ -918,11 +907,7 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Java/">
-                                    <span class="chip bg-color">Java</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1117,23 +1102,11 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Flume/" class="post-category">
-                                    Flume
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Flume/">
-                        <span class="chip bg-color">Flume</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1166,23 +1139,11 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Hadoop/" class="post-category">
-                                    Hadoop
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Hadopp/">
-                        <span class="chip bg-color">Hadopp</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1384,7 +1345,7 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">389.3k</span>&nbsp;字
+                class="white-color">402.6k</span>&nbsp;字
             
             
             

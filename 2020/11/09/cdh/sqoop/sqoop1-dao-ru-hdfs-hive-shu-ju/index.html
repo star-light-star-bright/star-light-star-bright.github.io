@@ -431,33 +431,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/CDH/">
-                                <span class="chip bg-color">CDH</span>
-                            </a>
-                        
-                            <a href="/tags/Sqoop/">
-                                <span class="chip bg-color">Sqoop</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/CDH/" class="post-category">
-                                CDH
-                            </a>
-                        
-                            <a href="/categories/CDH/Sqoop/" class="post-category">
-                                Sqoop
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -753,7 +732,7 @@ export HBASE_HOME=/opt/modules/hbase<span aria-hidden="true" class="line-numbers
 --merge-key id \
 --check-column raw_add_time \
 --last-value "2020-07-31 09:31:51";<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><code>--check-column</code>: 必须是timestamp列  时间列（int）<br><code>--incremental lastmodified</code>: 设置为最后改动模式，基于时间列的增量导入（将时间列大于等于阈值的所有数据增量导入Hadoop）<br><code>--merge-key</code>: 合并列（主键，合并键值相同的记录）必须是唯一主键。导入后的数据如果需要跟存量进行合并，使用此参数。 导入的增量数据会将新旧数据进行合并，不会保留。<br><code>--last-value</code>: 所有<strong>大于</strong>最后一个时间的数据都会被更新<br>这个我试了之后，我的结果比预想值多了一条，<br>表中作为阈值的数据产生了重复数据。<br>而且我的数据没有同一秒的，一秒多条数据，可如果能会因为merge-key的合并功能导致数据的缺失<br>这个暂不确定，以后再试试</p>
+<p><code>--check-column</code>: 必须是timestamp列  时间列（int）<br><code>--incremental lastmodified</code>: 设置为最后改动模式，基于时间列的增量导入（将时间列大于等于阈值的所有数据增量导入Hadoop）<br><code>--merge-key</code>: 合并列（主键，合并键值相同的记录）必须是唯一主键。导入后的数据如果需要跟存量进行合并，使用此参数。 导入的增量数据会将新旧数据进行合并，不会保留。<br><code>--last-value</code>: 所有<strong>大于</strong>最后一个时间的数据都会被更新</p>
 <h2 id="Sqoop合并新老数据"><a href="#Sqoop合并新老数据" class="headerlink" title="Sqoop合并新老数据"></a>Sqoop合并新老数据</h2><p>不建议使用这个功能，不灵活</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sqoop codegen \
 --connect "jdbc:mysql://hadoop1:3306/exercise?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false" \
@@ -933,15 +912,7 @@ sqoop import -connect jdbc:mysql://linux03:3306/hehe -username root -password 12
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/CDH/">
-                                    <span class="chip bg-color">CDH</span>
-                                </a>
-                            
-                                <a href="/tags/Sqoop/">
-                                    <span class="chip bg-color">Sqoop</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1136,23 +1107,11 @@ sqoop import -connect jdbc:mysql://linux03:3306/hehe -username root -password 12
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Yarn/" class="post-category">
-                                    Yarn
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Yarn/">
-                        <span class="chip bg-color">Yarn</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1185,31 +1144,11 @@ sqoop import -connect jdbc:mysql://linux03:3306/hehe -username root -password 12
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/CDH/" class="post-category">
-                                    CDH
-                                </a>
-                            
-                            <a href="/categories/CDH/Spark/" class="post-category">
-                                    Spark
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/CDH/">
-                        <span class="chip bg-color">CDH</span>
-                    </a>
-                    
-                    <a href="/tags/Spark/">
-                        <span class="chip bg-color">Spark</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1411,7 +1350,7 @@ sqoop import -connect jdbc:mysql://linux03:3306/hehe -username root -password 12
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">389.3k</span>&nbsp;字
+                class="white-color">402.6k</span>&nbsp;字
             
             
             

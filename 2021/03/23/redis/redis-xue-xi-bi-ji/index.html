@@ -431,25 +431,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Redis/">
-                                <span class="chip bg-color">Redis</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/Redis/" class="post-category">
-                                Redis
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -467,7 +454,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.5k
                 </div>
                 
 
@@ -571,9 +558,18 @@ redis-server redis.conf<span aria-hidden="true" class="line-numbers-rows"><span>
 <p><img src="/star-light-star-bright.github.io/2021/03/23/redis/redis-xue-xi-bi-ji/640.webp" alt="img"></p>
 <h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a><strong>缓存击穿</strong></h3><p><strong>穿透表示底层数据库没有数据且缓存内也没有数据，击穿表示底层数据库有数据而缓存内没有数据。</strong></p>
 <h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a><strong>缓存雪崩</strong></h3><h3 id="缓存预热"><a href="#缓存预热" class="headerlink" title="缓存预热"></a><strong>缓存预热</strong></h3><h3 id="缓存更新"><a href="#缓存更新" class="headerlink" title="缓存更新"></a><strong>缓存更新</strong></h3><h3 id="缓存降级"><a href="#缓存降级" class="headerlink" title="缓存降级"></a><strong>缓存降级</strong></h3><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="Reids管道技术？"><a href="#Reids管道技术？" class="headerlink" title="Reids管道技术？"></a>Reids管道技术？</h3><p>在某些高并发的场景下，网络开销成了Redis速度的瓶颈，所以需要使用管道技术来实现突破。Redis管道技术一次可以发送多条命令，并且不用一条条的等待命令的结果。可以一次性获取所有结果，这样仅需要一次网络开销，速度会明显提升。</p>
-<h3 id="Redis单点和集群有什么区别？"><a href="#Redis单点和集群有什么区别？" class="headerlink" title="Redis单点和集群有什么区别？"></a>Redis单点和集群有什么区别？</h3><p>集群具有高可用。可以完成节点移除和故障转移等功能。没有中心点，可以线性扩展到上万个节点。</p>
-<p>单点</p>
-
+<h3 id="Redis单点和集群有什么区别？"><a href="#Redis单点和集群有什么区别？" class="headerlink" title="Redis单点和集群有什么区别？"></a>Redis单点和集群有什么区别？</h3><p>单点：比较简单，作为一个缓存使用。</p>
+<p>集群：</p>
+<p>优点</p>
+<ul>
+<li>负载均衡，读写分离，有了主从以后，查询操作就可以通过查询从节点来完成。</li>
+<li>备份数据，这样当一个节点损坏（指不可恢复的硬件损坏）时，数据因为有备份，可以方便恢复。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>master节点挂了以后，redis就不能对外提供写服务了，因为剩下的slave不能成为master</li>
+</ul>
+<h3 id="为什么要用Redis？不用会怎么样？有什么优势？"><a href="#为什么要用Redis？不用会怎么样？有什么优势？" class="headerlink" title="为什么要用Redis？不用会怎么样？有什么优势？"></a>为什么要用Redis？不用会怎么样？有什么优势？</h3>
                 
             </div>
             <hr/>
@@ -636,11 +632,7 @@ redis-server redis.conf<span aria-hidden="true" class="line-numbers-rows"><span>
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Redis/">
-                                    <span class="chip bg-color">Redis</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -835,23 +827,11 @@ redis-server redis.conf<span aria-hidden="true" class="line-numbers-rows"><span>
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Java/" class="post-category">
-                                    Java
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -884,23 +864,11 @@ redis-server redis.conf<span aria-hidden="true" class="line-numbers-rows"><span>
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Hive/" class="post-category">
-                                    Hive
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Hive/">
-                        <span class="chip bg-color">Hive</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1102,7 +1070,7 @@ redis-server redis.conf<span aria-hidden="true" class="line-numbers-rows"><span>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">389.3k</span>&nbsp;字
+                class="white-color">402.6k</span>&nbsp;字
             
             
             

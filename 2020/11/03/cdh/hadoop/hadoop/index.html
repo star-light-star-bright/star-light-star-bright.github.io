@@ -431,25 +431,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Hadopp/">
-                                <span class="chip bg-color">Hadopp</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/Hadoop/" class="post-category">
-                                Hadoop
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -467,14 +454,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    8.6k
+                    8.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    37 分
+                    38 分
                 </div>
                 
 
@@ -923,7 +910,15 @@ start-yarn.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <p>yarn-daemon.sh start resourcemanager        只启动resourcemanager</p>
 <p>yarn-daemon.sh start proxyserver        </p>
 <p>mr-jobhistory-daemon.sh start historyserver 启动jobhistory服务</p>
-<h3 id="HDFS命令总结"><a href="#HDFS命令总结" class="headerlink" title="HDFS命令总结"></a>HDFS命令总结</h3><p>新建HDFS目录dir：hadoop fs -mkdir dir<br>显示文件内容：hadoop fs -cat file<br>查看某一路径下的所有文件：hdfs dfs -ls [filePath]<br>上 传 文 件 ： hdfs dfs -put [local filePath] [hdfs<br>filePath]<br>下 载 文 件 ： hdfs dfs -get [hdfs filePath] [local<br>filePath]<br>删除文件：hdfs dfs -rm -r [hdfs filePath]<br>查看某一文件内容：hdfs dfs -cat [filePath]</p>
+<h3 id="HDFS命令总结"><a href="#HDFS命令总结" class="headerlink" title="HDFS命令总结"></a>HDFS命令总结</h3><p>(1)    启动Hdfs<br>start-dfs.sh</p>
+<p>(2)    关闭HDFS<br>Stop-dfs.sh</p>
+<p>(3)    查看帮助<br>hdfs dfs -help </p>
+<p>(4)     查看当前目录信息<br>hdfs dfs -ls /</p>
+<p>(5)    上传文件<br>hdfs dfs -put /本地路径 /hdfs路径</p>
+<p>(6)    剪切文件<br>hdfs dfs -moveFromLocal a.txt /aa.txt<br>(7)    下载文件到本地<br>hdfs dfs -get /hdfs路径 /本地路径<br>(8)    合并下载<br>hdfs dfs -getmerge /hdfs路径文件夹 /合并后的文件<br>(9)    创建文件夹<br>hdfs dfs -mkdir /hello<br>(10)    创建多级文件夹<br>hdfs dfs -mkdir -p /hello/world</p>
+<p>(11)    移动hdfs文件<br>hdfs dfs -mv /hdfs路径 /hdfs路径<br>(12)    复制hdfs文件<br>hdfs dfs -cp /hdfs路径 /hdfs路径<br>(13)    删除hdfs文件<br>hdfs dfs -rm /aa.txt<br>(14)    删除hdfs文件夹<br>hdfs dfs -rm -r /hello<br>(15)    查看hdfs中的文件<br>hdfs dfs -cat /文件<br>hdfs dfs -tail -f /文件<br>(16)    查看文件夹中有多少个文件<br>hdfs dfs -count /文件夹<br>(17)    查看hdfs的总空间<br>hdfs dfs -df /<br>hdfs dfs -df -h /<br>(18)    修改副本数<br>hdfs dfs -setrep 1 /a.txt</p>
+<p>(19)    显示hadoop目录结构<br>hdfs dfs -ls -R /</p>
+<p>(20)    将正在运行的hadoop作业kill掉<br>hadoop job -kill [job-id]</p>
 <h3 id="端口号功能总结"><a href="#端口号功能总结" class="headerlink" title="端口号功能总结"></a>端口号功能总结</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40757296/article/details/82490831">https://blog.csdn.net/qq_40757296/article/details/82490831</a></p>
 <p>8020        namenode的RPC调用端口（接收client连接的RPC端口 ，获取文件系统的metadata信息）</p>
 <p>&lt;8030-8033resourcemanage组件&gt;</p>
@@ -1336,11 +1331,7 @@ NodeManager<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Hadopp/">
-                                    <span class="chip bg-color">Hadopp</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1535,23 +1526,11 @@ NodeManager<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Java/" class="post-category">
-                                    Java
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1584,23 +1563,11 @@ NodeManager<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-category">
-                                    面试题
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">
-                        <span class="chip bg-color">面试题</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1802,7 +1769,7 @@ NodeManager<span aria-hidden="true" class="line-numbers-rows"><span></span><span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">389.3k</span>&nbsp;字
+                class="white-color">402.6k</span>&nbsp;字
             
             
             

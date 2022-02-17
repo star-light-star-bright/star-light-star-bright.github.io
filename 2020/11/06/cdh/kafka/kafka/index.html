@@ -431,33 +431,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/CDH/">
-                                <span class="chip bg-color">CDH</span>
-                            </a>
-                        
-                            <a href="/tags/Kafka/">
-                                <span class="chip bg-color">Kafka</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/CDH/" class="post-category">
-                                CDH
-                            </a>
-                        
-                            <a href="/categories/CDH/Kafka/" class="post-category">
-                                Kafka
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -475,14 +454,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    10.1k
+                    10.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    42 分
+                    43 分
                 </div>
                 
 
@@ -1226,6 +1205,12 @@ kafka写入数据可以指定partition，将相同的key发送到同一个partit
 <p>新版本中（0.11之后）：</p>
 <p>kafka 0.11.0.0版本引入了idempotent  producer机制，在这个机制中同一消息可能被producer发送多次，但是在broker端只会写入一次，他为每一条消息编号去重，而且对kafka开销影响不大。</p>
 <p>如何设置开启呢？ 需要设置producer端的新参数  enable.idempotent  为true。</p>
+<h4 id="16-kafka怎么保证精准一次消费？"><a href="#16-kafka怎么保证精准一次消费？" class="headerlink" title="16.kafka怎么保证精准一次消费？"></a>16.kafka怎么保证精准一次消费？</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangsl754/article/details/107479977">https://blog.csdn.net/wangsl754/article/details/107479977</a></p>
+<ol>
+<li><strong>方案一：利用关系型数据库的事务进行处理</strong></li>
+<li><strong>方案二：手动提交偏移量+开启幂等性处理</strong> </li>
+</ol>
+<p>但是如果数据保存了，没等偏移量提交进程挂了，数据会被<strong>重复消费</strong>。怎么办？那就要把数据的保存做成幂等性保存。即同一批数据反复保存多次，数据不会翻倍，保存一次和保存一百次的效果是一样的。如果能做到这个，就达到了幂等性保存，就不用担心数据会重复了。</p>
 
                 
             </div>
@@ -1289,15 +1274,7 @@ kafka写入数据可以指定partition，将相同的key发送到同一个partit
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/CDH/">
-                                    <span class="chip bg-color">CDH</span>
-                                </a>
-                            
-                                <a href="/tags/Kafka/">
-                                    <span class="chip bg-color">Kafka</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1492,31 +1469,11 @@ kafka写入数据可以指定partition，将相同的key发送到同一个partit
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/CDH/" class="post-category">
-                                    CDH
-                                </a>
-                            
-                            <a href="/categories/CDH/Kafka/" class="post-category">
-                                    Kafka
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/CDH/">
-                        <span class="chip bg-color">CDH</span>
-                    </a>
-                    
-                    <a href="/tags/Kafka/">
-                        <span class="chip bg-color">Kafka</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1549,23 +1506,11 @@ kafka写入数据可以指定partition，将相同的key发送到同一个partit
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%B0%8F%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96/" class="post-category">
-                                    小文件优化
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            star-light-star-bright
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%B0%8F%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96/">
-                        <span class="chip bg-color">小文件优化</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1767,7 +1712,7 @@ kafka写入数据可以指定partition，将相同的key发送到同一个partit
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">389.3k</span>&nbsp;字
+                class="white-color">402.6k</span>&nbsp;字
             
             
             
