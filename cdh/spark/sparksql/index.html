@@ -1,0 +1,1774 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="SparkSql笔记, ZWHBlog">
+    <meta name="description" content="SparkSql什么是SparkSQLSpark是基于sparkcore的一个上层框架，处理结构化的数据
+SparkSQL的4个特点1.易整合
+将sql查询与spark程序无缝混合，可以使用java、scala、python、R等语言的AP">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>SparkSql笔记 | ZWHBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWHBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWHBlog</div>
+        <div class="logo-desc">
+            
+            这是我的博客网站
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">SparkSql笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/CDH/">
+                                <span class="chip bg-color">CDH</span>
+                            </a>
+                        
+                            <a href="/tags/Spark/">
+                                <span class="chip bg-color">Spark</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/CDH/" class="post-category">
+                                CDH
+                            </a>
+                        
+                            <a href="/categories/CDH/Spark/" class="post-category">
+                                Spark
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-09-14
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="SparkSql"><a href="#SparkSql" class="headerlink" title="SparkSql"></a>SparkSql</h1><h3 id="什么是SparkSQL"><a href="#什么是SparkSQL" class="headerlink" title="什么是SparkSQL"></a>什么是SparkSQL</h3><p>Spark是基于sparkcore的一个上层框架，处理结构化的数据</p>
+<h3 id="SparkSQL的4个特点"><a href="#SparkSQL的4个特点" class="headerlink" title="SparkSQL的4个特点"></a>SparkSQL的4个特点</h3><p>1.易整合</p>
+<p>将sql查询与spark程序无缝混合，可以使用java、scala、python、R等语言的API操作。</p>
+<p>2.统一的数据访问</p>
+<p>以相同的方式连接到任何数据源。</p>
+<p>3.兼容Hive</p>
+<p>支持hiveSQL的语法。无缝衔接hive</p>
+<p>4.标准的数据连接</p>
+<p>可以使用行业标准的JDBC或ODBC连接。</p>
+<h3 id="SparkSession"><a href="#SparkSession" class="headerlink" title="SparkSession"></a>SparkSession</h3><p>使用 Dataset 或者 Datafram 编写 Spark SQL 应用的时候，第一个要创建的对象就是 SparkSession。</p>
+<h4 id="SparkSession创建"><a href="#SparkSession创建" class="headerlink" title="SparkSession创建"></a>SparkSession创建</h4><p>1、SparkSession在Spark1.x 版本的创建语法，叫做SQLContext</p>
+<pre><code class="scala">val conf = new SparkConf().setAppName(&quot;sql&quot;).(&quot;local[*]&quot;)
+val sc = new SparkContext(conf)
+//方法已过期
+val sqlSC: SQLContext = new SQLContext(sc)
+</code></pre>
+<p>2、SparkSession在Spark2.0开始全新Spark接口</p>
+<p><strong>Builder 是 SparkSession 的构造器。 通过 Builder, 可以添加各种配置。</strong></p>
+<pre><code class="scala">val session: SparkSession = SparkSession.builder().appName(&quot;sql&quot;).master(&quot;local[*]&quot;).getOrCreate()
+</code></pre>
+<p><strong>Builder 是 SparkSession 的构造器。 通过 Builder, 可以添加各种配置。</strong></p>
+<p>Builder 的方法如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>Method</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getOrCreate</td>
+<td>获取或者新建一个 sparkSession，单例模式</td>
+</tr>
+<tr>
+<td>enableHiveSupport</td>
+<td>增加支持 hive Support</td>
+</tr>
+<tr>
+<td>appName</td>
+<td>设置 application 的名字</td>
+</tr>
+<tr>
+<td>config</td>
+<td>设置各种配置</td>
+</tr>
+<tr>
+<td>master</td>
+<td>local 本地单线程<br>local[K] 本地<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?from=pc_blog_highlight&q=%E5%A4%9A%E7%BA%BF%E7%A8%8B">多线程</a>（指定K个内核）<br>local[*] 本地多线程（指定所有可用内核）</td>
+</tr>
+</tbody></table>
+<h4 id="SparkSession的使用"><a href="#SparkSession的使用" class="headerlink" title="SparkSession的使用"></a>SparkSession的使用</h4><p>1、读取文件</p>
+<pre><code class="scala">import spark.implicits._
+val session: SparkSession = SparkSession.builder().appName(&quot;sql&quot;).master(&quot;local[*]&quot;).getOrCreate()
+//读取文件
+val df2: Dataset[Long] = session.read.textFile(&quot;access.log&quot;).map(t =&gt; &#123;
+    val strs: Array[String] = t.split(&quot;\\|&quot;)
+    ip2Long(strs(1))
+    &#125;)
+</code></pre>
+<p>2、使用sparkSql</p>
+<pre><code class="scala">val resultsDF: DataFrame = spark.sql(&quot;SELECT city, pop, state, zip FROM zips_table&quot;)
+resultsDF.show()
+</code></pre>
+<h4 id="Sparksql的并行度设置"><a href="#Sparksql的并行度设置" class="headerlink" title="Sparksql的并行度设置"></a>Sparksql的并行度设置</h4><p><strong>SparkSQL并行度是SparkSQL的第一个调优点，默认的并行度是200，需要根据实际情况进行设置，它有有两种设置方法，</strong></p>
+<p>1：代码的方式指定</p>
+<pre><code class="scala">val spark = SparkSession.builder()
+      .config(&quot;spark.sql.shuffle.partitions&quot;,100)//设置并行度100
+      .getOrCreate()
+</code></pre>
+<p>2.命令行的方式指定</p>
+<pre><code class="shell">./bin/spark-submit \
+--class com.imooc.log.TopNStatJobYARN \
+--name TopNStatJobYARN \
+--master yarn \
+--executor-memory 1G \
+--num-executors 1 \
+--conf spark.sql.shuffle.partitions=100 \
+/home/hadoop/lib/sql-1.0-jar-with-dependencies.jar \
+hdfs://hadoop001:8020/imooc/clean 20170511 
+</code></pre>
+<p>如果都配置了，代码的优先级更高</p>
+<h2 id="数据源的不同方式"><a href="#数据源的不同方式" class="headerlink" title="数据源的不同方式"></a>数据源的不同方式</h2><p>这里先讲了6种</p>
+<h3 id="1、text"><a href="#1、text" class="headerlink" title="1、text"></a>1、text</h3><pre><code class="scala">//读取数据
+val frame1: DataFrame = session.read.text(&quot;stu.txt&quot;)
+//写出数据 ！ text只能一行的写出，要写出多行只能拼接，而且保存的数据不带有列信息
+session.read.parquet(&quot;parquet_res&quot;).map(t=&gt;&#123;
+    val address = t.getAs[String](&quot;address&quot;)
+    val count = t.getAs[Long](&quot;count&quot;)
+    val id = t.getAs[Long](&quot;id&quot;)
+    address + &quot; &quot;+count +&quot; &quot; + id
+&#125;).write.text(&quot;text_res&quot;)
+</code></pre>
+<h3 id="2、textFile"><a href="#2、textFile" class="headerlink" title="2、textFile"></a>2、textFile</h3><pre><code class="scala">//读取数据
+val frame2: Dataset[String] = session.read.textFile(&quot;stu.txt&quot;)
+//写出数据?
+session.write.textFile(&quot;parquet_res&quot;)
+</code></pre>
+<h3 id="3、JDBC"><a href="#3、JDBC" class="headerlink" title="3、JDBC"></a>3、JDBC</h3><pre><code class="scala">//读取数据
+val url = &quot;jdbc:mysql://Linux03:3306/spakr?characterEncoding=utf-8&quot;
+    val table = &quot;visit&quot;
+    val props = new Properties()
+    props.put(&quot;user&quot;, &quot;root&quot;)
+    props.put(&quot;password&quot;, &quot;123456&quot;)
+    val frame3: DataFrame = session.read.jdbc(url, table, props)
+    frame3.show()
+    //jdbc底层是
+    //    session.read.format(&quot;jdbc&quot;)
+    //      .option(&quot;url&quot;, url)
+    //      .option(&quot;datable&quot;, table)
+    //      .option(&quot;user&quot;, &quot;root&quot;)
+    //      .option(&quot;password&quot;, &quot;123456&quot;)
+    //      .load()
+//dataframe的过滤
+//dataframe还可以过滤,底层都是使用的row.getxxx
+frame3.where(&quot;count&gt;1000&quot;).show()
+frame3.filter(row =&gt; row.getAs[Int](&quot;count&quot;)&gt;1000).show()
+
+///jdbc写出，写出的表必须是不存在的
+frame3.filter(row =&gt; row.getAs[Int](&quot;count&quot;)&gt;1000).write.jdbc(url,table,props)
+
+///模式
+//mode模式
+frame3.filter(row =&gt; row.getAs[Int](&quot;count&quot;)&gt;1000).write.mode(SaveMode.Append).jdbc(url,table,props)
+</code></pre>
+<h4 id="JDBC的模式"><a href="#JDBC的模式" class="headerlink" title="JDBC的模式"></a>JDBC的模式</h4><pre><code class="scala">//mode模式类型
+//save方法保存数据的时候需要用到mode模式
+//Append		表存在则拼接
+//Overwrite	进行覆盖
+//ErrorIFExists	默认级别，如果存在就报错
+//Ignore	如果存在数据就忽略
+frame3.filter(row =&gt; row.getAs[Int](&quot;count&quot;)&gt;1000).write.mode(SaveMode.Append).jdbc(url,table,props)
+</code></pre>
+<h3 id="4、JSON"><a href="#4、JSON" class="headerlink" title="4、JSON"></a>4、JSON</h3><pre><code class="scala">//读取数据
+val frame4: DataFrame = session.read.json(&quot;json_res&quot;)
+frame4.show()
+//写出数据
+frame3.write.json(&quot;parquet_res&quot;)
+</code></pre>
+<h3 id="5、parquet"><a href="#5、parquet" class="headerlink" title="5、parquet"></a>5、parquet</h3><p>列式存储文件，保存的文件默认snappy压缩格式</p>
+<pre><code class="scala">//读取数据
+val frame5: DataFrame = session.read.parquet(&quot;parquet_res&quot;)
+//写出数据
+frame3.write.parquet(&quot;parquet_res&quot;)
+</code></pre>
+<h3 id="6、csv"><a href="#6、csv" class="headerlink" title="6、csv"></a>6、csv</h3><p>保存的文件可以被text和excel打开，是一个特殊的数据源，有一个效验和，单文件发生变化，效验和会发生改变，跟原来效验和对比如果不同就会失效</p>
+<p>csv和text一样，<strong>保存的数据不带有列信息</strong></p>
+<pre><code class="scala">//读取数据
+session.read.csv(&quot;csv_res&quot;)
+//写出数据
+frame5.write.csv(&quot;csv_res&quot;)
+</code></pre>
+<h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><h3 id="RDD和DataFrame的区别"><a href="#RDD和DataFrame的区别" class="headerlink" title="RDD和DataFrame的区别"></a>RDD和DataFrame的区别</h3><p>dataFrame装入的数据和rdd是一样的，只不过存在很多scheme信息（表头），<strong>除了数据以外，还掌握数据的结构信息，即</strong> <strong>schema</strong></p>
+<h3 id="创建Dataframe两种方式"><a href="#创建Dataframe两种方式" class="headerlink" title="创建Dataframe两种方式"></a>创建Dataframe两种方式</h3><p>1、rdd.toDF()</p>
+<pre><code class="scala">   val conf = new SparkConf().setMaster(&quot;local[*]&quot;).setAppName(&quot;sql&quot;)
+    val sc = new SparkContext(conf)
+    //sqlContext是一个包装对象
+    //这是1.0版本，2.0是sparksession
+    //1、创建sparksql对象
+    val sqlSC = new SQLContext(sc)
+    val rdd1: RDD[Student] = sc.textFile(&quot;student.txt&quot;).map(t =&gt; &#123;
+      val strs: Array[String] = t.split(&quot; &quot;)
+      new Student(strs(0).toInt, strs(1), strs(2).toInt)
+    &#125;)
+    import sqlSC.implicits._
+    //2、转换成DF
+    val frame: DataFrame = rdd1.toDF()
+</code></pre>
+<p>2、Row,sqlSC.createDataFrame(rdd, types)，更加灵活的创建</p>
+<p>Row只能由系统来指定，自己指定会报错</p>
+<pre><code class="scala">val conf = new SparkConf().setAppName(&quot;sql&quot;).setMaster(&quot;local[*]&quot;)
+    val sc = new SparkContext(conf)
+    val sqlSC = new SQLContext(sc)
+    //Row  相当于一行内容
+    val rdd: RDD[Row] = sc.textFile(&quot;student.txt&quot;).map(t =&gt; &#123;
+      val strs: Array[String] = t.split(&quot; &quot;)
+        //Row相当于一行内容的对象
+      Row(strs(0).toInt, strs(1), strs(2).toInt)
+    &#125;)
+    val types: StructType = StructType(
+      List(
+        //字段名称，字段类型，是否可以为空
+        StructField(&quot;id&quot;, IntegerType, false),
+        StructField(&quot;name&quot;, StringType, true),
+        StructField(&quot;age&quot;, IntegerType, true)
+      )
+    )
+    val df: DataFrame = sqlSC.createDataFrame(rdd, types)
+    df.show()
+    df.registerTempTable(&quot;student&quot;)
+    //show默认打印20条
+    val frame: DataFrame = sqlSC.sql(&quot;select * from student where age &gt; 30&quot;)
+    frame.show()
+</code></pre>
+<h3 id="dataframe的使用"><a href="#dataframe的使用" class="headerlink" title="dataframe的使用"></a>dataframe的使用</h3><ol>
+<li><pre><code>引入sql的依赖
+</code></pre>
+<ol start="2">
+<li><pre><code>创建一个sqlContext(spark1.x) sparkSession(spark2.x)
+</code></pre>
+<ol start="3">
+<li><pre><code>创建sparkcontext对象
+</code></pre>
+<ol start="4">
+<li><pre><code>通过包装类的形式创建sqlContext
+</code></pre>
+<ol start="5">
+<li><pre><code>使用sc对象读取外部文件
+</code></pre>
+<ol start="6">
+<li><pre><code>将文件转换为一个rdd
+</code></pre>
+<ol start="7">
+<li><pre><code>将rdd.toDF转换为一个dataFrame(必须引入import sqlSc.implicit._)
+</code></pre>
+<ol start="8">
+<li><pre><code>需要将df转换为一个表 sqlsc.registTempTable()
+</code></pre>
+<ol start="9">
+<li><pre><code>sqlSc.sql()转换为一个新的dataFrame
+</code></pre>
+<ol start="10">
+<li><pre><code>printScheme打印表的信息
+</code></pre>
+<ol start="11">
+<li><pre><code>show方法是一个action 打印表中的数据
+</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="字段添加别名的两种方式"><a href="#字段添加别名的两种方式" class="headerlink" title="字段添加别名的两种方式"></a>字段添加别名的两种方式</h3><p>1、直接在rdd.toDF()方法中添加</p>
+<pre><code class="scala">val frame: DataFrame = rdd1.toDF(&quot;id&quot;, &quot;name&quot;, &quot;age&quot;)
+</code></pre>
+<p>2、使用样例类，字段名称就是别名</p>
+<pre><code class="scala">case class Student(val id: Int, val name: String, val age: Int)
+new Student(strs(0).toInt, strs(1), strs(2).toInt)
+</code></pre>
+<h3 id="DSL风格操作方式"><a href="#DSL风格操作方式" class="headerlink" title="DSL风格操作方式"></a>DSL风格操作方式</h3><p>DSL：<strong>领域特定语言</strong>，以极其高效的方式描述特定领域的对象、规则和运行方式的语言。</p>
+<p>需要有特定的解释器与其配合。</p>
+<p>高效简洁的领域语言，与通用语言相比能极大降级理解和使用难度，同时极大提高开发效率的语言。</p>
+<p>能够描述特定领域的世界观和方法论的语言。</p>
+<p><strong>DSL 通过在表达能力上做的妥协换取在某一领域内的高效</strong>。</p>
+<h4 id="DSL操作方式案例"><a href="#DSL操作方式案例" class="headerlink" title="DSL操作方式案例"></a>DSL操作方式案例</h4><pre><code class="scala">//DSL方式
+val df = sqlSc.createDataFrame(rdd,types)
+    import sqlSc.implicits._
+df.select(&quot;id&quot;,&quot;name&quot;,&quot;age&quot;).orderBy($&quot;age&quot; desc).show()
+
+//传统方式
+//    df.registerTempTable(&quot;stu&quot;)
+//    //show默认打印数据集中的20条数据
+//    sqlSc.sql(&quot;select id,name,age from stu where id&gt;1 order by age desc&quot;).show()
+</code></pre>
+<h4 id="DSL方式加别名"><a href="#DSL方式加别名" class="headerlink" title="DSL方式加别名"></a>DSL方式加别名</h4><p>&#x2F;&#x2F;order by方法的时候如果只是字段可以使用字符串，如果是<strong>列的对象信息使用$进行分装</strong>  desc asc都是列对象中的方法<br>&#x2F;&#x2F;<strong>聚合函数加上别名 agg函数</strong>，专门调用聚合函数并且给聚合函数加别名的</p>
+<p><strong>聚合类算子必须加在relationalGroupedDataset,所以必须使用agg</strong></p>
+<p>如果想要联合的<strong>使用多个聚合类的算子必须使用agg函数</strong></p>
+<pre><code class="scala">//order by方法的时候如果只是字段可以使用字符串，如果是列的对象信息可以使用$进行分装  desc asc都是列对象中的方法
+//聚合函数加上别名 agg函数，专门调用聚合函数并且给聚合函数加别名的
+//select gender,count(*) cnt from student group by gender order by cnt desc
+
+    import org.apache.spark.sql.functions._
+//    df.groupBy($&quot;gender&quot; as &quot;性别&quot;).agg(count(&quot;*&quot;) as &quot;数量&quot;).show()
+
+//	聚合类算子必须加在relationalGroupedDataset,所以必须使用agg
+    val df1:RelationalGroupedDataset = df.groupBy($&quot;gender&quot; as &quot;性别&quot;)
+    df1.count().show()
+    val df2: Long = df.count()
+    print(df2+&quot;8888888888888888888888888888888888888888888888888&quot;)
+    session.close()
+</code></pre>
+<h2 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h2><h3 id="什么是DataSet"><a href="#什么是DataSet" class="headerlink" title="什么是DataSet"></a>什么是DataSet</h3><p>spark1.6以后产生的一种操作sql的对象，但是存在很多和rdd相似的便捷之处，可以使用lambda表达式，可以使用转换类的算子，例如map flatMap filter等等，并且存在一个优化了的执行引擎（spark2.0的优势）</p>
+<h3 id="DataSet和DataFrame的不同"><a href="#DataSet和DataFrame的不同" class="headerlink" title="DataSet和DataFrame的不同"></a>DataSet和DataFrame的不同</h3><p><strong>DataFrame</strong>：<strong>只能使用sql风格的查询方式</strong>，必须通过sc读取hdfs中的文件，然后将文件处理成列信息，然后才能到达dataFrame中，不能直接用dataframe直接进行数据的格式化，DataFrame没有泛型，他的底层<strong>类型是DataSet[Row]<strong>，</strong>Row不能够自己调用，只能他自己生成</strong>。Row在获取值时使用.getAs[type] (字段名称或者是索引)</p>
+<pre><code class="scala">//创建dataSet的时候，里面能够放入的元素必须是样例类的形势，不能放入row
+session.createDataset(Row())
+</code></pre>
+<p><strong>DataSet</strong> : DataSet的优点是可以使用sql风格的查询方式也可以使用DSL风格，重点是还可以向RDD调用算子一样进行计算，DataSet在创建完毕后<strong>拥有类型(类型推断)<strong>，DataSet可以放入各种数据类型，但是没办法改别名，</strong>只能通过样例类方式和toDF()方法来修改别名</strong>，如果是只是传统sql查询方面和DataFrame没有什么区别</p>
+<h3 id="创建DataSet"><a href="#创建DataSet" class="headerlink" title="创建DataSet"></a>创建DataSet</h3><p>&#x2F;&#x2F;1、读取文件的方式</p>
+<pre><code class="scala">//session.read...  直接返回值就是DataSet类型
+val df2: Dataset[Long] = session.read.textFile(&quot;access.log&quot;).map(t =&gt; &#123;
+      val strs: Array[String] = t.split(&quot;\\|&quot;)
+      ip2Long(strs(1))
+    &#125;)
+</code></pre>
+<p>&#x2F;&#x2F;2、集合并行化</p>
+<pre><code class="scala">val session = SparkSession.builder().appName(&quot;join&quot;).master(&quot;local[*]&quot;).getOrCreate()
+import session.implicits._
+val list1 = List((1, &quot;zhangsan&quot;, 200), (2, &quot;lisi&quot;, 300), (3, &quot;wangwu&quot;, 1000), (4, &quot;zhaosi&quot;, 250))
+val list2 = List((1, 30), (2, 25), (3, 30))
+//toDF()来修改别名，但变成DataFrame类型
+val ds1: DataFrame = session.createDataset(list1).toDF(&quot;id&quot;, &quot;name&quot;, &quot;salary&quot;)
+val ds2: DataFrame = session.createDataset(list2).toDF(&quot;userid&quot;, &quot;day&quot;)
+</code></pre>
+<h2 id="Join"><a href="#Join" class="headerlink" title="Join"></a>Join</h2><h3 id="Join的使用方式"><a href="#Join的使用方式" class="headerlink" title="Join的使用方式"></a>Join的使用方式</h3><p>1、直接join，默认inner，全连接，产生笛卡尔积，一般不用</p>
+<pre><code class="scala">val session = SparkSession.builder().appName(&quot;join&quot;).master(&quot;local[*]&quot;).getOrCreate()
+import session.implicits._
+val list1 = List((1, &quot;zhangsan&quot;, 200), (2, &quot;lisi&quot;, 300), (3, &quot;wangwu&quot;, 1000), (4, &quot;zhaosi&quot;, 250))
+val list2 = List((1, 30), (2, 25), (3, 30))
+val ds1: DataFrame = session.createDataset(list1)
+val ds2: DataFrame = session.createDataset(list2)
+
+//直接join
+ds1.join(ds2).show()
+</code></pre>
+<p>2、关联指定字段，适用两表关联字段名称相同</p>
+<pre><code class="scala">val ds1: Dataset[(String, String)] = session.createDataset(list1)
+val ds2: Dataset[(String, String)] = session.createDataset(list2)
+//这里关联的是各自的第一个字段(id)
+ds1.join(ds2,&quot;_1&quot;).show()
+</code></pre>
+<p>3、两种不同名称字段指定,放入一个Seq()中，使用两表关联字段名称不一样</p>
+<p>但是不知道为什么不能用</p>
+<pre><code class="scala">val ds1: DataFrame = session.createDataset(list1).toDF(&quot;id&quot;, &quot;name&quot;, &quot;salary&quot;)
+val ds2: DataFrame = session.createDataset(list2).toDF(&quot;mid&quot;, &quot;day&quot;)
+//指定
+ds1.join(ds2,Seq(&quot;uid&quot;,&quot;mid&quot;)).show()
+</code></pre>
+<p>4、可以<strong>添加连接方式</strong></p>
+<pre><code class="scala">//可以使用的添加方式
+//`inner`, `cross`, `outer`, `full`,`full_outer`,`left`,`left_outer`,`right`,`right_outer`, `left_semi`, `left_anti`
+</code></pre>
+<pre><code class="scala">val ds1: DataFrame = session.createDataset(list1).toDF(&quot;id&quot;, &quot;name&quot;, &quot;salary&quot;)
+val ds2: DataFrame = session.createDataset(list2).toDF(&quot;id&quot;, &quot;day&quot;)
+//左连接，显示左侧所有结果，没有匹配的为Null
+ds1.join(ds2,Seq(&quot;id&quot;),&quot;left_outer&quot;).show
+</code></pre>
+<p>5、where 过滤  需要把列信息转换成列对象</p>
+<pre><code class="scala">val ds1: DataFrame = session.createDataset(list1).toDF(&quot;id&quot;, &quot;name&quot;, &quot;salary&quot;)
+val ds2: DataFrame = session.createDataset(list2).toDF(&quot;userid&quot;, &quot;day&quot;)
+//下面三条语句都是把列信息转换成列对象
+ds1.join(ds2, $&quot;id&quot; === $&quot;userid&quot;).show()
+import org.apache.spark.sql.functions._
+//这里使用的col需要导包
+ds1.join(ds2, col(&quot;id&quot;) === col(&quot;userid&quot;)).show()
+ds1.join(ds2, ds1(&quot;id&quot;) === ds2(&quot;userid&quot;)).show()
+</code></pre>
+<h3 id="Join的三种算法"><a href="#Join的三种算法" class="headerlink" title="Join的三种算法"></a>Join的三种算法</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/0xcafedaddy/p/7614299.html">https://www.cnblogs.com/0xcafedaddy/p/7614299.html</a></p>
+<p>Hash   Join</p>
+<h4 id="1、broadcast-hash-join"><a href="#1、broadcast-hash-join" class="headerlink" title="1、broadcast hash join"></a>1、broadcast hash join</h4><p><strong>适用情景</strong>：一张小表，一张大表，小表小到可以放入到内存中（广播的表大小必须小于spark.sql.autoBroadcastJoinThreshold，默认是10M）</p>
+<p><strong>广播变量</strong>形式的join ，<strong>小表广播分发到大表所在的分区节点上</strong>，效率最高</p>
+<p><strong>broadcast hash join可以分为两步：</strong></p>
+<p>1、broadcast阶段：将小表广播分发到大表所在的所有主机。广播算法可以有很多，最简单的是先发给driver，driver再统一分发给所有executor；要不就是基于bittorrete的p2p思路；</p>
+<p>2、hash join阶段：在每个executor上执行单机版hash join，小表映射，大表试探；</p>
+<h4 id="2、shuffle-hash-join"><a href="#2、shuffle-hash-join" class="headerlink" title="2、shuffle hash join"></a>2、shuffle hash join</h4><p><strong>适用情景</strong>：一张小表，一张大表，但是小表不够小，不能放入到内存中，不适合广播分发</p>
+<p>先shuffle流程两张表重新组织分配，hashpartition分区后，一个executor变成一个桶，executor再按照hashcode进行处理数据，每个executor处理自己的，单机形式的</p>
+<p>shuffle hash join也可以分为两步：</p>
+<p>1、shuffle阶段：分别将两个表按照join key进行分区，将相同join key的记录重分布到同一节点，两张表的数据会被重分布到集群中所有节点。这个过程称为shuffle</p>
+<p>2、hash join阶段：每个分区节点上的数据单独执行单机hash join算法。</p>
+<h4 id="3、sort-merge-join"><a href="#3、sort-merge-join" class="headerlink" title="3、sort merge join"></a>3、sort merge join</h4><p><strong>适用情景</strong>：两张大表，不能放入到内存中，不适合广播分发</p>
+<p>1、shuffle阶段：将两张大表根据join key进行重新分区，两张表数据会分布到整个集群，以便分布式并行处理</p>
+<p>2、sort阶段：对单个分区节点的两表数据，分别进行排序</p>
+<p>3、merge阶段：对排好序的两张分区表数据执行join操作。join操作很简单，分别遍历两个有序序列，碰到相同join key就merge输出，否则取更小一边</p>
+<h4 id="查看执行计划"><a href="#查看执行计划" class="headerlink" title="查看执行计划"></a>查看执行计划</h4><p>逻辑执行计划就是按照步骤一步步的形成计划<br>逻辑执行计划转为物理执行计划，物理执行计划写死的东西，最简单的形式</p>
+<pre><code class="scala">ds1.join(ds2, $&quot;id&quot; === $&quot;userid&quot;).explain()
+//== Physical Plan ==
+//*BroadcastHashJoin [id#7], [userid#19], Inner, BuildRight
+//:- LocalTableScan [id#7, name#8, salary#9]
+//+- BroadcastExchange HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)))
+//   +- LocalTableScan [userid#19, day#20]
+</code></pre>
+<h2 id="UDAF自定义聚合函数"><a href="#UDAF自定义聚合函数" class="headerlink" title="UDAF自定义聚合函数"></a>UDAF自定义聚合函数</h2><h3 id="自定义函数概念"><a href="#自定义函数概念" class="headerlink" title="自定义函数概念"></a>自定义函数概念</h3><p>三种</p>
+<p>UDAF	自定义聚合函数</p>
+<p>UDF	炸裂函数</p>
+<p>UDTF	自定义聚合函数</p>
+<h3 id="UDAF使用解析"><a href="#UDAF使用解析" class="headerlink" title="UDAF使用解析"></a>UDAF使用解析</h3><p>继承 <strong>UserDefinedAggregateFunction</strong>{}<br>重写八个方法<br>session使用时注册udf</p>
+<h3 id="UDAF使用案例"><a href="#UDAF使用案例" class="headerlink" title="UDAF使用案例"></a>UDAF使用案例</h3><h4 id="案例1"><a href="#案例1" class="headerlink" title="案例1"></a>案例1</h4><pre><code class="scala">//编写自定义UDAF
+class MyUDAF extends UserDefinedAggregateFunction&#123;
+  //输入数据类型
+  override def inputSchema: StructType = StructType(
+    List(
+      StructField(&quot;id&quot;,LongType)
+    )
+  )
+  //缓存结果的类型
+  override def bufferSchema: StructType = StructType(
+    List(
+      StructField(&quot;sum&quot;,LongType),
+      StructField(&quot;count&quot;,IntegerType)
+    )
+  )
+  //最终返回值类型
+  override def dataType: DataType = DoubleType
+  //保持一致性的开关 默认给true
+  override def deterministic: Boolean = true
+  //初始化值，这个值得顺序和上面的设定的值类型保持一致
+  override def initialize(buffer: MutableAggregationBuffer): Unit = &#123;
+    buffer(0)=1L
+    buffer(1)=0
+  &#125;
+  //每次接受到一个数据的时候要进行的计算操作
+  override def update(buffer: MutableAggregationBuffer, input: Row): Unit = &#123;
+    buffer(0)=buffer.getLong(0)* input.getAs[Long](0)
+    buffer(1) = buffer.getInt(1)+1
+  &#125;
+  //捏合 每个分区中的结果合并在一起
+  override def merge(buffer1: MutableAggregationBuffer, buffer2: Row): Unit = &#123;
+    buffer1(0) = buffer1.getLong(0)*buffer2.getLong(0)
+    buffer1(1) = buffer1.getInt(1)+buffer2.getInt(1)
+  &#125;
+  //最终返回值
+  override def evaluate(buffer: Row): Any = &#123;
+    math.pow(buffer.getLong(0),1.0/buffer.getInt(1))
+  &#125;
+&#125;
+</code></pre>
+<p>使用UDAF</p>
+<pre><code class="scala">object TestUDAF &#123;
+  def main(args: Array[String]): Unit = &#123;
+    val session = SparkSession.builder().appName(&quot;sql&quot;).master(&quot;local[*]&quot;).getOrCreate()
+    //    session.createDataset(List(1,2,3,4,5,6,7,8,9))
+    //agg
+    val ds: Dataset[lang.Long] = session.range(1,3)
+    val udf = new MyUDAF
+    //dsl特定领域语言
+    ds.agg(udf(ds(&quot;id&quot;))).show()
+    //    ds.registerTempTable(&quot;numbers&quot;)
+    //    session.udf.register(&quot;xx&quot;,new MyUDAF)
+    //    session.sql(&quot;select xx(id) from numbers&quot;).show()
+    session.close()
+  &#125;
+&#125;
+</code></pre>
+<h4 id="案例2"><a href="#案例2" class="headerlink" title="案例2"></a>案例2</h4><pre><code class="scala">课堂练习
+id name day salaryDay
+1 zhangsan 2 200
+2 zhangsan 5 300
+3 lisi 4 500
+4 wangwu 3 1000
+5 lisi 3 1200
+6 wangwu 4 1200
+7 wangwu 5 1500
+//数据求出每个人的平均每天工资
+</code></pre>
+<pre><code class="scala">class salayUDAF extends UserDefinedAggregateFunction &#123;
+  //输入的值
+  override def inputSchema: StructType = StructType &#123;
+    List(
+      StructField(&quot;daycount&quot;, IntegerType),
+      StructField(&quot;salarySum&quot;, IntegerType)
+    )
+  &#125;
+
+  //缓存区的内容
+  override def bufferSchema: StructType = StructType &#123;
+    List(
+      StructField(&quot;daycount&quot;, IntegerType),
+      StructField(&quot;salarySum&quot;, IntegerType)
+    )
+  &#125;
+
+  //最终返回类型
+  override def dataType: DataType = DoubleType
+
+  //一致性
+  override def deterministic: Boolean = true
+
+  //初始值
+  override def initialize(buffer: MutableAggregationBuffer): Unit = &#123;
+    buffer(0) = 0
+    buffer(1) = 0
+  &#125;
+
+  //单个分区合并
+  override def update(buffer: MutableAggregationBuffer, input: Row): Unit = &#123;
+    buffer(0) = buffer.getInt(0) + input.getInt(0)
+    buffer(1) = buffer.getInt(1) + input.getInt(0) * input.getInt(1)
+  &#125;
+  //大合并
+  override def merge(buffer1: MutableAggregationBuffer, buffer2: Row): Unit = &#123;
+    buffer1(0) = buffer1.getInt(0) + buffer2.getInt(0)
+    buffer1(1) = buffer2.getInt(1) + buffer2.getInt(1)
+  &#125;
+  //最终返回值
+  override def evaluate(buffer: Row): Any = &#123;
+    buffer.getInt(1) * 1.0 / buffer.getInt(0)
+  &#125;
+&#125;
+</code></pre>
+<pre><code class="scala">object salayUDAF &#123;
+  def main(args: Array[String]): Unit = &#123;
+    val session: SparkSession = SparkSession.builder().master(&quot;local[*]&quot;).appName(&quot;salay&quot;).getOrCreate()
+    val list: List[(Int, String, Int, Int)] = List(
+      &quot;1 zhangsan 2 200&quot;,
+      &quot;2 zhangsan 5 300&quot;,
+      &quot;3 lisi 4 500&quot;,
+      &quot;4 wangwu 3 1000&quot;,
+      &quot;5 lisi 3 1200&quot;,
+      &quot;6 wangwu 4 1200&quot;,
+      &quot;7 wangwu 5 1500&quot;
+    ).map(t=&gt;&#123;
+      val strs: Array[String] = t.split(&quot; &quot;)
+      (strs(0).toInt,strs(1),strs(2).toInt,strs(3).toInt)
+    &#125;)
+    import session.implicits._
+    val df = session.createDataset(list).toDF(&quot;id&quot;,&quot;name&quot;,&quot;day&quot;,&quot;daysalary&quot;)
+    //传统sql方式
+//    df.registerTempTable(&quot;salary_table&quot;)
+//    session.udf.register(&quot;avg_salary&quot;,new salayUDAF)
+//    session.sql(&quot;select name,avg_salary(day,daysalary) avg_salary from salary_table group by name&quot;).show()
+    //dsl 特定领域语言
+    val salaryUDAFFuncation = new salayUDAF
+    //聚合函数使用列对象
+    df.groupBy(&quot;name&quot;).agg(salaryUDAFFuncation($&quot;day&quot;,$&quot;daysalary&quot;) as &quot;avg_salary&quot;).show()
+
+    session.close()
+  &#125;
+&#125;
+</code></pre>
+<h3 id="数据倾斜解决办法"><a href="#数据倾斜解决办法" class="headerlink" title="数据倾斜解决办法"></a>数据倾斜解决办法</h3><p>再Hive中分桶时，根据hashcode进行分桶，如果key的值大量重复，则会造成数据倾斜，一个线程处理过大的任务，可能会让系统宕机</p>
+<p>UDAF解决问题</p>
+<p>在大量重复数据中，加入<strong>随机前缀</strong>把数据打散，多个线程计算这个数据，减少压力</p>
+<pre><code class="scala">import org.apache.spark.sql.&#123;DataFrame, SparkSession&#125;
+
+import scala.util.Random
+
+//解决数据倾斜,随即前缀
+object RandomKey &#123;
+  def main(args: Array[String]): Unit = &#123;
+    val session = SparkSession.builder().master(&quot;local[3]&quot;).appName(&quot;randomkey&quot;).getOrCreate()
+    import session.implicits._
+    //匿名udaf！！！
+    //加上随机的前缀
+    session.udf.register(&quot;randomkey&quot;, (t: String, number: Int) =&gt; &#123;
+      val random = new Random()
+      val index = random.nextInt(number)
+      index + &quot;_&quot; + t
+    &#125;)
+    val df: DataFrame = session.read.textFile(&quot;stu.txt&quot;).map(t =&gt; &#123;
+      val strs: Array[String] = t.split(&quot; &quot;)
+      (strs(0), strs(1), strs(2).toInt, strs(3))
+    &#125;).toDF(&quot;id&quot;, &quot;name&quot;, &quot;salary&quot;, &quot;subject&quot;)
+    
+    df.registerTempTable(&quot;stu
+    //加入1-3的前缀
+    val df1: DataFrame = session.sql(&quot;select randomkey(subject,3) subject,salary from stu where subject=&#39;wx&#39;&quot; +
+      &quot; union &quot; +
+      &quot;select subject,salary from stu where subject != &#39;wx&#39;&quot;)
+    
+    df1.registerTempTable(&quot;stu1&quot;)
+    val df2 = session.sql(&quot;select subject,count(*) cnt,sum(salary) sal from stu1 group by subject&quot;)
+    //匿名udaf！！！
+    //把前缀去掉
+    session.udf.register(&quot;cntkey&quot;,(t:String)=&gt;&#123;
+      t.substring(t.indexOf(&quot;_&quot;) + 1)
+    &#125;)
+    df2.registerTempTable(&quot;stu2&quot;)
+    session.sql(&quot;select cntkey(subject),sum(cnt),sum(sal) subject from stu2 group by cntkey(subject)&quot;).show()
+
+    session.close()
+  &#125;
+&#125;
+</code></pre>
+<h1 id="Spark2-0和Spark1-0的区别"><a href="#Spark2-0和Spark1-0的区别" class="headerlink" title="Spark2.0和Spark1.0的区别"></a>Spark2.0和Spark1.0的区别</h1><p>更简单 支持标准sql和简化的API<br>更快	spark作为一个编译器<br>更智能 Dataset结构化数据流</p>
+<p>2.0的dataset有了查询优化，排序和shuffle阶段不需要反序列化，Dataset比较是不要要进行反序列化的，在shuffle合并比较时，直接比较序列化完毕的数组就行，比上四位byte</p>
+<h3 id="物理执行计划"><a href="#物理执行计划" class="headerlink" title="物理执行计划"></a>物理执行计划</h3><p>物理执行计划<br>先扫描表，在进行filter，在join<br>先过滤，在进行join。</p>
+<p>对过程进行了简化，</p>
+<h3 id="逻辑执行计划"><a href="#逻辑执行计划" class="headerlink" title="逻辑执行计划"></a>逻辑执行计划</h3><p>适配所有场景<br>先扫描两个表，然后join产生笛卡尔积，再进行filter<br>spark2.0 产物<br>还可以通过更加智能的数据源来进行操作<br>从哪里拉取数据，在那里进行过滤</p>
+<h3 id="SparkSQL-on-Hive"><a href="#SparkSQL-on-Hive" class="headerlink" title="SparkSQL(on Hive)"></a>SparkSQL(on Hive)</h3><p>它是将Spark SQL转换成RDD，然后提交到集群中去运行，执行效率非常快！</p>
+<p>spark完美接入hive，spark可以直接使用hive的元数据</p>
+<p>spark-sql  会启动一个数据仓库，跟hive没有关系，机制是模仿hive的  hdfs + mysql元数据存储（hhive-site.xml）+spark处理</p>
+<h4 id="Spark-on-Hive安装"><a href="#Spark-on-Hive安装" class="headerlink" title="Spark on Hive安装"></a>Spark on Hive安装</h4><p>1、安装Hive和mysql和Spark(看spark1的笔记)</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhwyj1019/article/details/80274269">https://blog.csdn.net/zhwyj1019/article/details/80274269</a></p>
+<p>2、在$SPARK_HOME的conf目录下新建hive-site.xml	<strong>(三台都改)</strong></p>
+<pre><code class="xml">&lt;configuration&gt;
+
+&lt;property&gt;
+&lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;
+    &lt;!--jdbc连接mysql，连结地址（mysql安装的地址），元数据放置的的数据库（在mysql中必须创建数据库）和数据库字符编码 --&gt;
+&lt;value&gt;jdbc:mysql://192.168.247.22:3306/hive?characterEncoding=UTF-8&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+     &lt;!--mysql驱动程序--&gt;
+&lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+&lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;!--账号--&gt;
+&lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+&lt;value&gt;root&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+     &lt;!--密码--&gt;
+&lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+&lt;value&gt;123456&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;/configuration&gt;
+</code></pre>
+<p>3、在jars目录下放一个<strong>MySQL的包</strong></p>
+<p>启动sparksql需要在spark的jars保重放入一个mysql-connector-java-5.1.46的jar包</p>
+<p>4、启动hdfs、mysql和spark</p>
+<pre><code class="scala">//需要启动spark和hdfs
+start-dfs.sh
+start-master.sh
+start-slaves.sh
+</code></pre>
+<p>5、启动spark-sql</p>
+<p>启动后用的hive的元数据库，使用的hive的表，spark代替了mr来进行计算</p>
+<pre><code class="scala">spark-sql --master spark://Linux02:7077
+</code></pre>
+<h4 id="手动修改保存位置"><a href="#手动修改保存位置" class="headerlink" title="手动修改保存位置"></a>手动修改保存位置</h4><p>在刚启动的时候，数据库的文件保存文职可能是本地，而不是hdfs中，可以手动修改他的位置，连接数据库后修改DBS表，是保存的文件到hdfs中</p>
+<p><img src="/cdh/spark/sparksql/image-20200408194923029.png" alt="image-20200408194923029"></p>
+<h3 id="SparkSql面试题"><a href="#SparkSql面试题" class="headerlink" title="SparkSql面试题"></a>SparkSql面试题</h3><h4 id="SparkSql优化"><a href="#SparkSql优化" class="headerlink" title="SparkSql优化"></a>SparkSql优化</h4><p>SparkSql的并行度是一个调优点。默认的并行度是200，可以根据实际情况进行设置</p>
+<p>有两种方式进行修改：</p>
+<ol>
+<li>代码设置</li>
+</ol>
+<pre><code class="scala">val spark = SparkSession.builder()
+        .config(&quot;spark.sql.shuffle.partitions&quot;,100)//设置并行度100
+        .getOrCreate()
+</code></pre>
+<ol start="2">
+<li>提交任务修改提供参数</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">三山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://star-light-star-bright.github.io/cdh/spark/sparksql/">https://star-light-star-bright.github.io/cdh/spark/sparksql/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">三山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/CDH/">
+                                    <span class="chip bg-color">CDH</span>
+                                </a>
+                            
+                                <a href="/tags/Spark/">
+                                    <span class="chip bg-color">Spark</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/da-shu-ju/fu-wu-qi-zu-jian-ban-ben/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="大数据组件版本">
+                        
+                        <span class="card-title">大数据组件版本</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                    大数据
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="chip bg-color">大数据</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/cdh/spark/spark/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Spark学习笔记">
+                        
+                        <span class="card-title">Spark学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/CDH/" class="post-category">
+                                    CDH
+                                </a>
+                            
+                            <a href="/categories/CDH/Spark/" class="post-category">
+                                    Spark
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/CDH/">
+                        <span class="chip bg-color">CDH</span>
+                    </a>
+                    
+                    <a href="/tags/Spark/">
+                        <span class="chip bg-color">Spark</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">三山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

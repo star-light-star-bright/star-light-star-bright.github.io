@@ -1,0 +1,3044 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Flink学习笔记, ZWHBlog">
+    <meta name="description" content="尚学堂大数据技术之Flink教案
+Flink是什么？Apache Flink 是一个框架和分布式处理引擎，用于在无边界和有边界数据流上进行有状态的计算。Flink 能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。
+有界流和无界">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>Flink学习笔记 | ZWHBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWHBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWHBlog</div>
+        <div class="logo-desc">
+            
+            这是我的博客网站
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Flink学习笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Flink/">
+                                <span class="chip bg-color">Flink</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Flink/" class="post-category">
+                                Flink
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-07-02
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>尚学堂大数据技术之Flink教案</p>
+<h2 id="Flink是什么？"><a href="#Flink是什么？" class="headerlink" title="Flink是什么？"></a>Flink是什么？</h2><p>Apache Flink 是一个框架和<strong>分布式处理引擎</strong>，用于在<strong>无边界和有边界数据流上</strong>进行<strong>有状态</strong>的计算。Flink 能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。</p>
+<h3 id="有界流和无界流"><a href="#有界流和无界流" class="headerlink" title="有界流和无界流"></a>有界流和无界流</h3><p><strong>无界流</strong>：有定义流的开始，但没有定义流的结束。它们会无休止地产生数据。无界流 的数据必须持续处理，即数据被摄取后需要立刻处理。我们不能等到所有数据都到达再处理， 因为输入是无限的，在任何时候输入都不会完成。处理无界数据通常要求以特定顺序摄取事 件，例如事件发生	的顺序，以便能够推断结果的完整性。</p>
+<p><strong>有界流</strong>：有定义流的开始，也有定义流的结束。有界流可以在<strong>摄取所有数据后</strong>再进行计算。</p>
+<p>有界流所有数据可以被排序，所以并不需要有序摄取。有界流处理通常被称为批处理</p>
+<h2 id="Flink的优势"><a href="#Flink的优势" class="headerlink" title="Flink的优势"></a>Flink的优势</h2><h3 id="1-高吞吐，低延迟，高性能"><a href="#1-高吞吐，低延迟，高性能" class="headerlink" title="1.高吞吐，低延迟，高性能"></a>1.高吞吐，低延迟，高性能</h3><p>Flink 是目前开源社区中唯一一套集高吞吐、低延迟、高性能三者于一身的分布式 流式数据处理框架。像 Apache Spark 也只能兼顾高吞吐和高性能特性，主要因为在 Spark Streaming 流式计算中无法做到低延迟保障；</p>
+<h3 id="2-事件时间"><a href="#2-事件时间" class="headerlink" title="2.事件时间"></a>2.事件时间</h3><p>流式处理，窗口计算很重要，但是大多数框架窗口计算采用的是系统时间，也就是事件传输到框架计算时系统当前时间。<strong>Flink支持基于事件时间（Event Time）语义进行窗口计算，也就是使用事件产生的时间</strong>，流系统也能够计算出精 确的结果，保持了事件原本产生时的时序性，尽可能避免网络传输或硬件系统的影响。</p>
+<h3 id="3-有状态的计算"><a href="#3-有状态的计算" class="headerlink" title="3.有状态的计算"></a>3.有状态的计算</h3><p>数据产生的过程中进行计算并直接产生统计结果，</p>
+<p>所谓<strong>状态</strong>就是计算过程中产生的中间计算结果，每次计算新的数据进入到流式系统中 都是基于中间状态结果的基础上进行运算，最终产生正确的统计结果。</p>
+<p>基于有状态计算的方 式最大的优势是不需要将原始数据重新从外部存储中拿出来，从而进行全量计算，因为这种 计算方式的代价可能是非常高的。从另一个角度讲，用户无须通过调度和协调各种批量计算 工具，从数据仓库中获取数据统计结果，然后再落地存储，这些操作全部都可以基于流式计 算完成，可以极大地减轻系统对其他框架的依赖，减少数据计算过程中的时间损耗以及硬件存储。</p>
+<h3 id="4-高度灵活的窗口计算"><a href="#4-高度灵活的窗口计算" class="headerlink" title="4.高度灵活的窗口计算"></a>4.高度灵活的窗口计算</h3><p>Flink将窗口函数划分TIME、Count、Session，以及Data-driven等类型的窗口操作，窗口可以用灵活的触发条件定制化来达到对复杂的流传输模式的支持，可以定制不同的窗口出发机制来满足不同的需求。</p>
+<h3 id="5-轻量级分布式快照（CheckPoint）的容错"><a href="#5-轻量级分布式快照（CheckPoint）的容错" class="headerlink" title="5.轻量级分布式快照（CheckPoint）的容错"></a>5.轻量级分布式快照（CheckPoint）的容错</h3><p>Flink 能够分布式运行在上千个节点上，将一个大型计算任务的流程拆解成小的计 算过程，然后将 tesk 分布到并行节点上进行处理。在任务执行过程中，能够自动发现 事件处理过程中的错误而导致数据不一致的问题（节点宕机、网路传输问题，或 是由于用户因为升级或修复问题而导致计算服务重启等），在这些情况下，通过基于分布 式快照技术的 Checkpoints，将执行过程中的状态信息进行持久化存储，一旦任务出现 异常停止，Flink 就能够从 Checkpoints 中进行任务的自动恢复，以确保数据在处理过 程中的一致性（Exactly-Once）。</p>
+<h3 id="6-jvm独立的内存管理"><a href="#6-jvm独立的内存管理" class="headerlink" title="6.jvm独立的内存管理"></a>6.jvm独立的内存管理</h3><p>针对内存管理，Flink 实现了自身管 理内存的机制，尽可能减少 JVM GC 对系统的影响。另外，Flink 通过序列化&#x2F;反序列化 方法将所有的数据对象转换成二进制在内存中存储，降低数据存储的大小的同时，能够 更加有效地对内存空间进行利用降低 GC 带来的性能下降或任务异常的风险，因此 Flink 较其他分布式处理的框架会显得更加稳定，不会因为 JVM GC 等问题而影响整个 应用的运行。</p>
+<h3 id="7-save-points（保存点）"><a href="#7-save-points（保存点）" class="headerlink" title="7.save points（保存点）"></a>7.save points（保存点）</h3><p>对于 7<em>24 小时运行的流式应用，数据源源不断地接入，在一段时间内应用的终止 有可能导致数据的丢失或者计算结果的不准确，例如进行集群版本的升级、停机运维操 作等操作。*<em>Flink 通过 Save Points 技术将任务执行的快照保存在存储 介质上，当任务重启的时候可以直接从事先保存的 Save Points 恢复原有的计算状态， 使得任务继续按照停机之前的状态运行，Save Points 技术可以让用户更好地管理和运 维实时流式应用。</em></em></p>
+<h2 id="Spark-和-Flink对比"><a href="#Spark-和-Flink对比" class="headerlink" title="Spark 和 Flink对比"></a>Spark 和 Flink对比</h2><p><img src="/flink/flink/image-20200806121002796.png" alt="image-20200806121002796"></p>
+<h2 id="Flink集群"><a href="#Flink集群" class="headerlink" title="Flink集群"></a>Flink集群</h2><p>Flink 的安装和部署主要分为本地（单机）模式和集群模式</p>
+<p>集群模式包含： </p>
+<ul>
+<li>Standalone。 </li>
+<li>Flink on Yarn</li>
+<li>Mesos</li>
+<li>Docker</li>
+<li>Kubernetes</li>
+<li>AWS</li>
+<li>Goole Compute Engine。</li>
+</ul>
+<p>目前在企业中使用最多的是 Flink on Yarn 模式。</p>
+<h3 id="集群的组件（架构）"><a href="#集群的组件（架构）" class="headerlink" title="集群的组件（架构）"></a>集群的组件（架构）</h3><p>Flink 整个系统主要由两个组件组成，分别为 <strong>JobManager</strong> 和 <strong>TaskManager</strong>，Flink 架构 也遵循 Master-Slave 架构设计原则，JobManager 为 Master 节点，TaskManager 为 Worker （Slave）节点。所有组件之间的通信都是借助于 Akka Framework，包括任务的状态以及 Checkpoint 触发等信息。</p>
+<p><img src="/flink/flink/image-20210702075748535.png"></p>
+<h4 id="Client客户端"><a href="#Client客户端" class="headerlink" title="Client客户端"></a>Client客户端</h4><p>客户端负责将任务提交到集群，与 JobManager 构建 Akka 连接，然后将任务提交到 JobManager，通过和 JobManager 之间进行交互获取任务执行状态。客户端提交任务可以采 用 CLI 方式或者通过使用 Flink WebUI 提交，也可以在应用程序中指定 JobManager 的 RPC 网络端口构建 ExecutionEnvironment 提交 Flink 应用。</p>
+<h4 id="JobManager"><a href="#JobManager" class="headerlink" title="JobManager"></a>JobManager</h4><p>JobManager 负责整个 Flink 集群任务的调度以及资源的管理，从客户端中获取提交的 应用，然后根据集群中 TaskManager 上 TaskSlot 的使用情况，为提交的应用分配相应的 TaskSlots 资源并命令 TaskManger 启动从客户端中获取的应用。JobManager 相当于整个集 群的 Master 节点，且整个集群中有且仅有一个活跃的 JobManager。</p>
+<p>JobManager 和 TaskManager 之间通过 Actor System 进行通信，获取任务执 行的情况并通过 Actor System 将应用的任务执行情况发送给客户端。同时在任务执行过程中，Flink JobManager 会触发 <strong>Checkpoints</strong> 操作，每个 TaskManager 节点收到 Checkpoint 触发指令后，完成 Checkpoint 操作，所有的 Checkpoint 协调过程都是在 Flink JobManager 中完成。当任务完成后，Flink 会将任务执行的信息反馈给客户端，并且释放掉 TaskManager 中的资源以供下一次提交任务使用。</p>
+<h4 id="TaskManager"><a href="#TaskManager" class="headerlink" title="TaskManager"></a>TaskManager</h4><p>TaskManager 相当于整个集群的 Slave 节点，负责具体的任务执行和对应任务在每个节 点上的资源申请与管理。客户端通过将编写好的 Flink 应用编译打包，提交到 JobManager， 然后 JobManager 会根据已经注册在 JobManager 中 TaskManager 的资源情况，将任务分配给 有资源的 TaskManager 节点，然后启动并运行任务。</p>
+<p>TaskManager 从 JobManager 接收需要部署的任务，然后使用 Slot 资源启动 Task，建立数据接入的网络连接，接收数据并开始数 据处理。同时 TaskManager 之间的数据交互都是通过数据流的方式进行的。</p>
+<p><strong>Flink 的任务运行其实是采用多线程的方式，这和 MapReduce 多 JVM 进程的 方式有很大的区别 Fink 能够极大提高 CPU 使用效率，在多个任务和 Task 之间通过 TaskSlot 方式共享系统资源，每个 TaskManager 中通过管理多个 TaskSlot 资源池进行对资源进行有 效管理。</strong></p>
+<h4 id="TaskManager和Slots的关系"><a href="#TaskManager和Slots的关系" class="headerlink" title="TaskManager和Slots的关系"></a>TaskManager和Slots的关系</h4><p>Flink 中每一个 worker(TaskManager)都是一个 JVM 进程，它可能会在独立的线 程上执行一个或多个 subtask。为了控制一个 worker 能接收多少个 task，worker 通 过 task slot 来进行控制（一个 worker 至少有一个 task slot）。</p>
+<p>每个 task slot 表示 TaskManager 拥有资源的一个固定大小的子集。假如一个 TaskManager 有三个 slot，那么它会将其管理的内存分成三份给各个 slot。资源 slot 化意味着一个 subtask 将不需要跟来自其他 job 的 subtask 竞争被管理的内存，取而 代之的是它将拥有一定数量的内存储备。需要注意的是，这里不会涉及到 CPU 的隔 离，slot 目前仅仅用来隔离 task 的受管理的内存。</p>
+<p>通过调整 task slot 的数量，允许用户定义 subtask 之间如何互相隔离。如果一个 TaskManager 一个 slot，那将意味着每个 task group 运行在独立的 JVM 中（该 JVM 可能是通过一个特定的容器启动的），而一个 TaskManager 多个 slot 意味着更多的 subtask 可以共享同一个 JVM。而在同一个 JVM 进程中的 task 将共享 TCP 连接（基 于多路复用）和心跳消息。它们也可能共享数据集和数据结构，因此这减少了每个 task 的负载。</p>
+<p><img src="/flink/flink/image-20200806171834272.png" alt="image-20200806171834272"></p>
+<p><img src="/flink/flink/image-20200806171844824.png" alt="image-20200806171844824"></p>
+<h4 id="Task和subtask"><a href="#Task和subtask" class="headerlink" title="Task和subtask"></a>Task和subtask</h4><ul>
+<li><p>Task（任务）：task是一个阶段多个功能相同subtask的集合，类似于Spark中的TaskSet。</p>
+</li>
+<li><p>subTask（子任务）：subTask是Flink中任务最小执行单元，是一个java类的实例，这个Java类中有属性和方法，完成具体的计算逻辑。</p>
+</li>
+<li><p>Operator Chains（算子链）：没有shuffle的多个算子合并在一个subTask中，就形成了Operator Chains，类似于Spark中的Pipeline。</p>
+</li>
+<li><p>Slot（插槽）：Flink中计算资源进行隔离的单元，一个Slot中可以运行多个subTask，但是这些subTask必须是来自同一个application的不同阶段的subTask。</p>
+</li>
+</ul>
+<h4 id="如何划分task"><a href="#如何划分task" class="headerlink" title="如何划分task"></a>如何划分task</h4><p>Task的并行度发生变化</p>
+<p>调用Keyby这样的产生shuffle算子</p>
+<p>调用startNewChain</p>
+<p>调用disableChaining</p>
+<p>处理分区器 Rebalance shuffle Broadcast Rescale</p>
+<p><img src="/flink/flink/image-20220531125834934.png" alt="image-20220531125834934"></p>
+<p><img src="/flink/flink/image-20220531125902473.png" alt="image-20220531125902473"></p>
+<p>并行数据流，一共有三个task，五个subTask。</p>
+<h3 id="Standalone安装"><a href="#Standalone安装" class="headerlink" title="Standalone安装"></a>Standalone安装</h3><ol>
+<li>下载好Flink包</li>
+<li>三台机器进行解压压缩包</li>
+<li>修改配置文件</li>
+</ol>
+<ul>
+<li>conf目录下，编辑 flink-conf.yaml 配置文件：</li>
+</ul>
+<p><img src="/flink/flink/image-20210702081133879.png"></p>
+<p>其中：taskmanager.numberOfTaskSlot 参数默认值为 1，修改成 3。表示数每一个 TaskManager 上有 3 个 Slot。</p>
+<p><strong>配置文件参数说明</strong> </p>
+<p>下面针对 flink-conf.yaml 文件中的几个重要参数进行分析：</p>
+<ul>
+<li><p>jobmanager.heap.size：JobManager 节点可用的内存大小。 </p>
+</li>
+<li><p>taskmanager.heap.size：TaskManager 节点可用的内存大小。</p>
+</li>
+<li><p>taskmanager.numberOfTaskSlots：每台机器可用的 Slot 数量。</p>
+</li>
+<li><p>parallelism.default：默认情况下 Flink 任务的并行度。 </p>
+<p>上面参数中所说的 Slot 和 parallelism 的区别： </p>
+<ul>
+<li>Slot 是静态的概念，是指 TaskManager 具有的并发执行能力。  </li>
+<li>parallelism 是动态的概念，是指程序运行时实际使用的并发能力。 </li>
+<li>设置合适的 parallelism 能提高运算效率。</li>
+</ul>
+</li>
+<li><p>编辑 conf&#x2F;slaves 配置文件</p>
+</li>
+</ul>
+<p><img src="/flink/flink/image-20210702081505009.png"></p>
+<ul>
+<li>分发给另外两台服务器</li>
+</ul>
+<pre><code>scp -r flink-1.9.1 root@hadoop2
+</code></pre>
+<ol start="4">
+<li>启动Flink服务</li>
+</ol>
+<pre><code>bin/start-cluseter.sh
+</code></pre>
+<ol start="5">
+<li>访问 WebUI</li>
+</ol>
+<p><img src="/flink/flink/image-20210702081644836.png" alt="访问webUI"></p>
+<ol start="6">
+<li>测试，提交写好的jar包</li>
+</ol>
+<p><img src="/flink/flink/Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210702081819409.png" alt="运行命令"></p>
+<ol start="7">
+<li>查看监控页面</li>
+</ol>
+<p><img src="/flink/flink/image-20210702081902697.png" alt="监控页面图"></p>
+<h4 id="Flink-Standalone任务提交流程"><a href="#Flink-Standalone任务提交流程" class="headerlink" title="Flink Standalone任务提交流程"></a>Flink Standalone任务提交流程</h4><p><img src="/flink/flink/image-20200806151415449.png" alt="image-20200806151415449"></p>
+<h3 id="Flink-On-Yarn"><a href="#Flink-On-Yarn" class="headerlink" title="Flink On Yarn"></a>Flink On Yarn</h3><p>Flink on Yarn 模式的原理是依靠 YARN 来调度 Flink 任务，目前在企业中使用较多。 这种模式的好处是可以充分利用集群资源，提高集群机器的利用率，并且<strong>只需要 1 套 Hadoop 集群，就可以执行 MapReduce 和 Spark 任务，还可以执行 Flink 任务等，操作非常方便</strong>，不需要维护多套集群，运维方面也很轻松。Flink on Yarn 模式需要依赖 Hadoop 集群，并且 Hadoop 的版本<strong>需要是 2.2</strong> 及以上。</p>
+<h4 id="Flink-On-Yarn-的任务提交流程："><a href="#Flink-On-Yarn-的任务提交流程：" class="headerlink" title="Flink On Yarn 的任务提交流程："></a>Flink On Yarn 的任务提交流程：</h4><p><img src="/flink/flink/image-20210702082625061.png" alt="Flink on yarn实现原理"></p>
+<ol>
+<li>启动一个新的 Flink YARN Client 会话时，客户端首先会检查所请求的资源（容器和内存）是否可用。之后，它会上传 Flink 配置和 JAR 文件到 HDFS。</li>
+<li>客 户 端 的 下 一 步 是 请 求 一 个 YARN 容 器 启 动 ApplicationMaster 。 JobManager 和 ApplicationMaster(AM)运行在同一个容器中，一旦它们成功地启动了，AM 就能够知道 JobManager 的地址，它会为 TaskManager 生成一个新的 Flink 配置文件（这样它才能连上 JobManager），该文件也同样会被上传到 HDFS。另外，AM 容器还提供了 Flink 的 Web 界面服务。Flink 用来提供服务的端口是由用户和应用程序 ID 作为偏移配置的，这使得用户能够并行执行多个 YARN 会话。 </li>
+<li>之后，AM 开始为 Flink 的 TaskManager 分配容器（Container），从 HDFS 下载 JAR 文件 和修改过的配置文件。一旦这些步骤完成了，Flink 就安装完成并准备接受任务了。</li>
+</ol>
+<p><strong>Flink on Yarn 模式在使用的时候又可以分为两种</strong>： </p>
+<h4 id="第-1-种模式-Session-Cluster-："><a href="#第-1-种模式-Session-Cluster-：" class="headerlink" title="第 1 种模式(Session-Cluster)："></a>第 1 种模式(Session-Cluster)：</h4><p>是在 YARN 中提前初始化一个 Flink 集群(称为 Flink yarn-session)，开辟指定的资源，以后的 Flink 任务都提交到这里。这个 Flink 集群 会常驻在 YARN 集群中，除非手工停止。这种方式创建的 Flink 集群会独占资源，不管 有没有 Flink 任务在执行，YARN 上面的其他任务都无法使用这些资源。</p>
+<p><img src="/flink/flink/image-20210702083543047.png"></p>
+<h4 id="第-2-种模式-Per-Job-Cluster-："><a href="#第-2-种模式-Per-Job-Cluster-：" class="headerlink" title="第 2 种模式(Per-Job-Cluster)："></a>第 2 种模式(Per-Job-Cluster)：</h4><p>每次提交 Flink 任务都会创建一个新的 Flink 集群， 每个 Flink 任务之间相互独立、互不影响，管理方便。任务执行完成之后创建的 Flink 集群也会消失，不会额外占用资源，按需使用，这使资源利用率达到最大，在工作中推荐使用这种模式。</p>
+<p><img src="/flink/flink/image-20210702083611137.png"></p>
+<h4 id="Flink-On-Yarn-安装"><a href="#Flink-On-Yarn-安装" class="headerlink" title="Flink On Yarn 安装"></a>Flink On Yarn 安装</h4><ol>
+<li>配置好hadoop环境变量</li>
+<li>下载 Flink 提交到 Hadoop 的连接器（jar 包），并把 jar 拷贝到 Flink 的 lib 目录下</li>
+</ol>
+<p><img src="/flink/flink/image-20210702084423678.png" alt="连接器jar包下载"></p>
+<h5 id="Session-Cluster-模式（yarn-session）"><a href="#Session-Cluster-模式（yarn-session）" class="headerlink" title="Session-Cluster 模式（yarn-session）"></a>Session-Cluster 模式（yarn-session）</h5><ol>
+<li>先启动 Hadoop 集群，然后通过命令启动一个 Flink 的 yarn-session 集群：</li>
+</ol>
+<pre><code class="shell">bin/yarn-session.sh -n 3 -s 3 -nm bjsxt -d
+</code></pre>
+<p>其中 yarn-session.sh 后面支持多个参数。下面针对一些常见的参数进行讲解：</p>
+<ul>
+<li>-n,–container  表示分配容器的数量（也就是 TaskManager 的数量）。</li>
+<li>-D  动态属性。 </li>
+<li>-d,–detached 在后台独立运行。</li>
+<li>-jm,–jobManagerMemory ：设置 JobManager 的内存，单位是 MB。 </li>
+<li>-nm,–name：在 YARN 上为一个自定义的应用设置一个名字。 </li>
+<li>-q,–query：显示 YARN 中可用的资源（内存、cpu 核数）。 </li>
+<li>-qu,–queue ：指定 YARN 队列。 </li>
+<li>-s,–slots ：每个 TaskManager 使用的 Slot 数量。</li>
+<li>-tm,–taskManagerMemory ：每个 TaskManager 的内存，单位是 MB。 </li>
+<li>-z,–zookeeperNamespace ：针对 HA 模式在 ZooKeeper 上创建 NameSpace。</li>
+<li>-id,–applicationId ：指定 YARN 集群上的任务 ID，附着到一个后台独 立运行的 yarn session 中。</li>
+</ul>
+<ol start="2">
+<li>提交 Job : 由于有了之前的配置，所以自动会提交到 Yarn 中。</li>
+</ol>
+<pre><code class="shell">bin/flink run -c com.bjsxt.flink.StreamWordCount /home/Flink-Demo-1.0-SNAPSHOT.jar
+</code></pre>
+<p><img src="/flink/flink/image-20210702085054905.png" alt="运行监控页面"></p>
+<h5 id="Pre-Job-Cluster-模式（yarn-cluster）"><a href="#Pre-Job-Cluster-模式（yarn-cluster）" class="headerlink" title="Pre-Job-Cluster 模式（yarn-cluster）"></a>Pre-Job-Cluster 模式（yarn-cluster）</h5><ol>
+<li>提交job(如果有启动的yarn-session，先停掉)</li>
+</ol>
+<pre><code class="shell">bin/flink run -m yarn-cluster -yn 3 -ys 3 -ynm bjsxt02 -c
+com.bjsxt.flink.StreamWordCount /home/Flink-Demo-1.0-SNAPSHOT.jar
+</code></pre>
+<p>任务提交参数讲解：相对于 Yarn-Session 参数而言，只是前面加了 y。</p>
+<ul>
+<li>-yn,–container  表示分配容器的数量，也就是 TaskManager 的数量。</li>
+<li>-d,–detached：设置在后台运行。 </li>
+<li>-yjm,–jobManagerMemory:设置 JobManager 的内存，单位是 MB。 </li>
+<li>-ytm，–taskManagerMemory:设置每个 TaskManager 的内存，单位是 MB。</li>
+<li>-ynm,–name:给当前 Flink application 在 Yarn 上指定名称。 </li>
+<li>-yq,–query：显示 yarn 中可用的资源（内存、cpu 核数）</li>
+<li>-yqu,–queue :指定 yarn 资源队列 </li>
+<li>-ys,–slots :每个 TaskManager 使用的 Slot 数量。 </li>
+<li>-yz,–zookeeperNamespace:针对 HA 模式在 Zookeeper 上创建 NameSpace</li>
+<li>-yid,–applicationID : 指定 Yarn 集群上的任务 ID,附着到一个后台独 立运行的 Yarn Session 中。</li>
+</ul>
+<h4 id="Flink-Kubernetes"><a href="#Flink-Kubernetes" class="headerlink" title="Flink Kubernetes"></a>Flink Kubernetes</h4><p>容器化部署时目前业界很流行的一项技术，基于 Docker 镜像运行能够让用户更 加 方 便地 对应 用进 行管 理 和运 维。 容器 管理 工 具中 最为 流行 的就 是 Kubernetes （k8s），而 Flink 也在最近的版本中支持了 k8s 部署模式。</p>
+<p>1）搭建 Kubernetes 集群（略） </p>
+<p>2）配置各组件的 yaml 文件</p>
+<p>在 k8s 上构建 Flink Session Cluster，需要将 Flink 集群的组件对应的 docker 镜像 分别在 k8s 上启动，包括 JobManager、TaskManager、JobManagerService 三个镜像 服务。每个镜像服务都可以从中央镜像仓库中获取。 </p>
+<p>3）启动 Flink Session Cluster</p>
+<pre><code>// 启动 jobmanager-service 服务
+kubectl create -f jobmanager-service.yaml
+// 启动 jobmanager-deployment 服务
+kubectl create -f jobmanager-deployment.yaml
+// 启动 taskmanager-deployment 服务
+kubectl create -f taskmanager-deployment.yaml
+</code></pre>
+<p>4）访问 Flink UI 页面 </p>
+<p>集群启动后，就可以通过 JobManagerServicers 中配置的 WebUI 端口，用浏览器 输入以下 url 来访问 Flink UI 页面了： http:&#x2F;&#x2F;{JobManagerHost:Port}&#x2F;api&#x2F;v1&#x2F;namespaces&#x2F;default&#x2F;services&#x2F;flink-jobmanage r:ui&#x2F;proxy</p>
+<h3 id="Flink的HA"><a href="#Flink的HA" class="headerlink" title="Flink的HA"></a>Flink的HA</h3><p>Standalone 模式下，JobManager 的高可用性的基本思想是，任何时候都有<strong>一个 Alive JobManager</strong> 和<strong>多个 Standby JobManager</strong>。</p>
+<p>Standby JobManager 可以在 Alive JobManager 挂掉的情况下接管集群成为 Alive JobManager，这样避免了单点故障，一旦某一个 Standby JobManager 接管集群，程序就可以继续运行。Standby JobManagers 和 Alive JobManager 实例之间没有明确区别，每个 JobManager 都可以成为 Alive 或 Standby。</p>
+<h4 id="Flink-Standalone集群的HA"><a href="#Flink-Standalone集群的HA" class="headerlink" title="Flink Standalone集群的HA"></a>Flink Standalone集群的HA</h4><p>需要使用ZK和HDFS，因此要有一个ZooKeeper集群和Hadoop集群</p>
+<p>首先启动 Zookeeper 集群和 HDFS 集群。</p>
+<h5 id="1-修改配置文件-conf-x2F-masters"><a href="#1-修改配置文件-conf-x2F-masters" class="headerlink" title="1.修改配置文件 conf&#x2F;masters"></a>1.修改配置文件 conf&#x2F;masters</h5><p><img src="/flink/flink/image-20220517180439586.png" alt="image-20220517180439586"></p>
+<h5 id="2-修改配置文件-conf-x2F-flink-conf-yam"><a href="#2-修改配置文件-conf-x2F-flink-conf-yam" class="headerlink" title="2.修改配置文件 conf&#x2F;flink-conf.yam"></a>2.修改配置文件 conf&#x2F;flink-conf.yam</h5><pre><code class="shell">#要启用高可用，设置修改为zookeeper
+high-availability: zookeeper
+#Zookeeper的主机名和端口信息，多个参数之间用逗号隔开
+high-availability.zookeeper.quorum:
+hadoop103:2181,hadoop101:2181,hadoop102:2181
+# 建议指定HDFS的全路径。如果某个Flink节点没有配置HDFS的话，不指定HDFS的全路径则无法识別到，storageDir存储了恢复一个JobManager所需的所有元数据。
+high-availability.storageDir: hdfs://hadoop101:9000/flink/h
+</code></pre>
+<h5 id="3-把修改的配置文件拷贝其他服务器中"><a href="#3-把修改的配置文件拷贝其他服务器中" class="headerlink" title="3.把修改的配置文件拷贝其他服务器中"></a>3.把修改的配置文件拷贝其他服务器中</h5><pre><code class="shell">[root@hadoop101 conf]# scp masters flink-conf.yaml root@hadoop102:`pwd` 
+[root@hadoop101 conf]# scp masters flink-conf.yaml root@hadoop103:`pwd`
+</code></pre>
+<h5 id="4-启动集群"><a href="#4-启动集群" class="headerlink" title="4.启动集群"></a>4.启动集群</h5><p><img src="/flink/flink/image-20220517180639754.png" alt="image-20220517180639754"></p>
+<h4 id="Flink-On-Yarn-HA安装和配置"><a href="#Flink-On-Yarn-HA安装和配置" class="headerlink" title="Flink On Yarn HA安装和配置"></a>Flink On Yarn HA安装和配置</h4><p>正常基于 Yarn 提交 Flink 程序，无论是使用 yarn-session 模式还是 yarn-cluster 模 式 ， 基 于 yarn 运 行 后 的 application 只 要 kill 掉 对 应 的 Flink 集 群 进 程 “YarnSessionClusterEntrypoint”后，基于 Yarn 的 Flink 任务就失败了，不会自动进行 重试，所以基于 Yarn 运行 Flink 任务，也有必要搭建 HA，这里同样还是需要借助 zookeeper 来完成，步骤如下：</p>
+<h5 id="1-修改所有-Hadoop-节点的-yarn-site-xml"><a href="#1-修改所有-Hadoop-节点的-yarn-site-xml" class="headerlink" title="1.修改所有 Hadoop 节点的 yarn-site.xml"></a>1.修改所有 Hadoop 节点的 yarn-site.xml</h5><p>将所有 Hadoop 节点的 yarn-site.xml 中的提交应用程序最大尝试次数调大</p>
+<pre><code class="properties">#在每台hadoop节点yarn-site.xml中设置提交应用程序的最大尝试次数，建议不低于4，这里重试指的是ApplicationMaster
+&lt;property&gt;
+&lt;name&gt;yarn.resourcemanager.am.max-attempts&lt;/name&gt;
+&lt;value&gt;4&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<h5 id="2-启动-Hadoop-集群"><a href="#2-启动-Hadoop-集群" class="headerlink" title="2.启动 Hadoop 集群"></a>2.启动 Hadoop 集群</h5><p>启动 zookeeper，启动 Hadoop 集群。</p>
+<h5 id="3-修改-Flink-对应-flink-conf-yaml-配置"><a href="#3-修改-Flink-对应-flink-conf-yaml-配置" class="headerlink" title="3.修改 Flink 对应 flink-conf.yaml 配置"></a>3.修改 Flink 对应 flink-conf.yaml 配置</h5><p>配置对应的 conf 下的 flink-conf.yaml，配置内容如下：</p>
+<pre><code class="properties">#配置依赖zookeeper模式进行HA搭建
+high-availability: zookeeper
+#配置JobManager原数据存储路径
+high-availability.storageDir: hdfs://hadoop101:9000/flink/yarnha/
+#配置zookeeper集群节点
+high-availability.zookeeper.quorum:
+hadoop101:2181,hadoop102:2181,hadoop103:2181
+#yarn停止一个application重试的次数
+yarn.application-attempts: 10
+</code></pre>
+<h5 id="4-启动-yarn-session-sh-测试-HA：-yarn-session-sh-n-2-，也可以直接提交-Job-启动之后，可以登录-yarn-中对应的-flink-webui："><a href="#4-启动-yarn-session-sh-测试-HA：-yarn-session-sh-n-2-，也可以直接提交-Job-启动之后，可以登录-yarn-中对应的-flink-webui：" class="headerlink" title="4.启动 yarn-session.sh 测试 HA： yarn-session.sh -n 2 ，也可以直接提交 Job 启动之后，可以登录 yarn 中对应的 flink webui："></a>4.启动 yarn-session.sh 测试 HA： yarn-session.sh -n 2 ，也可以直接提交 Job 启动之后，可以登录 yarn 中对应的 flink webui：</h5><p><img src="/flink/flink/image-20220517181237044.png" alt="image-20220517181237044"></p>
+<p><img src="/flink/flink/image-20220517181531687.png" alt="image-20220517181531687"></p>
+<p>点击job ID，发现对应的重试信息：</p>
+<p><img src="/flink/flink/image-20220517181619547.png" alt="image-20220517181619547"></p>
+<p><img src="/flink/flink/image-20220517181637672.png" alt="image-20220517181637672"></p>
+<h3 id="Flink并行度和Slot"><a href="#Flink并行度和Slot" class="headerlink" title="Flink并行度和Slot"></a>Flink并行度和Slot</h3><p>Flink中每一个worker(TaskManager)都是一个JVM进程，它可能会在独立的线程（Solt） 上执行一个或多个 subtask。Flink 的每个 TaskManager 为集群提供 Solt。Solt 的数量通常 与每个 TaskManager 节点的可用 CPU 内核数成比例，<strong>一般情况下 Slot 的数量就是每个节点 的 CPU 的核数。</strong> </p>
+<p><strong>Slot 的 数 量 由 集 群 中 flink-conf.yaml 配 置 文 件 中 设 置 taskmanager.numberOfTaskSlots 的值为 3，这个值的大小建议和节点 CPU 的数量保持一致。</strong></p>
+<p><img src="/flink/flink/image-20200911164313854.png" alt="image-20200911164313854"></p>
+<h4 id="任务的并行度设置"><a href="#任务的并行度设置" class="headerlink" title="任务的并行度设置"></a>任务的并行度设置</h4><h4 id="1-并行度设置之-Operator-Level（算子层次）"><a href="#1-并行度设置之-Operator-Level（算子层次）" class="headerlink" title="1) 并行度设置之 Operator Level（算子层次）"></a>1) 并行度设置之 Operator Level（算子层次）</h4><p>Operator、Source 和 Sink 目的地的并行度可以通过调用 setParallelism()方法来指定</p>
+<p><img src="/flink/flink/image-20200911164546017-16348157954237.png" alt="image-20200911164546017"></p>
+<h4 id="2-行度设置之-Execution-Environment-Level（执行环境层次）"><a href="#2-行度设置之-Execution-Environment-Level（执行环境层次）" class="headerlink" title="2) 行度设置之 Execution Environment Level（执行环境层次）"></a>2) 行度设置之 Execution Environment Level（执行环境层次）</h4><p>任务的默认并行度可以通过调用 setParallelism()方法指定。为了以并行度 3 来执行 所有的 Operator、Source 和 Sink，可以通过如下方式设置执行环境的并行度</p>
+<p><img src="/flink/flink/image-20200911164657287-16348157954248.png" alt="image-20200911164657287"></p>
+<h4 id="3-并行度设置之-Client-Level-（客户端层次）"><a href="#3-并行度设置之-Client-Level-（客户端层次）" class="headerlink" title="3) 并行度设置之 Client Level （客户端层次）"></a>3) 并行度设置之 Client Level （客户端层次）</h4><p>并行度还可以在客户端提交 Job 到 Flink 时设定。对于 CLI 客户端，可以通过-p 参数指定并行度。</p>
+<p><img src="/flink/flink/image-20200911164731672-16348157954249.png" alt="image-20200911164731672"></p>
+<h4 id="4-并行度设置之-System-Level（系统层次）"><a href="#4-并行度设置之-System-Level（系统层次）" class="headerlink" title="4) 并行度设置之 System Level（系统层次）"></a>4) 并行度设置之 System Level（系统层次）</h4><p>在系统级可以通过设置flink-conf.yaml文件中的parallelism.default属性来指定所 有执行环境的默认并行度。</p>
+<p><img src="/flink/flink/image-20200911164906027-163481579542410.png" alt="image-20200911164906027"></p>
+<h4 id="5-并行度案例分析"><a href="#5-并行度案例分析" class="headerlink" title="5) 并行度案例分析"></a>5) 并行度案例分析</h4><p>Flink 集群中有 3 个 TaskManager 节点，每个 TaskManager 的 Slot 数量为 3</p>
+<p><img src="/flink/flink/image-20200911165041367-163481579542711.png" alt="image-20200911165041367"></p>
+<p><img src="/flink/flink/image-20200911165111817-163481579542712.png" alt="image-20200911165111817"></p>
+<p>并行度优先级顺序：<strong>Operator Level&gt;Execution Environment Level&gt;Client Level&gt;System Level。</strong></p>
+<h3 id="任务调度原理-细节"><a href="#任务调度原理-细节" class="headerlink" title="任务调度原理(细节)"></a>任务调度原理(细节)</h3><p><img src="/flink/flink/image-20200806152207513.png" alt="image-20200806152207513"></p>
+<p><img src="/flink/flink/image-20200911150036473.png" alt="image-20200911150036473"></p>
+<p>客户端不是运行时和程序执行的一部分，但它用于准备并发送 dataflow(JobGraph)给 Master(JobManager)，然后，客户端断开连接或者维持连接以等待接收计算结果。</p>
+<p>当 Flink 集 群 启 动 后 ， 首 先 会 启 动 一 个 JobManger 和一个或多个的TaskManager。</p>
+<p>由 Client 提交任务给 JobManager，JobManager 再调度任务到各个TaskManager 去执行，然后 TaskManager 将心跳和统计信息汇报给 JobManager。<br>TaskManager 之间以流的形式进行数据的传输。上述三者均为独立的 JVM 进程。</p>
+<p>Client 为提交 Job 的客户端，可以是运行在任何机器上（与 JobManager 环境 连通即可）。提交 Job 后，Client 可以结束进程（Streaming 的任务），也可以不 结束并等待结果返回。</p>
+<p>JobManager 主 要 负 责 调 度 Job 并 协 调 Task 做 checkpoint， 职 责 上 很 像 Storm 的 Nimbus。从 Client 处接收到 Job 和 JAR 包等资源后，会生成优化后的 执行计划，并以 Task 的单元调度到各个 TaskManager 去执行。</p>
+<p>TaskManager 在启动的时候就设置好了槽位数（Slot），每个 slot 能启动一个或多个 Task，Task 为线程。从 JobManager 处接收需要部署的 Task，部署启动后，与自 己的上游建立 Netty 连接，接收数据并处理。</p>
+<h2 id="Flink的常用API"><a href="#Flink的常用API" class="headerlink" title="Flink的常用API"></a>Flink的常用API</h2><p>Flink 根据抽象程度分层，提供了三种不同的 API 和库。每一种 API 在简洁性和表达 力上有着不同的侧重，并且针对不同的应用场景。</p>
+<p><img src="/flink/flink/image-20210929160643776.png" alt="Fink的API"></p>
+<p><strong>- ProcessFunction</strong> </p>
+<p>是 Flink 所提供最底层接口。ProcessFunction 可以处理一或两条 输入数据流中的单个事件或者归入一个特定窗口内的多个事件。它提供了对于时间和状 态的细粒度控制。开发者可以在其中任意地修改状态，也能够注册定时器用以在未来的 某一时刻触发回调函数。因此，你可以利用 ProcessFunction 实现许多有状态的事件 驱动应用所需要的基于单个事件的复杂业务逻辑。</p>
+<p> <strong>- DataStream API</strong> </p>
+<p>为许多通用的流处理操作提供了处理原语。这些操作包括窗口、逐条记录的转换操作，在处理事件时进行外部数据库查询等。DataStream API 支持 Java 和 Scala 语言，预先定义了例如 map()、reduce()、aggregate() 等函数。你可以通过扩 展实现预定义接口或使用 Java、Scala 的 lambda 表达式实现自定义的函数。 </p>
+<p><strong>-  SQL &amp; Table API</strong></p>
+<p>Flink 支持两种关系型的 API，Table API 和 SQL。这两个 API 都 是批处理和流处理统一的 API，这意味着在无边界的实时数据流和有边界的历史记录数据流上，关系型 API 会以相同的语义执行查询，并产生相同的结果。Table API 和 SQL 借助了 Apache Calcite 来进行查询的解析，校验以及优化。它们可以与 DataStream 和 DataSet API 无缝集成，并支持用户自定义的标量函数，聚合函数以及表值函数。</p>
+<p><strong>另外 Flink 具有数个适用于常见数据处理应用场景的扩展库。</strong> </p>
+<ul>
+<li>**复杂事件处理(CEP)**：模式检测是事件流处理中的一个非常常见的用例。Flink 的 CEP 库提供了 API，使用户能够以例如正则表达式或状态机的方式指定事件模式。CEP 库与 Flink 的 DataStream API 集成，以便在 DataStream 上评估模式。CEP 库的应用包括 网络入侵检测，业务流程监控和欺诈检测。 </li>
+<li><strong>DataSet API</strong>：DataSet API 是 Flink 用于批处理应用程序的核心 API。DataSet API 所 提供的基础算子包括 map、reduce、(outer) join、co-group、iterate 等。所有算子 都有相应的算法和数据结构支持，对内存中的序列化数据进行操作。如果数据大小超过 预留内存，则过量数据将存储到磁盘。Flink 的 DataSet API 的数据处理算法借鉴了 传统数据库算法的实现，例如混合散列连接（hybrid hash-join）和外部归并排序 （external merge-sort）。 </li>
+<li><strong>Gelly</strong>: Gelly 是一个可扩展的图形处理和分析库。Gelly 是在 DataSet API 之上实现 的，并与 DataSet API 集成。因此，它能够受益于其可扩展且健壮的操作符。Gelly 提 供了内置算法，如 label propagation、triangle enumeration 和 page rank 算法， 也提供了一个简化自定义图算法实现的 Graph API。</li>
+</ul>
+<h3 id="0-获取执行环境"><a href="#0-获取执行环境" class="headerlink" title="0.获取执行环境"></a>0.获取执行环境</h3><p>创建一个执行环境，表示当前执行程序的上下文。 如果程序是独立调用的，则 此方法返回本地执行环境；如果从命令行客户端调用程序以提交到集群，则此方法 返回此集群的执行环境，也就是说，getExecutionEnvironment 会根据查询运行的方式决定返回什么样的运行环境，是最常用的一种创建执行环境的方式。</p>
+<pre><code class="scala">val env = ExecutionEnvironment.getExecutionEnvironment
+env.setParallelism(num int)
+//这种创建方式会自动检测执行环境，如果是本地就返回local，如果是集群返回remote
+</code></pre>
+<p>下面两种是底层创建方式，了解就行。</p>
+<pre><code class="scala">val env = StreamExecutionEnvironment.createLocalEnvironment(1)
+//本地执行环境，可以直接指定并行度
+</code></pre>
+<pre><code class="scala">val env = ExecutionEnvironment.createRemoteEnvironment(&quot;jobmanage-hostname&quot;,6123,&quot;YOURPATH//wordcount.jar&quot;)
+//远程的执行环境，jobmanager地址，端口，jar包
+</code></pre>
+<h3 id="1-DataStream-的编程模型"><a href="#1-DataStream-的编程模型" class="headerlink" title="1.DataStream 的编程模型"></a>1.DataStream 的编程模型</h3><p>DataStream 的编程模型包括四个部分：Environment，DataSource，Transformation，Sink。（上下文环境，数据源，转换类算子，数据输出）</p>
+<p><img src="/flink/flink/image-20210929172737878.png" alt="image-20210929172737878"></p>
+<h3 id="2-Flink-的-DataSource-数据源"><a href="#2-Flink-的-DataSource-数据源" class="headerlink" title="2.Flink 的 DataSource 数据源"></a>2.Flink 的 DataSource 数据源</h3><h4 id="1）-基于文件的Source"><a href="#1）-基于文件的Source" class="headerlink" title="1） 基于文件的Source"></a>1） 基于文件的Source</h4><p>读取本地文件系统的数据，前面的案例已经讲过了。本课程主要讲基于 HDFS 文件系统的 Source。首先需要配置 Hadoop 的依赖</p>
+<pre><code class="xml">&lt;dependency&gt;
+&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+&lt;artifactId&gt;hadoop-common&lt;/artifactId&gt;
+&lt;version&gt;2.7.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+&lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;
+&lt;version&gt;2.7.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>读取 HDFS 上的文件：</p>
+<pre><code class="scala">object FileSource &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv = StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._ //读取数据
+val stream = streamEnv.readTextFile(&quot;hdfs://hadoop101:9000/wc.txt&quot;)
+//转换计算
+val result: DataStream[(String, Int)] = stream.flatMap(_.split(&quot;,&quot;))
+.map((_, 1))
+.keyBy(0)
+.sum(1)
+//打印结果到控制台
+result.print()
+//启动流式处理，如果没有该行代码上面的程序不会运行
+streamEnv.execute(&quot;wordcount&quot;)
+&#125;
+&#125;
+</code></pre>
+<h4 id="2）基于集合的Source"><a href="#2）基于集合的Source" class="headerlink" title="2）基于集合的Source"></a>2）基于集合的Source</h4><pre><code class="scala">/**
+* 通信基站日志数据
+*
+* @param sid 基站ID
+* @param callOut 主叫号码
+* @param callIn 被叫号码
+* @param callType 通话类型eg:呼叫失败(fail)，占线(busy),拒接（barring），接通
+(success): * @param callTime 呼叫时间戳，精确到毫秒
+* @Param duration 通话时长 单位：秒
+*/
+
+case class
+StationLog(sid:String,callOut:String,callIn:String,callType:String,callTime:Long,duration:Long)
+object CollectionSource &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv = StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+//读取数据
+var dataStream =streamEnv.fromCollection(Array(
+    new StationLog(&quot;001&quot;,&quot;186&quot;,&quot;189&quot;,&quot;busy&quot;,1577071519462L,0), 
+    new StationLog(&quot;002&quot;,&quot;186&quot;,&quot;188&quot;,&quot;busy&quot;,1577071520462L,0), 
+    new StationLog(&quot;003&quot;,&quot;183&quot;,&quot;188&quot;,&quot;busy&quot;,1577071521462L,0), 
+    new StationLog(&quot;004&quot;,&quot;186&quot;,&quot;188&quot;,&quot;success&quot;,1577071522462L,32)
+))
+dataStream.print()
+streamEnv.execute()
+&#125;
+</code></pre>
+<h4 id="3）-基于Kafka的Source"><a href="#3）-基于Kafka的Source" class="headerlink" title="3） 基于Kafka的Source"></a>3） 基于Kafka的Source</h4><p>首 先 需 要 配 置 Kafka 连 接 器 的 依 赖 ， 另 外 更 多 的 连 接 器 可 以 查 看 官 网 ： <a target="_blank" rel="noopener" href="https://ci.apache.org/projects/flink/flink-docs-release-1.9/zh/dev/connectors/">https://ci.apache.org/projects/flink/flink-docs-release-1.9/zh/dev/connectors/</a></p>
+<pre><code class="xml">&lt;dependency&gt;
+&lt;groupId&gt;org.apache.flink&lt;/groupId&gt;
+&lt;artifactId&gt;flink-connector-kafka_2.11&lt;/artifactId&gt;
+&lt;version&gt;1.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h6 id="第一种：读取-Kafka-中的普通数据（String）"><a href="#第一种：读取-Kafka-中的普通数据（String）" class="headerlink" title="第一种：读取 Kafka 中的普通数据（String）"></a>第一种：读取 Kafka 中的普通数据（String）</h6><pre><code class="scala">object KafkaSourceByString &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv = StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._ val props = new Properties()
+props.setProperty(&quot;bootstrap.servers&quot;,&quot;hadoop101:9092,hadoop102:9092,hadoop103:9092&quot;)
+props.setProperty(&quot;group.id&quot;,&quot;fink01&quot;)
+props.setProperty(&quot;key.deserializer&quot;,classOf[StringDeserializer].getName)
+props.setProperty(&quot;value.deserializer&quot;,classOf[StringDeserializer].getName)
+props.setProperty(&quot;auto.offset.reset&quot;,&quot;latest&quot;)
+//设置kafka为数据源
+val stream = streamEnv.addSource(new FlinkKafkaConsumer[String](&quot;t_topic&quot;,new SimpleStringSchema(),props))
+stream.print()
+streamEnv.execute()
+&#125;
+&#125;
+</code></pre>
+<h6 id="第二种：读取Kafka中KeyValue数据"><a href="#第二种：读取Kafka中KeyValue数据" class="headerlink" title="第二种：读取Kafka中KeyValue数据"></a>第二种：读取Kafka中KeyValue数据</h6><pre><code class="scala">object KafkaSourceByKeyValue &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv = StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._ val props = new Properties()
+props.setProperty(&quot;bootstrap.servers&quot;,&quot;hadoop101:9092,hadoop102:9092,hadoop103:9092&quot;)
+props.setProperty(&quot;group.id&quot;,&quot;fink02&quot;)
+props.setProperty(&quot;key.deserializer&quot;,classOf[StringDeserializer].getName)
+props.setProperty(&quot;value.deserializer&quot;,classOf[StringDeserializer].getName)
+props.setProperty(&quot;auto.offset.reset&quot;,&quot;latest&quot;)
+//设置kafka为数据源
+val stream = streamEnv.addSource(new FlinkKafkaConsumer[(String,String)](&quot;t_topic&quot;, new KafkaDeserializationSchema[(String,String)]&#123;
+//流是否结束
+override def isEndOfStream(t: (String, String)) = false
+override def deserialize(consumerRecord: ConsumerRecord[Array[Byte], Array[Byte]]) = &#123;
+if(consumerRecord!=null)&#123;
+var key=&quot;null&quot; var value=&quot;null&quot;
+if(consumerRecord.key()!=null)
+key = new String(consumerRecord.key(),&quot;UTF-8&quot;)
+if(consumerRecord.value()!=null)
+value = new String(consumerRecord.value(),&quot;UTF-8&quot;)
+(key,value)
+&#125;else&#123; //如果kafka中的数据为空返回一个固定的二元组
+(&quot;null&quot;,&quot;null&quot;)
+&#125;
+&#125;
+//设置返回类型为二元组
+override def getProducedType = createTuple2TypeInformation(createTypeInformation[String],createTypeInformation[String])
+&#125;
+,props).setStartFromEarliest())
+stream.print()
+streamEnv.execute()
+&#125;
+&#125;
+</code></pre>
+<h4 id="4）自定义Source"><a href="#4）自定义Source" class="headerlink" title="4）自定义Source"></a>4）自定义Source</h4><p>当然也可以自定义数据源，有两种方式实现： </p>
+<ol>
+<li>通过实现 SourceFunction 接口来自定义无并行度（也就是并行度只能为 1）的 Source。 </li>
+<li>通过实现 ParallelSourceFunction 接口或者继承 RichParallelSourceFunction 来自定义有并行度的数据源。</li>
+</ol>
+<p><strong>SourceFunction接口实现：</strong></p>
+<pre><code class="scala">class MyCustomerSource extends SourceFunction[StationLog]&#123;
+//是否终止数据流的标记
+var flag =true;
+/**
+* 主要的方法
+* 启动一个Source
+* 大部分情况下，都需要在这个run方法中实现一个循环，这样就可以循环产生数据了
+* @param sourceContext * @throws Exception
+*/
+override def run(sourceContext: SourceFunction.SourceContext[StationLog]):
+Unit = &#123;
+val random = new Random()
+var types =Array(&quot;fail&quot;,&quot;busy&quot;,&quot;barring&quot;,&quot;success&quot;)
+while(flag) &#123; //如果流没有终止，继续获取数据
+1.to(5).map(i=&gt;&#123;
+var callOut=&quot;1860000%04d&quot;.format(random.nextInt(10000))
+var callIn=&quot;1890000%04d&quot;.format(random.nextInt(10000))
+new
+StationLog(&quot;station_&quot;+random.nextInt(10),callOut,callIn,types(random.nextInt(4
+)),System.currentTimeMillis(),0)
+&#125;).foreach(sourceContext.collect(_)) //发数据
+Thread.sleep(2000) //每发送一次数据休眠2秒
+&#125;
+&#125;
+//终止数据流
+override def cancel(): Unit = flag=false
+&#125;
+object CustomerSource &#123;
+def main(args: Array[String]): Unit = &#123;
+val env: StreamExecutionEnvironment =
+StreamExecutionEnvironment.getExecutionEnvironment
+env.setParallelism(1)
+import org.apache.flink.streaming.api.scala._ val stream: DataStream[StationLog] = env.addSource(new
+MyCustomerSource)
+stream.print()
+env.execute()
+&#125;
+&#125;
+</code></pre>
+<h3 id="3-Flink-的-Sink-数据目标"><a href="#3-Flink-的-Sink-数据目标" class="headerlink" title="3.Flink 的 Sink 数据目标"></a>3.Flink 的 Sink 数据目标</h3><p>Flink 针对 DataStream 提供了大量的已经实现的数据目标（Sink），包括文件、Kafka、 Redis、HDFS、Elasticsearch 等等。</p>
+<h4 id="1-基于-HDFS-的-Sink"><a href="#1-基于-HDFS-的-Sink" class="headerlink" title="1)基于 HDFS 的 Sink"></a>1)基于 HDFS 的 Sink</h4><p>首先配置支持 Hadoop FileSystem 的连接器依赖。</p>
+<pre><code class="xml">&lt;dependency&gt;
+&lt;groupId&gt;org.apache.flink&lt;/groupId&gt;
+&lt;artifactId&gt;flink-connector-filesystem_2.11&lt;/artifactId&gt;
+&lt;version&gt;1.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>Streaming File Sink 能把数据写入 HDFS 中，还可以支持分桶写入，每一个分桶就对 应 HDFS 中的一个目录。默认按照小时来分桶，在一个桶内部，会进一步将输出基于滚动策 略切分成更小的文件。这有助于防止桶文件变得过大。滚动策略也是可以配置的，默认 策 略会根据文件大小和超时时间来滚动文件，超时时间是指没有新数据写入部分文件（part file）的时间。</p>
+<pre><code class="scala">object HDFSFileSink &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv = StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._ 
+val data: DataStream[StationLog] = streamEnv.addSource(new MyCustomerSource)
+//创建一个文件滚动规则
+val rolling: DefaultRollingPolicy[StationLog, String] = DefaultRollingPolicy.create()
+.withInactivityInterval(2000) //不活动的间隔时间。
+.withRolloverInterval(2000) //每隔两秒生成一个文件 ，重要
+.build()
+//创建一个HDFS Sink
+var hdfsSink =StreamingFileSink.forRowFormat[StationLog](new Path(&quot;hdfs://hadoop101:9000/sink001/&quot;), new SimpleStringEncoder[StationLog](&quot;UTF-8&quot;))
+.withBucketCheckInterval(1000) //检查分桶的间隔时间
+.withRollingPolicy(rolling)
+.build()
+data.addSink(hdfsSink)
+streamEnv.execute()
+&#125;
+&#125;
+</code></pre>
+<h4 id="2-基于Redis的Sink"><a href="#2-基于Redis的Sink" class="headerlink" title="2)基于Redis的Sink"></a>2)基于Redis的Sink</h4><pre><code class="xml">&lt;dependency&gt;
+&lt;groupId&gt;org.apache.bahir&lt;/groupId&gt;
+&lt;artifactId&gt;flink-connector-redis_2.11&lt;/artifactId&gt;
+&lt;version&gt;1.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>把 WordCount 的结果写入 Redis 中：</p>
+<pre><code class="scala">object RedisSink &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv= StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+//读取数据
+val stream = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+//转换计算
+val result = stream.flatMap(_.split(&quot;,&quot;))
+.map((_, 1))
+.keyBy(0)
+.sum(1)
+//连接redis的配置
+val config = new FlinkJedisPoolConfig.Builder().setDatabase(1).setHost(&quot;hadoop101&quot;).setPort(6379).build()
+//写入redis
+result.addSink(new RedisSink[(String, Int)](config,new RedisMapper[(String, Int)] &#123;
+override def getCommandDescription = new RedisCommandDescription(RedisCommand.HSET,&quot;t_wc&quot;)
+override def getKeyFromData(data: (String, Int)) = &#123;
+data._1 //单词
+&#125;
+override def getValueFromData(data: (String, Int)) = &#123;
+data._2+&quot;&quot; //单词出现的次数
+&#125;
+&#125;))
+streamEnv.execute()
+&#125;
+&#125;
+</code></pre>
+<h4 id="3-基于-Kafka-的-Sink"><a href="#3-基于-Kafka-的-Sink" class="headerlink" title="3)基于 Kafka 的 Sink"></a>3)基于 Kafka 的 Sink</h4><pre><code class="xml">&lt;dependency&gt;
+&lt;groupId&gt;org.apache.flink&lt;/groupId&gt;
+&lt;artifactId&gt;flink-connector-kafka_2.11&lt;/artifactId&gt;
+&lt;version&gt;1.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<pre><code class="scala">object KafkaSink &#123;
+def main(args: Array[String]): Unit = &#123;
+val streamEnv: StreamExecutionEnvironment =
+StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1) //默认情况下每个任务的并行度为1
+import org.apache.flink.streaming.api.scala._
+//读取netcat流中数据 （实时流）
+val stream1: DataStream[String] = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+//转换计算
+val result = stream1.flatMap(_.split(&quot;,&quot;))
+.map((_, 1))
+.keyBy(0)
+.sum(1)
+//Kafka生产者的配置
+val props = new Properties()
+props.setProperty(&quot;bootstrap.servers&quot;,&quot;hadoop101:9092,hadoop102:9092,hadoop103:9092&quot;)
+props.setProperty(&quot;key.serializer&quot;,classOf[StringSerializer].getName)
+props.setProperty(&quot;value.serializer&quot;,classOf[StringSerializer].getName)
+//数据写入Kafka，并且是KeyValue格式的数据
+result.addSink(new FlinkKafkaProducer[(String, Int)](&quot;t_topic&quot;,new KafkaSerializationSchema[(String,Int)]&#123;
+override def serialize(element: (String, Int), timestamp: lang.Long) = &#123;
+new ProducerRecord(&quot;t_topic&quot;,element._1.getBytes,(element._2+&quot;&quot;).getBytes())
+&#125;
+&#125;,props,FlinkKafkaProducer.Semantic.EXACTLY_ONCE)) 
+//EXACTLY_ONCE 精确一次
+streamEnv.execute()
+&#125;
+&#125;
+</code></pre>
+<h4 id="4-自定义Sink"><a href="#4-自定义Sink" class="headerlink" title="4)自定义Sink"></a>4)自定义Sink</h4><p>当然你可以自己定义 Sink，有两种实现方式：1、实现 SinkFunction 接口。2、实现 RichSinkFunction 类。后者增加了生命周期的管理功能。</p>
+<p>比如需要在 Sink 初始化的时候创建连接对象，则最好使用第二种。</p>
+<p>案例需求：把 StationLog 对象写入 Mysql 数据库中。</p>
+<pre><code class="xml">&lt;dependency&gt;
+&lt;groupId&gt;mysql&lt;/groupId&gt;
+&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+&lt;version&gt;5.1.44&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<pre><code class="scala">//从自定义的Source中读取StationLog数据，通过Flink写入Mysql数据库
+object CustomJdbcSink &#123;
+//自定义一个Sink写入Mysql
+class MyCustomSink extends RichSinkFunction[StationLog]&#123;
+var conn:Connection =_ 
+var pst :PreparedStatement =_
+//生命周期管理，在Sink初始化的时候调用
+override def open(parameters: Configuration): Unit = &#123;
+conn=DriverManager.getConnection(&quot;jdbc:mysql://localhost/test&quot;,&quot;root&quot;,&quot;123123&quot;)
+pst=conn.prepareStatement(&quot;insert into t_station_log (sid,call_out,call_in,call_type,call_time,duration) values (?,?,?,?,?,?)&quot;)
+&#125;
+//把StationLog 写入到表t_station_log
+override def invoke(value: StationLog, context: SinkFunction.Context[_]): Unit = 
+    
+    
+    
+
+pst.setString(1,value.sid)
+pst.setString(2,value.callOut)
+pst.setString(3,value.callIn)
+pst.setString(4,value.callType)
+pst.setLong(5,value.callTime)
+pst.setLong(6,value.duration)
+pst.executeUpdate()
+&#125;
+override def close(): Unit = &#123;
+pst.close()
+conn.close()
+&#125;
+&#125;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv = StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._ val data: DataStream[StationLog] = streamEnv.addSource(new MyCustomerSource)
+//数据写入msyql
+data.addSink(new MyCustomSink)
+streamEnv.execute()
+&#125;
+&#125;
+</code></pre>
+<h3 id="4-DataStream转换算子"><a href="#4-DataStream转换算子" class="headerlink" title="4.DataStream转换算子"></a>4.DataStream转换算子</h3><p>从一个或多个DataStream生成新的DataStream的过程称为Transformation操作。在转换过程中，每种操作类型被定义为不同的Operator，Flink将多个Transformation组成一个DataFlow（数据流）的拓扑。</p>
+<h4 id="1）Map（DataStream-gt-DataStream）"><a href="#1）Map（DataStream-gt-DataStream）" class="headerlink" title="1）Map（DataStream-&gt;DataStream）"></a>1）Map（DataStream-&gt;DataStream）</h4><p>调用用户定义的MapFunction对DataStream[T]数据进行处理，形成新的Data-Stream[T]，常用于对数据集内数据的清洗和转换。</p>
+<h4 id="2）FlatMap（DataStream-gt-DataStream）"><a href="#2）FlatMap（DataStream-gt-DataStream）" class="headerlink" title="2）FlatMap（DataStream-&gt;DataStream）"></a>2）FlatMap（DataStream-&gt;DataStream）</h4><p>该算子主要应用处理输入一个元素产生一个或者多个元素的计算场景，比较常见的是在 经典例子 WordCount 中，将每一行的文本数据切割，生成单词序列如在图所示，对于输入 DataStream[String]通过 FlatMap 函数进行处理，字符串数字按逗号切割，然后形成新的整 数数据集。</p>
+<h4 id="3）Filter-DataStream-gt-DataStream"><a href="#3）Filter-DataStream-gt-DataStream" class="headerlink" title="3）Filter[DataStream-&gt;DataStream]"></a>3）Filter[DataStream-&gt;DataStream]</h4><p>该算子将按照条件对输入数据集进行筛选操作，将符合条件的数据集输出，将不符合条 件的数据过滤掉。</p>
+<h4 id="4）KeyBy-DataStream-gt-KeyedStream"><a href="#4）KeyBy-DataStream-gt-KeyedStream" class="headerlink" title="4）KeyBy[DataStream-&gt;KeyedStream]"></a>4）KeyBy[DataStream-&gt;KeyedStream]</h4><p>该算子根据指定的 Key 将输入的 DataStream[T]数据格式转换为 KeyedStream[T]，也就 是在数据集中执行 Partition 操作，将相同的 Key 值的数据放置在相同的分区中。</p>
+<p>如下图所 示，将白色方块和灰色方块通过颜色的 Key 值重新分区，将数据集分为具有灰色方块的数据 集合。</p>
+<p><img src="/flink/flink/image-20220517214547098.png" alt="image-20220517214547098"></p>
+<pre><code class="scala">val dataStream = env.fromElements((1, 5),(2, 2),(2, 4),(1, 3))
+//指定第一个字段为分区Key
+val keyedStream: KeyedStream[(String,Int), Tuple] = dataStream.keyBy(0)
+</code></pre>
+<h4 id="5）Reduce-KeyedStream-gt-DataStream"><a href="#5）Reduce-KeyedStream-gt-DataStream" class="headerlink" title="5）Reduce[KeyedStream-&gt;DataStream]"></a>5）Reduce[KeyedStream-&gt;DataStream]</h4><p>将keyed数据进行聚合处理 </p>
+<p>将输入的 KeyedStream 通过 传 入 的 用 户 自 定 义 的 ReduceFunction 滚 动 地 进 行 数 据 聚 合 处 理 ， 其 中 定 义 的 ReduceFunciton 必须满足运算结合律和交换律。</p>
+<p>如下代码对传入 keyedStream 数据集中相 同的 key 值的数据独立进行求和运算，得到每个 key 所对应的求和值：</p>
+<pre><code class="scala">val dataStream = env.fromElements((&quot;a&quot;, 3), (&quot;d&quot;, 4), (&quot;c&quot;, 2), (&quot;c&quot;,5), (&quot;a&quot;, 5))
+//指定第一个字段为分区Key
+val keyedStream: KeyedStream[(String,Int), Tuple] = dataStream.keyBy(0)
+/滚动对第二个字段进行reduce相加求和
+val reduceStream = keyedStream.reduce &#123; (t1, t2) =&gt;
+(t1._1, t1._2 + t2._2)
+&#125;
+</code></pre>
+<h4 id="6）Aggregations-KeyedStream-gt-DataStream"><a href="#6）Aggregations-KeyedStream-gt-DataStream" class="headerlink" title="6）Aggregations[KeyedStream-&gt;DataStream]"></a>6）Aggregations[KeyedStream-&gt;DataStream]</h4><p>Aggregations 是 KeyedDataStream 接口提供的聚合算子，根据指定的字段进行聚合操 作，滚动地产生一系列数据聚合结果。</p>
+<p>Aggregations其实是将 Reduce 算子中的函数进行了封装，封装的聚合操作有<strong>sum、min、minBy、max、maxBy</strong>等，这样归不需要用户自己定义Reduce函数</p>
+<p>如下代码所示，指定数据集中第一个字段作为 key，用第二个字段作为累加字段，然后滚动 地对第二个字段的数值进行累加并输出:</p>
+<pre><code class="scala">/指定第一个字段为分区Key
+val keyedStream: KeyedStream[(Int, Int), Tuple] = dataStream.keyBy(0)
+//对第二个字段进行sum统计
+val sumStream: DataStream[(Int, Int)] = keyedStream.sum(1)
+//输出计算结果
+sumStream.print()
+</code></pre>
+<h4 id="7）Union-DataStream-gt-DataStream"><a href="#7）Union-DataStream-gt-DataStream" class="headerlink" title="7）Union[DataStream-&gt;DataStream]"></a>7）Union[DataStream-&gt;DataStream]</h4><p>Union 算子主要是将两个或者多个输入的数据集合并成一个数据集，需要保证两个数据 集的格式一致，输出的数据集的格式和输入的数据集格式保持一致，</p>
+<p>如图所示，将灰色方块 数据集和黑色方块数据集合并成一个大的数据集：</p>
+<pre><code class="scala">//创建不同的数据集
+val dataStream1: DataStream[(String, Int)] = env.fromElements((&quot;a&quot;, 3), (&quot;d&quot;, 4), (&quot;c&quot;, 2), (&quot;c&quot;, 5), (&quot;a&quot;, 5))
+val dataStream2: DataStream[(String, Int)] = env.fromElements((&quot;d&quot;, 1), (&quot;s&quot;, 2), (&quot;a&quot;, 4), (&quot;e&quot;, 5), (&quot;a&quot;, 6))
+val dataStream3: DataStream[(String, Int)] = env.fromElements((&quot;a&quot;, 2), (&quot;d&quot;, 1), (&quot;s&quot;, 2), (&quot;c&quot;, 3), (&quot;b&quot;, 1))
+//合并两个DataStream数据集
+val unionStream = dataStream1.union(dataStream_02)
+//合并多个DataStream数据集
+val allUnionStream = dataStream1.union(dataStream2, dataStream3)
+</code></pre>
+<h4 id="8）Connect，CoMap，CoFlatMap-DataStream-gt-ConnectedStream-gt-DataStream"><a href="#8）Connect，CoMap，CoFlatMap-DataStream-gt-ConnectedStream-gt-DataStream" class="headerlink" title="8）Connect，CoMap，CoFlatMap[DataStream -&gt; ConnectedStream-&gt;DataStream]"></a>8）Connect，CoMap，CoFlatMap[DataStream -&gt; ConnectedStream-&gt;DataStream]</h4><p>Connect 算子主要是为了合并两种或者多种不同数据类型的数据集，合并后会保留原来的数据集的数据类型。</p>
+<p>例如：dataStream1 数据集为**(String, Int)元祖<strong>类型，dataStream2 数据集为 <strong>Int 类型</strong>，通过 connect 连接算子将两个不同数据类型的流结合在一起，形成格式 为 <strong>ConnectedStreams</strong> 的数据集，其内部数据为</strong>[(String, Int), Int]**的混合数据类型，保留了两个原始数据集的数据类型。</p>
+<p><strong>Union和Connect的区别</strong></p>
+<p>Union两个流的类型必须是一样的，Connec可以不一样类型的，之后coMap在去调整成一样的</p>
+<p>Connect只能操作两个流，Union可以合并多个。</p>
+<h4 id="9）Split-和-Select-DataStream-gt-SplitStream-gt-DataStream"><a href="#9）Split-和-Select-DataStream-gt-SplitStream-gt-DataStream" class="headerlink" title="9）Split 和 Select [DataStream-&gt;SplitStream-&gt;DataStream]"></a>9）Split 和 Select [DataStream-&gt;SplitStream-&gt;DataStream]</h4><p>Split算子将一个DataStream数据集按照条件进行拆分，形成两个数据集的过程，也是union算子的逆向实现。每个接入的数据都会被路由到一个或者多个输出数据集中。</p>
+<p>使用splist函数中，需要定义split函数中的切分逻辑，通过调用split函数，然后指定条件判断函数。</p>
+<p>如下面的代码所示：将根据第二个字段的奇偶性将数据集标记出来，如 果是偶数则标记为 even，如果是奇数则标记为 odd，然后通过集合将标记返回，最终生成格 式 SplitStream 的数据集：</p>
+<pre><code class="scala">//创建数据集
+val dataStream1: DataStream[(String, Int)] = env.fromElements((&quot;a&quot;, 3), (&quot;d&quot;, 4), (&quot;c&quot;, 2), (&quot;c&quot;, 5), (&quot;a&quot;, 5))
+//合并两个DataStream数据集
+val splitedStream: SplitStream[(String, Int)] = dataStream1.split(t =&gt; if (t._2 % 2 == 0) Seq(&quot;even&quot;) else Seq(&quot;odd&quot;))
+</code></pre>
+<p>split 函数本身只是对输入数据集进行标记，并没有将数据集真正的实现切分，因此需 要借助 Select 函数根据标记将数据切分成不同的数据集。</p>
+<p>如下代码所示，通过调用 SplitStream 数据集的 select()方法，传入前面已经标记好的标签信息，然后将符合条件的 数据筛选出来，形成新的数据集：</p>
+<pre><code class="scala">//筛选出偶数数据集
+val evenStream: DataStream[(String, Int)] = splitedStream.select(&quot;even&quot;)
+//筛选出奇数数据集
+val oddStream: DataStream[(String, Int)] = splitedStream.select(&quot;odd&quot;)
+//筛选出奇数和偶数数据集
+val allStream: DataStream[(String, Int)] = splitedStream.select(&quot;even&quot;, &quot;odd&quot;)
+</code></pre>
+<h3 id="5-函数类和富函数类"><a href="#5-函数类和富函数类" class="headerlink" title="5.函数类和富函数类"></a>5.函数类和富函数类</h3><p><strong>所有算子几乎都可以自定义一个函数类、富函数类作为参数。</strong></p>
+<p>因为 Flink 暴露了者两种函数类的接口，常见的函数接口有：</p>
+<ul>
+<li>MapFunction </li>
+<li>FlatMapFunction </li>
+<li>ReduceFunction</li>
+<li>。。。</li>
+</ul>
+<p><strong>富函数接口它其他常规函数接口的不同在于：可以获取运行环境的上下文，在上下文环境中可以管理状态（状态下面会讲到），并拥有一些生命周期方法，所以可以实现更复杂的功能</strong>。</p>
+<p>富函数的接口有：</p>
+<ul>
+<li>RichMapFunction </li>
+<li>RichFlatMapFunction </li>
+<li>RichFilterFunction</li>
+<li>。。。</li>
+</ul>
+<h4 id="1）普通函数类举例："><a href="#1）普通函数类举例：" class="headerlink" title="1）普通函数类举例："></a>1）普通函数类举例：</h4><p>按照指定的时间格式输出每个通话的拨号时间和结束时间。数据如下：</p>
+<p><img src="/flink/flink/image-20211021194122433.png" alt="image-20211021194122433"></p>
+<pre><code class="scala">import org.apache.flink.api.common.functions.MapFunction
+import org.apache.flink.streaming.api.scala.&#123;DataStream, StreamExecutionEnvironment&#125;
+
+import java.text.SimpleDateFormat
+import java.util.Date
+
+//按照指定的时间格式输出每个通话的拨号时间和结束时间
+object FunctionClassTransformation &#123;
+  def main(args: Array[String]): Unit = &#123;
+    //初始化Flink的Streaming（流计算）上下文执行环境
+    val streamEnv: StreamExecutionEnvironment =
+      StreamExecutionEnvironment.getExecutionEnvironment
+    streamEnv.setParallelism(1)
+    //导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+    import org.apache.flink.streaming.api.scala._
+    //读取文件数据
+    val data = streamEnv.readTextFile(&quot;station.log&quot;)
+      .map(line=&gt;&#123;
+
+        var arr =line.split(&quot;,&quot;)
+        new StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+      &#125;)
+    //定义时间输出格式
+    val format: SimpleDateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;)
+    //过滤那些通话成功的
+    data.filter(_.callType.equals(&quot;success&quot;))
+      .map(new CallMapFunction(format))
+      .print()
+    streamEnv.execute()
+  &#125;
+  //自定义的函数类
+  class CallMapFunction(format: SimpleDateFormat) extends
+    MapFunction[StationLog,String]&#123;
+    override def map(t: StationLog): String = &#123;
+      var strartTime=t.callTime;
+      var endTime =t.callTime + t.duration*1000
+      &quot;主叫号码:&quot;+t.callOut +&quot;,被叫号码:&quot;+t.callIn+&quot;,呼叫起始时间:&quot;+format.format(new Date(strartTime))+&quot;,呼叫结束时间:&quot;+format.format(new
+      Date(endTime))
+    &#125;
+  &#125;
+
+  /* 通信基站日志数据
+  * @param sid 基站ID
+  * @param callOut 主叫号码
+  * @param callIn 被叫号码
+  * @param callType 通话类型eg:呼叫失败(fail)，占线(busy),拒接（barring），接通
+  (success): * @param callTime 呼叫时间戳，精确到毫秒
+  * @Param duration 通话时长 单位：秒
+  */
+  case class
+  StationLog(sid:String,callOut:String,callIn:String,callType:String,callTime:Long,duration:Long)
+&#125;
+</code></pre>
+<p><img src="/flink/flink/image-20211021214725044.png" alt="image-20211021214725044"></p>
+<p>Rich Function 有一个生命周期的概念。典型的生命周期方法有：</p>
+<ul>
+<li>open()方法是 rich function 的初始化方法，当一个算子例如 map 或者 filter 被调用 之前 open()会被调用。 </li>
+<li>close()方法是生命周期中的最后一个调用的方法，做一些清理工作。 </li>
+<li>getRuntimeContext()方法提供了函数的 RuntimeContext 的一些信息，例如函数执行的 并行度，任务的名字，以及 state 状态</li>
+</ul>
+<h4 id="2）富函数类举例："><a href="#2）富函数类举例：" class="headerlink" title="2）富函数类举例："></a>2）富函数类举例：</h4><p>把呼叫成功的通话信息转化成真实的用户姓名，通话用户对应的用户表 （在 Mysql 数据中）为：</p>
+<p>由于需要从数据库中查询数据，就需要创建连接，<strong>创建连接的代码必须写在生命周期的 open 方法中</strong>。所以需要使用富函数类。</p>
+<pre><code class="scala">package RichFunction
+
+import org.apache.flink.api.common.functions.RichMapFunction
+import org.apache.flink.configuration.Configuration
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+
+import java.sql.&#123;Connection, DriverManager, PreparedStatement, ResultSet&#125;
+
+//转换电话号码的真实姓名
+object RichFunctionClassTransformation &#123;
+  def main(args: Array[String]): Unit = &#123;
+    //初始化Flink的Streaming（流计算）上下文执行环境
+    val streamEnv: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+    streamEnv.setParallelism(1)
+    //导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+    import org.apache.flink.streaming.api.scala._
+    //读取文件数据
+    val data = streamEnv.readTextFile(&quot;station.log&quot;)
+      .map(line=&gt;&#123;
+        var arr =line.split(&quot;,&quot;)
+        new StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+      &#125;)
+
+    //过滤出那些通话成功的
+    data.filter(_.callType.equals(&quot;success&quot;))
+      .map(new CallRichMapFunction())
+      .print()
+    streamEnv.execute()
+  &#125;
+  //自定义的富函数类
+  class CallRichMapFunction() extends RichMapFunction[StationLog,StationLog]&#123;
+    var conn:Connection =_
+    var pst :PreparedStatement =_
+    //生命周期管理，初始化的时候创建数据连接
+    override def open(parameters: Configuration): Unit = &#123;
+      conn=DriverManager.getConnection(&quot;jdbc:mysql://localhost/test&quot;,&quot;root&quot;,&quot;123123&quot;)
+      pst=conn.prepareStatement(&quot;select name from t_phone where phone_number=?&quot;)
+    &#125;
+    override def map(in: StationLog): StationLog = &#123;
+      //查询主叫用户的名字
+      pst.setString(1,in.callOut)
+      val set1: ResultSet = pst.executeQuery()
+      if(set1.next())&#123;
+        in.callOut=set1.getString(1)
+      &#125;
+      //查询被叫用户的名字
+      pst.setString(1,in.callIn)
+      val set2: ResultSet = pst.executeQuery()
+      if(set2.next())&#123;
+        in.callIn=set2.getString(1)
+      &#125;
+      in
+    &#125;
+    //关闭连接
+    override def close(): Unit = &#123;
+      pst.close()
+      conn.close()
+    &#125;
+  &#125;
+
+  /* 通信基站日志数据
+* @param sid 基站ID
+* @param callOut 主叫号码
+* @param callIn 被叫号码
+* @param callType 通话类型eg:呼叫失败(fail)，占线(busy),拒接（barring），接通
+(success): * @param callTime 呼叫时间戳，精确到毫秒
+* @Param duration 通话时长 单位：秒
+*/
+  case class
+  StationLog(sid: String, var callOut: String, var callIn: String, callType: String, callTime: Long, duration: Long)
+
+&#125;
+</code></pre>
+<h3 id="6-底层-ProcessFunctionAPI"><a href="#6-底层-ProcessFunctionAPI" class="headerlink" title="6.底层 ProcessFunctionAPI"></a>6.底层 ProcessFunctionAPI</h3><p>ProcessFunction 是一个低层次的流处理操作，允许返回所有 Stream 的基础构建模块:</p>
+<ul>
+<li><p>访问 Event 本身数据（比如：Event 的时间，Event 的当前 Key 等） </p>
+</li>
+<li><p>管理状态 State（仅在 Keyed Stream 中） </p>
+</li>
+<li><p>管理定时器 Timer（包括：注册定时器，删除定时器等）</p>
+</li>
+</ul>
+<p>总而言之，ProcessFunction 是 Flink 最底层的 API，也是功能最强大的。</p>
+<p>例如：监控每一个手机，如果在 5 秒内呼叫它的通话都是失败的，发出警告信息。（注意： 这个案例中会用到状态编程，请同学们只要知道状态的意思，不需要掌握。后面的章节中会 详细讲解 State 编程。）：</p>
+<pre><code class="scala">/**
+* 监控每一个手机号，如果在5秒内呼叫它的通话都是失败的，发出警告信息
+* 在5秒中内只要有一个呼叫不是fail则不用警告
+*/
+object TestProcessFunction &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+//读取文件数据
+val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+//处理数据
+data.keyBy(_.callOut)
+.process(new MonitorCallFail())
+.print()
+streamEnv.execute()
+&#125;
+//监控逻辑
+class MonitorCallFail() extends KeyedProcessFunction[String,StationLog,String]&#123;
+//使用一个状态记录时间
+lazy val timeState :ValueState[Long] =getRuntimeContext.getState(new ValueStateDescriptor[Long](&quot;time&quot;,classOf[Long]))
+override def processElement(value: StationLog, ctx: KeyedProcessFunction[String, StationLog, String]#Context, out: Collector[String]): Unit = &#123;
+//从状态中取得时间
+var time =timeState.value()
+if(value.callType.equals(&quot;fail&quot;)&amp;&amp; time==0)&#123; //表示第一次发现呼叫当前手机号是失败的
+//获取当前时间，并注册定时器
+var nowTime=ctx.timerService().currentProcessingTime()
+var onTime=nowTime + 5000L //5秒后触发
+ctx.timerService().registerProcessingTimeTimer(onTime)
+timeState.update(onTime)
+&#125;
+if(!value.callType.equals(&quot;fail&quot;) &amp;&amp; time!=0)&#123;//表示有呼叫成功了，可以取消触发器
+ctx.timerService().deleteProcessingTimeTimer(time)
+timeState.clear()
+&#125;
+&#125;
+//时间到了，执行触发器,发出告警
+override def onTimer(timestamp: Long, ctx: KeyedProcessFunction[String, StationLog, String]#OnTimerContext, out: Collector[String]): Unit = &#123;
+var warnStr=&quot;触发时间:&quot;+timestamp+&quot; 手机号：&quot;+ctx.getCurrentKey
+out.collect(warnStr)
+timeState.clear()
+&#125;
+&#125;
+&#125;
+</code></pre>
+<h3 id="7-侧输出流-Side-Output"><a href="#7-侧输出流-Side-Output" class="headerlink" title="7.侧输出流 Side Output"></a>7.侧输出流 Side Output</h3><p>在 flink 处理数据流时，我们经常会遇到这样的情况：在处理一个数据源时，往往需要 将该源中的不同类型的数据做分割处理，如果使用 filter 算子对数据源进行筛选分割的话，势必会造成数据流的多次复制，造成不必要的性能浪费；flink 中的侧输出就是将数据 流进行分割，而不对流进行复制的一种分流机制。flink 的侧输出的另一个作用就是对延时 迟到的数据进行处理，这样就可以不必丢弃迟到的数据。</p>
+<p>Flink中，可以将一个流中的数据根据数据的不同属性进行if判断或者模式匹配，然后给各个流打上标签，以后可以根据标签的名字，取出想要的，类型的数据流，测流输出的优点是比filter效率高，不必对数据进行多次处理，就可以将不同类型的数据拆分。</p>
+<h2 id="Flink-State-管理与恢复"><a href="#Flink-State-管理与恢复" class="headerlink" title="Flink State 管理与恢复"></a>Flink State 管理与恢复</h2><p>Flink 是一个默认就有状态的分析引擎，前面的 WordCount 案例可以做到单词的数量的 累加，其实是因为在内存中保证了每个单词的出现的次数，这些数据其实就是状态数据。但 是如果一个 Task 在处理过程中挂掉了，那么它在内存中的状态都会丢失，所有的数据都需 要重新计算。从容错和消息处理的语义（At -least-once 和 Exactly-once）上来说，Flink 引入了 State 和 CheckPoint。</p>
+<ul>
+<li><p>State 一般指一个具体的 Task&#x2F;Operator 的状态，State 数据默认保存在 Java 的堆内存中</p>
+</li>
+<li><p>CheckPoint（可以理解为 CheckPoint 是把 State 数据持久化存储了）则表示了一个 Flink Job 在一个特定时刻的一份全局状态快照，即包含了所有 Task&#x2F;Operator 的状态</p>
+</li>
+</ul>
+<h3 id="1-常用-Stat"><a href="#1-常用-Stat" class="headerlink" title="1.常用 Stat"></a>1.常用 Stat</h3><p>Flink 有两种常见的 State 类型，分别是</p>
+<h4 id="1）keyed-State-键控状态"><a href="#1）keyed-State-键控状态" class="headerlink" title="1）keyed State(键控状态)"></a>1）keyed State(键控状态)</h4><p>Keyed State：顾名思义就是基于 KeyedStream 上的状态，这个状态是跟特定的 Key 绑 定的。KeyedStream 流上的每一个 Key，都对应一个 State。Flink 针对 Keyed State 提供了 以下可以保存 State 的数据结构：</p>
+<ul>
+<li><p>ValueState: 保存一个可以更新和检索的值（如上所述，每个值都对应到当前的输 入数据的 key，因此算子接收到的每个 key 都可能对应一个值）。 这个值可以通过 update(T) 进行更新，通过 T value() 进行检索。 </p>
+</li>
+<li><p>ListState: 保存一个元素的列表。可以往这个列表中追加数据，并在当前的列表上 进行检索。可以通过 add(T) 或者 addAll(List) 进行添加元素，通过 Iterable get() 获得整个列表。还可以通过 update(List) 覆盖当前的列表。</p>
+</li>
+<li><p>ReducingState: 保存一个单值，表示添加到状态的所有值的聚合。接口与 ListState 类似，但使用 add(T) 增加元素，会使用提供的 ReduceFunction 进行聚合。 </p>
+</li>
+<li><p>AggregatingState: 保留一个单值，表示添加到状态的所有值的聚合。和 ReducingState 相反的是, 聚合类型可能与 添加到状态的元素的类型不同。 接口与 ListState 类似，但使用 add(IN) 添加的元素会用指定的 AggregateFunction 进行聚 合。 </p>
+</li>
+<li><p>FoldingState: 保留一个单值，表示添加到状态的所有值的聚合。 与 ReducingState 相反，聚合类型可能与添加到状态的元素类型不同。接口与 ListState 类似，但使用 add（T）添加的元素会用指定的 FoldFunction 折叠成聚合值。 </p>
+</li>
+<li><p>MapState: 维护了一个映射列表。 你可以添加键值对到状态中，也可以获得 反映当前所有映射的迭代器。使用 put(UK，UV) 或者 putAll(Map) 添加映射。 使用 get(UK) 检索特定 key。 使用 entries()，keys() 和 values() 分别检索映射、 键和值的可迭代视图。</p>
+</li>
+</ul>
+<h5 id="keyed-State案例"><a href="#keyed-State案例" class="headerlink" title="keyed State案例"></a>keyed State案例</h5><p>Flink 中最基础的状态类型是 <a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/dev/datastream/fault-tolerance/state/#using-managed-keyed-state">ValueState</a>，这是一种能够为被其封装的变量添加容错能力的类型。 <code>ValueState</code> 是一种 <em>keyed state</em>，也就是说它只能被用于 <em>keyed context</em> 提供的 operator 中，即所有能够紧随 <code>DataStream#keyBy</code> 之后被调用的operator。 一个 operator 中的 <em>keyed state</em> 的作用域默认是属于它所属的 key 的。</p>
+<ol>
+<li>案例需求：计算每个手机的呼叫间隔时间，单位是毫秒。</li>
+</ol>
+<p><code>ValueState</code> 需要使用 <code>ValueStateDescriptor</code> 来创建，<code>ValueStateDescriptor</code> 包含了 Flink 如何管理变量的一些元数据信息。状态在使用之前需要先被注册。 状态需要使用 <code>open()</code> 函数来注册状态。</p>
+<p><code>ValueState</code> 是一个包装类，类似于 Java 标准库里边的 <code>AtomicReference</code> 和 <code>AtomicLong</code>。 它提供了三个用于交互的方法。<code>update</code> 用于更新状态，<code>value</code> 用于获取状态值，还有 <code>clear</code> 用于清空状态。 如果一个 key 还没有状态，例如当程序刚启动或者调用过 <code>ValueState#clear</code> 方法时，<code>ValueState#value</code> 将会返回 <code>null</code>。 如果需要更新状态，需要调用 <code>ValueState#update</code> 方法，直接更改 <code>ValueState#value</code> 的返回值可能不会被系统识别。 容错处理将在 Flink 后台自动管理，你可以像与常规变量那样与状态变量进行交互。</p>
+<pre><code class="scala">package StateExercise
+
+import org.apache.flink.api.common.functions.RichFlatMapFunction
+import org.apache.flink.api.common.state.&#123;ValueState, ValueStateDescriptor&#125;
+import org.apache.flink.configuration.Configuration
+import org.apache.flink.util.Collector
+
+/**
+ * @author 
+ * @version 1.0
+ * 案例需求：计算每个手机的呼叫间隔时间，单位是毫秒。
+ */
+object KeyedStateExercise &#123;
+  def main(args: Array[String]): Unit = &#123;
+    import org.apache.flink.streaming.api.scala._
+    val environment: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+    val data: DataStream[String] = environment.readTextFile(&quot;station.log&quot;)
+    val value: DataStream[StationLog] = data
+      .map(a =&gt; &#123;
+        var arr = a.split(&quot;,&quot;)
+        new StationLog(arr(0).trim, arr(1).trim, arr(2).trim, arr(3).trim, arr(4).toLong, arr(5).toLong)
+      &#125;)
+    value.print(&quot;aaaaaaaaaaaaaaaaaaaaaaaaa&quot;)
+    value.keyBy(_.callIn) //按照呼叫手机号分组
+      .flatMap(new CallIntervalFunction())
+      .print()
+
+    environment.execute()
+  &#125;
+
+  /* 通信基站日志数据
+* @param sid 基站ID
+* @param callOut 主叫号码
+* @param callIn 被叫号码
+* @param callType 通话类型eg:呼叫失败(fail)，占线(busy),拒接（barring），接通
+(success): * @param callTime 呼叫时间戳，精确到毫秒
+* @Param duration 通话时长 单位：秒
+*/
+  case class
+  StationLog(sid: String, callOut: String, callIn: String, callType: String, callTime: Long, duration: Long)
+
+  class CallIntervalFunction() extends RichFlatMapFunction[StationLog, (String, Long)] &#123;
+    //定义一个保存前一条呼叫的数据的状态对象
+    private var preData: ValueState[StationLog] = _
+
+    override def open(parameters: Configuration): Unit = &#123;
+      val stateDescriptor = new
+          ValueStateDescriptor[StationLog](&quot;pre&quot;, classOf[StationLog])
+      preData = getRuntimeContext.getState(stateDescriptor)
+    &#125;
+
+    override def flatMap(in: StationLog, collector: Collector[(String, Long)]): Unit = &#123;
+      var pre: StationLog = preData.value()
+      if (pre == null) &#123; //如果状态中没有，则存入
+        preData.update(in)
+      &#125; else &#123; //如果状态中有值则计算时间间隔
+        var interval = in.callTime - pre.callTime
+        collector.collect((in.callIn, interval))
+      &#125;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="2）Operator-State-算子状态"><a href="#2）Operator-State-算子状态" class="headerlink" title="2）Operator State(算子状态)"></a>2）Operator State(算子状态)</h4><p>没有分组，每一个subTask自己维护一个状态。Operator State 与 Key 无关，而是<strong>与 Operator 绑定</strong>，整个 Operator 只对应一个 State。 </p>
+<p>比如：Flink 中的 Kafka Connector 就使用了 Operator State，它会在每个 Connector 实例 中，保存该实例消费 Topic 的所有(partition, offset)映射。</p>
+<p><img src="/flink/flink/image-20220519000446637.png" alt="image-20220519000446637"></p>
+<h4 id="3）Broadcast-state"><a href="#3）Broadcast-state" class="headerlink" title="3）Broadcast state"></a>3）Broadcast state</h4><p>广播state，一个可以通过connect方法获取广播流的数据，广播流的特点是可以动态更新state通常作为字段数据，维度数据关联，广播到属于该任务的所有taskmanager的每个taskslot中，类似于map。</p>
+<h3 id="2-CheckPoint"><a href="#2-CheckPoint" class="headerlink" title="2.CheckPoint"></a>2.CheckPoint</h3><p>当程序出现问题需要恢复 Sate 数据的时候，只有程序提供支持才可以实现 State 的容 错。State 的容错需要依靠 CheckPoint 机制，这样才可以保证 Exactly-once 这种语义，但是注意，它只能保证 Flink 系统内的 Exactly-once，比如 Flink 内置支持的算子。针对 Source 和 Sink 组件，如果想要保证 Exactly-once 的话，则这些组件本身应支持这种语义。</p>
+<h4 id="1-CheckPoint-原理"><a href="#1-CheckPoint-原理" class="headerlink" title="1)CheckPoint 原理"></a>1)CheckPoint 原理</h4><p>Flink 中基于异步轻量级的分布式快照技术提供了 Checkpoints 容错机制，分布式快照 可以将同一时间点 Task&#x2F;Operator 的状态数据全局统一快照处理，包括前面提到的 Keyed State 和 Operator State。Flink 会在输入的数据集上间隔性地生成 checkpoint barrier， 通过栅栏（barrier）将间隔时间段内的数据划分到相应的 checkpoint。</p>
+<p>具体的过程是JobManager定期向TaskManager中的SubTask发送RPC消息，subTask将其计算的state保存到stateBackEnd中，并向JobManager响应checkpointing是否成功，如果程序出现异常或重启，TaskManager中的SubTask可以从上一次成功的checkPointing的state恢复。</p>
+<h5 id="Barrier"><a href="#Barrier" class="headerlink" title="Barrier"></a>Barrier</h5><p>Flink的容错机制主要是通过持续产生快照的方式实现的，对应的快照机制主要由两部分组成，一个是屏障（Barrier），另一个是状态（state）</p>
+<p><img src="/flink/flink/image-20220519153053025.png" alt="image-20220519153053025"></p>
+<h5 id="Barrier对齐机制"><a href="#Barrier对齐机制" class="headerlink" title="Barrier对齐机制"></a>Barrier对齐机制</h5><p>流屏障（barrier）是Flink分布式快照中的核心元素。这些屏障注入到数据流中，并与记录一起作为数据流的一部分流动。他们严格按照顺序进行。每个屏障都带有快照的ID，快照的记录仪推送到块中的前面。屏障不会中断流的流动，非常轻便。来自不同快照的多个障碍可以同时出现在流中，这意味着各种快照可能会同时发生。</p>
+<p>流程<br>当一个算子上游有两条或多条输入时，在进行Checkpoint时可能会出现两条流中数据流速不一样，导致多条流同一批次的Barrier到达下游算子的时间不一致， 此时快的Barrier到达下游算子后，此Barrier之后到达的数据将会放到缓冲区，不会进行处理。等到其他流慢的Barrier到达后，此算子才进行checkpoint，然后把状态保存到状态后端。这就是Barrier的对齐机制。</p>
+<ul>
+<li>优缺点</li>
+</ul>
+<p>1）优点：①状态后端保存数据少。</p>
+<p>2）缺点：①延迟性高(快的Barrier到达后会阻塞此条流的数据处理)</p>
+<p>②当作业出现反压时，会加剧作业的反压(当出现反压时，数据本身就处理不过来，此时某条流的数据又阻塞了所以就会加剧反压。)</p>
+<p>③整体chenkpoint时间变长(因为反压会导致数据流速变慢，导致Barrier流的也慢，所以就会使得整体chenkpoint时间变长)。</p>
+<ul>
+<li>优化</li>
+</ul>
+<p>在Flink1.11后引入了Unaligned Checkpoint的特性，使得当Barrier不对齐的时候也可以实现数据的精准一次消费。<br>————————————————<br>版权声明：本文为CSDN博主「今天好好洗头了嘛」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42009405/article/details/122850469">https://blog.csdn.net/qq_42009405/article/details/122850469</a></p>
+<p><img src="/flink/flink/image-20220601122700429.png" alt="image-20220601122700429"></p>
+<h6 id="Barrier不对齐-Unaligned-Checkpoint"><a href="#Barrier不对齐-Unaligned-Checkpoint" class="headerlink" title="Barrier不对齐(Unaligned Checkpoint)"></a>Barrier不对齐(Unaligned Checkpoint)</h6><h5 id="恢复流程图"><a href="#恢复流程图" class="headerlink" title="恢复流程图"></a>恢复流程图</h5><img src="/flink/flink/image-20220519153155157.png" alt="image-20220519153155157" style="zoom: 150%;">
+
+<h4 id="2-CheckPoint-参数和设置"><a href="#2-CheckPoint-参数和设置" class="headerlink" title="2.CheckPoint 参数和设置"></a>2.CheckPoint 参数和设置</h4><p>默认情况下 Flink 不开启检查点的，用户需要在程序中通过调用方法配置和开启检查 点，另外还可以调整其他相关参数：</p>
+<ul>
+<li><strong>Checkpoint 开启和时间间隔指定：</strong></li>
+</ul>
+<p>开启检查点并且指定检查点时间间隔为 1000ms，根据实际情况自行选择，如果状态比 较大，则建议适当增加该值。</p>
+<pre><code class="scala">streamEnv.enableCheckpointing(1000);
+</code></pre>
+<ul>
+<li><strong>exactly-ance 和 at-least-once 语义选择</strong></li>
+</ul>
+<p>选择 exactly-once 语义保证整个应用内端到端的数据一致性，这种情况比较适合于数 据要求比较高，不允许出现丢数据或者数据重复，与此同时，Flink 的性能也相对较弱，而 at-least-once 语义更适合于时廷和吞吐量要求非常高但对数据的一致性要求不高的场景。 如 下 通 过 setCheckpointingMode() 方 法 来 设 定 语 义 模 式 ， <strong>默 认 情 况 下 使 用 的 是 exactly-once</strong> 模式。</p>
+<pre><code class="scala">streamEnv.getCheckpointConfig.setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE)；
+//或者
+streamEnv.getCheckpointConfig.setCheckpointingMode(CheckpointingMode.AT_LEAST_ONCE)
+</code></pre>
+<ul>
+<li><strong>Checkpoint 超时时间：</strong></li>
+</ul>
+<p>超时时间指定了每次 Checkpoint 执行过程中的上限时间范围，一旦 Checkpoint 执行时 间超过该阈值，Flink 将会中断 Checkpoint 过程，并按照超时处理。该指标可以通过 setCheckpointTimeout 方法设定，默认为 10 分钟</p>
+<pre><code class="scala">streamEnv.getCheckpointConfig.setCheckpointTimeout(50000)
+</code></pre>
+<ul>
+<li><strong>检查点之间最小时间间隔：</strong></li>
+</ul>
+<p>该参数主要目的是设定两个 Checkpoint 之间的最小时间间隔，防止出现例如状态数据 过大而导致 Checkpoint 执行时间过长，从而导致 Checkpoint 积压过多，最终 Flink 应用密 集地触发 Checkpoint 操作，会占用了大量计算资源而影响到整个应用的性能。</p>
+<pre><code class="scala">streamEnv.getCheckpointConfig.setMinPauseBetweenCheckpoints(600)
+</code></pre>
+<ul>
+<li><strong>最大并行执行的检查点数量：</strong></li>
+</ul>
+<p>通过 setMaxConcurrentCheckpoints()方法设定能够最大同时执行的 Checkpoint 数量。 在默认情况下只有一个检查点可以运行，根据用户指定的数量可以同时触发多个 Checkpoint，进而提升 Checkpoint 整体的效率</p>
+<pre><code class="scala">streamEnv.getCheckpointConfig.setMaxConcurrentCheckpoints(1)
+</code></pre>
+<ul>
+<li><strong>是否删除 Checkpoint 中保存的数据：</strong></li>
+</ul>
+<p>设置为 RETAIN_ON_CANCELLATION：表示一旦 Flink 处理程序被 cancel 后，会保留 CheckPoint 数据，以便根据实际需要恢复到指定的 CheckPoint。</p>
+<p>设置为 DELETE_ON_CANCELLATION：表示一旦 Flink 处理程序被 cancel 后，会删除 CheckPoint 数据，只有 Job 执行失败的时候才会保存 CheckPoint。</p>
+<pre><code class="scala">//删除
+streamEnv.getCheckpointConfig.enableExternalizedCheckpoints(ExternalizedCheckpointCleanup.DELETE_ON_CANCELLATION)
+//保留
+streamEnv.getCheckpointConfig.enableExternalizedCheckpoints(ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION)
+</code></pre>
+<ul>
+<li><strong>TolerableCheckpointFailureNumber：</strong></li>
+</ul>
+<p>设置可以容忍的检查的失败数，超过这个数量则系统自动关闭和停止任务。</p>
+<pre><code class="scala">streamEnv.getCheckpointConfig.setTolerableCheckpointFailureNumber(1)
+</code></pre>
+<h4 id="3-保存机制-StateBackend-状态后端"><a href="#3-保存机制-StateBackend-状态后端" class="headerlink" title="3.保存机制 StateBackend(状态后端)"></a>3.保存机制 StateBackend(状态后端)</h4><p><strong>默认情况下，State 会保存在 TaskManager 的内存中，CheckPoint 会存储在 JobManager 的内存中</strong>。</p>
+<p>State 和 CheckPoint 的存储位置取决于 StateBackend 的配置。Flink 一共提供 了 3 种 StateBackend 。 </p>
+<p>包 括 基 于 内 存 的 MemoryStateBackend 、 基 于 文 件 系 统 的 FsStateBackend，以及基于 RockDB 作为存储介质的 RocksDBState-Backend</p>
+<h5 id="1-MemoryStateBackend"><a href="#1-MemoryStateBackend" class="headerlink" title="1) MemoryStateBackend"></a>1) MemoryStateBackend</h5><p>基于内存的状态管理具有非常快速和高效的特点，但也具有非常多的限制，最主要的就 是内存的容量限制，一旦存储的状态数据过多就会导致系统内存溢出等问题，从而影响整个 应用的正常运行。同时如果机器出现问题，整个主机内存中的状态数据都会丢失，进而无法 恢复任务中的状态数据。因此从数据安全的角度建议用户尽可能地避免在生产环境中使用 MemoryStateBackend</p>
+<pre><code class="scala">streamEnv.setStateBackend(new MemoryStateBackend(10*1024*1024))
+</code></pre>
+<h5 id="2）FsStateBackend"><a href="#2）FsStateBackend" class="headerlink" title="2）FsStateBackend"></a>2）FsStateBackend</h5><p>和 MemoryStateBackend 有所不同，FsStateBackend 是基于文件系统的一种状态管理器， 这里的文件系统可以是本地文件系统，也可以是 HDFS 分布式文件系统。FsStateBackend 更 适合任务状态非常大的情况，例如应用中含有时间范围非常长的窗口计算，或 Key&#x2F;value State 状态数据量非常大的场景。</p>
+<pre><code class="scala">streamEnv.setStateBackend(new FsStateBackend(&quot;hdfs://hadoop101:9000/checkpoint/cp1&quot;))
+</code></pre>
+<h5 id="3）RocksDBStateBackend"><a href="#3）RocksDBStateBackend" class="headerlink" title="3）RocksDBStateBackend"></a>3）RocksDBStateBackend</h5><p>RocksDBStateBackend 是 Flink 中内置的第三方状态管理器，和前面的状态管理器不同， RocksDBStateBackend 需要单独引入相关的依赖包到工程中。</p>
+<pre><code class="xml">&lt;dependency&gt;
+&lt;groupId&gt;org.apache.flink&lt;/groupId&gt;
+&lt;artifactId&gt;flink-statebackend-rocksdb_2.11&lt;/artifactId&gt;
+&lt;version&gt;1.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>RocksDBStateBackend 采用异步的方式进行状态数据的 Snapshot，任务中的状态数据首 先被写入本地 RockDB 中，这样在 RockDB 仅会存储正在进行计算的热数据，而需要进行 CheckPoint 的时候，会把本地的数据直接复制到远端的 FileSystem 中。 与 FsStateBackend 相比，RocksDBStateBackend 在性能上要比 FsStateBackend 高一些，主要是因为借助于 RocksDB 在本地存储了最新热数据，然后通过异步的方式再同步到文件系 统中，但 RocksDBStateBackend 和 MemoryStateBackend 相比性能就会较弱一些。RocksDB 克服了 State 受内存限制的缺点，同时又能够持久化到远端文件系统中，<strong>推荐在生产中使用。</strong></p>
+<pre><code class="scala">streamEnv.setStateBackend(new RocksDBStateBackend (&quot;hdfs://hadoop101:9000/checkpoint/cp2&quot;))
+</code></pre>
+<h5 id="4）全局配置-StateBacken"><a href="#4）全局配置-StateBacken" class="headerlink" title="4）全局配置 StateBacken"></a>4）全局配置 StateBacken</h5><p>以上的代码都是单 job 配置状态后端，也可以全局配置状态后端，需要修改 <strong>flink-conf.yaml</strong> 配置文件：</p>
+<pre><code class="yaml">state.backend: filesystem
+
+/**
+*其中：
+*filesystem 表示使用 FsStateBackend,
+*jobmanager 表示使用 MemoryStateBackend
+*rocksdb 表示使用 RocksDBStateBackend
+**/
+
+state.checkpoints.dir: hdfs://hadoop101:9000/checkpoints
+
+//默认情况下，如果设置了 CheckPoint 选项，则 Flink 只保留最近成功生成的 1 个 CheckPoint，而当 Flink 程序失败时，可以通过最近的 CheckPoint 来进行恢复。但是，如 果希望保留多个 CheckPoint，并能够根据实际需要选择其中一个进行恢复，就会更加灵活。 添加如下配置，指定最多可以保存的 CheckPoint 的个数。
+
+state.checkpoints.num-retained: 2
+</code></pre>
+<h4 id="4-Checkpoint-案例"><a href="#4-Checkpoint-案例" class="headerlink" title="4.Checkpoint 案例"></a>4.Checkpoint 案例</h4><p>案例：设置 HDFS 文件系统的状态后端，取消 Job 之后再次恢复 Job。</p>
+<pre><code class="scala">object CheckpointOnFsBackend &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv: StreamExecutionEnvironment =	
+StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.enableCheckpointing(5000)
+streamEnv.setStateBackend(new FsStateBackend(&quot;hdfs://hadoop101:9000/checkpoint/cp1&quot;))
+streamEnv.getCheckpointConfig.setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE)
+streamEnv.getCheckpointConfig.setCheckpointTimeout(50000)
+streamEnv.getCheckpointConfig.setMaxConcurrentCheckpoints(1)
+streamEnv.getCheckpointConfig.enableExternalizedCheckpoints(ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION)
+streamEnv.getCheckpointConfig.setTolerableCheckpointFailureNumber(1)
+streamEnv.setParallelism(1)
+import org.apache.flink.streaming.api.scala._
+//读取数据得到DataStream
+val stream = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+stream.flatMap(_.split(&quot; &quot;)).map((_,1)).keyBy(0).sum(1).print()
+streamEnv.execute(&quot;wc&quot;) //启动流计算
+&#125;
+&#125;
+</code></pre>
+<p>1.打包运行，接收数据</p>
+<p>2.查看执行结果，cancel掉job</p>
+<p><img src="/flink/flink/image-20220522110948658.png" alt="image-20220522110948658"></p>
+<p><img src="/flink/flink/image-20220522111006190.png" alt="image-20220522111006190"></p>
+<p>3.重新启动job，选择日志目录</p>
+<pre><code class="shell">[root@hadoop101 bin]# ./flink run -d -s
+hdfs://hadoop101:9000/checkpoint/cp1/b38e35788eecf3053d4a87d52e97d22d/chk
+-272 -c com.bjsxt.flink.state.CheckpointOnFsBackend
+/home/Flink-Demo-1.0-SNAPSHOT.jar
+</code></pre>
+<h4 id="5-SavePoint"><a href="#5-SavePoint" class="headerlink" title="5.SavePoint"></a>5.SavePoint</h4><p>Savepoints 是检查点的一种特殊实现，底层实现其实也是使用 Checkpoints 的机制。 Savepoints 是用户以手工命令的方式触发 Checkpoint,并将结果持久化到指定的存储路径 中，其主要目的是帮助用户在升级和维护集群过程中保存系统中的状态数据，避免因为停机 运维或者升级应用等正常终止应用的操作而导致系统无法恢复到原有的计算状态的情况，从 而无法实现从端到端的 Excatly-Once 语义保证</p>
+<h5 id="1-配置-Savepoints"><a href="#1-配置-Savepoints" class="headerlink" title="1.配置 Savepoints"></a>1.配置 Savepoints</h5><p>在 flink-conf.yaml 中配置 SavePoint 存储的位置，设置后，如果要创建指定 Job 的 SavePoint，可以不用在手动执行命令时指定 SavePoint 的位置</p>
+<pre><code class="yaml">state.savepoints.dir: hdfs:/hadoop101:9000/savepoints
+</code></pre>
+<h5 id="2-在代码中设置算子ID"><a href="#2-在代码中设置算子ID" class="headerlink" title="2.在代码中设置算子ID"></a>2.在代码中设置算子ID</h5><p>为了能够在作业的不同版本之间以及 Flink 的不同版本之间顺利升级，强烈推荐程序员 通过手动给算子赋予 ID，这些 ID 将用于确定每一个算子的状态范围。如果不手动给各算子 指定 ID，则会由 Flink 自动给每个算子生成一个 ID。而这些自动生成的 ID 依赖于程序的结 构，并且对代码的更改是很敏感的。因此，强烈建议用户手动设置 ID</p>
+<pre><code class="scala">object TestSavepoints &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv: StreamExecutionEnvironment =
+StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+import org.apache.flink.streaming.api.scala._
+//读取数据得到DataStream
+val stream: DataStream[String] =
+streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.uid(&quot;mySource-001&quot;)
+stream.flatMap(_.split(&quot; &quot;))
+.uid(&quot;flatMap-001&quot;)
+.map((_,1))
+.uid(&quot;map-001&quot;)
+.keyBy(0)
+.sum(1)
+.uid(&quot;sum-001&quot;)
+.print()
+streamEnv.execute(&quot;wc&quot;) //启动流计算
+&#125;
+&#125;
+</code></pre>
+<h5 id="3-触发-SavePoint"><a href="#3-触发-SavePoint" class="headerlink" title="3.触发 SavePoint"></a>3.触发 SavePoint</h5><pre><code class="shell">//先启动Job
+[root@hadoop101 bin]# ./flink run -c com.bjsxt.flink.state.TestSavepoints -d /home/Flink-Demo-1.0-SNAPSHOT.jar
+//触发SavePoint，再取消Job 
+[root@hadoop101 bin]# ./flink savepoint 6ecb8cfda5a5200016ca6b01260b94ce
+[root@hadoop101 bin]# ./flink cancel 6ecb8cfda5a5200016ca6b01260b94ce
+</code></pre>
+<p><img src="/flink/flink/image-20220519161913041.png" alt="image-20220519161913041"></p>
+<h5 id="4-从-SavePoint-启动-Job"><a href="#4-从-SavePoint-启动-Job" class="headerlink" title="4.从 SavePoint 启动 Job"></a>4.从 SavePoint 启动 Job</h5><pre><code class="shell">[root@hadoop101 bin]# ./flink run -s
+hdfs://hadoop101:9000/savepoints/savepoint-6ecb8c-e56ccb88576a -c
+com.bjsxt.flink.state.TestSavepoints -d /home/Flink-Demo-1.0-SNAPSHOT.jar
+</code></pre>
+<p><img src="/flink/flink/image-20220519161958774.png" alt="image-20220519161958774"></p>
+<h2 id="Flink-Window-窗口-详解"><a href="#Flink-Window-窗口-详解" class="headerlink" title="Flink Window(窗口)详解"></a>Flink Window(窗口)详解</h2><p>Windows 计算是流式计算中非常常用的数据计算方式之一，通过按照固定时间或长度将 数据流切分成不同的窗口，然后对数据进行相应的聚合运算，从而得到一定时间范围内的统 计结果。</p>
+<h3 id="1-Window-分类"><a href="#1-Window-分类" class="headerlink" title="1.Window 分类"></a>1.Window 分类</h3><h4 id="1-Global-Window-和-Keyed-Window"><a href="#1-Global-Window-和-Keyed-Window" class="headerlink" title="1.Global Window 和 Keyed Window"></a>1.Global Window 和 Keyed Window</h4><p>在运用窗口计算时，Flink根据上游数据集是否为KeyedStream类型，对应的Windows 也 会有所不同。 </p>
+<ul>
+<li>Keyed Window：上游数据集如果是 KeyedStream 类型，则调用 DataStream API 的 window() 方法，数据会根据 Key 在不同的 Task 实例中并行分别计算，最后得出针对每个 Key 统 计的结果。 </li>
+<li>Global Window：如果是 Non-Keyed 类型，则调用 WindowsAll()方法，所有的数据都会在窗口算子中由到一个 Task 中计算，并得到全局统计结果。</li>
+</ul>
+<pre><code class="scala">//读取文件数据
+val data = streamEnv.readTextFile(getClass.getResource(&quot;/station.log&quot;).getPath)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+//Global Window
+data.windowAll(自定义的WindowAssigner)
+//Keyed Window
+data.keyBy(_.sid)
+.window(自定义的WindowAssigner)
+</code></pre>
+<h4 id="2-Time-Window-和-Count-Window"><a href="#2-Time-Window-和-Count-Window" class="headerlink" title="2.Time Window 和 Count Window"></a>2.Time Window 和 Count Window</h4><p>基于业务数据的方面考虑，Flink 又支持两种类型的窗口，一种是基于时间的窗口叫 Time Window。还有一种基于输入数据数量的窗口叫 Count Window</p>
+<h5 id="Time-Window-时间窗口"><a href="#Time-Window-时间窗口" class="headerlink" title="Time Window(时间窗口)"></a>Time Window(时间窗口)</h5><p>根据不同的业务场景，Time Window 也可以分为三种类型，分别是滚动窗口(Tumbling Window)、滑动窗口（Sliding Window）和会话窗口（Session Window）</p>
+<h6 id="滚动窗口-Tumbling-Window"><a href="#滚动窗口-Tumbling-Window" class="headerlink" title="滚动窗口(Tumbling Window)"></a>滚动窗口(Tumbling Window)</h6><p>滚动窗口是根据固定时间进行切分，且窗口和窗口之间的元素互不重叠。这种类型的窗 口的最大特点是比较简单。只需要指定一个窗口长度（window size）</p>
+<p><img src="/flink/flink/image-20220519164544637.png" alt="image-20220519164544637"></p>
+<pre><code class="scala">//每隔5秒统计每个基站的日志数量
+data.map(stationLog=&gt;((stationLog.sid,1)))
+.keyBy(_._1)
+.timeWindow(Time.seconds(5))
+//.window(TumblingEventTimeWindows.of(Time.seconds(5)))
+.sum(1) //聚合
+
+//其中时间间隔可以是 Time.milliseconds(x)、Time.seconds(x)或 Time.minutes(x)。
+</code></pre>
+<h6 id="滑动窗口（Sliding-Window"><a href="#滑动窗口（Sliding-Window" class="headerlink" title="滑动窗口（Sliding Window)"></a>滑动窗口（Sliding Window)</h6><p>滑动窗口也是一种比较常见的窗口类型，其特点是在滚动窗口基础之上增加了窗口滑动 时间（Slide Time），且允许窗口数据发生重叠。当 Windows size 固定之后，窗口并不像 滚动窗口按照 Windows Size 向前移动，而是根据设定的 Slide Time 向前滑动。窗口之间的 数据重叠大小根据 Windows size 和 Slide time 决定，当 Slide time 小于 Windows size 便会发生窗口重叠，Slide size 大于 Windows size 就会出现窗口不连续，数据可能不能在 任何一个窗口内计算，Slide size 和 Windows size 相等时，Sliding Windows 其实就是 Tumbling Windows</p>
+<p><img src="/flink/flink/image-20220519165524568.png" alt="image-20220519165524568"></p>
+<pre><code class="scala">//每隔3秒计算最近5秒内，每个基站的日志数量
+data.map(stationLog=&gt;((stationLog.sid,1)))
+.keyBy(_._1)
+.timeWindow(Time.seconds(5),Time.seconds(3))
+//.window(SlidingEventTimeWindows.of(Time.seconds(5),Time.seconds(3)))
+.sum(1)
+</code></pre>
+<h6 id="会话窗口（Session-Window）"><a href="#会话窗口（Session-Window）" class="headerlink" title="会话窗口（Session Window）"></a>会话窗口（Session Window）</h6><p>会话窗口（Session Windows）主要是将某段时间内活跃度较高的数据聚合成一个窗口 进行计算，窗口的触发的条件是 Session Gap，是指在规定的时间内如果没有数据活跃接入， 则认为窗口结束，然后触发窗口计算结果。需要注意的是如果数据一直不间断地进入窗口， 也会导致窗口始终不触发的情况。</p>
+<p>与滑动窗口、滚动窗口不同的是，Session Windows 不需 要有固定 windows size 和 slide time，只需要定义 session gap，来规定不活跃数据的时间上限即可。</p>
+<p><img src="/flink/flink/image-20220519170215749.png" alt="image-20220519170215749"></p>
+<pre><code class="scala">//3秒内如果没有数据进入，则计算每个基站的日志数量
+data.map(stationLog=&gt;((stationLog.sid,1)))
+.keyBy(_._1)
+.window(EventTimeSessionWindows.withGap(Time.seconds(3)))
+.sum(1)
+</code></pre>
+<h4 id="Count-Window（数量窗口）"><a href="#Count-Window（数量窗口）" class="headerlink" title="Count Window（数量窗口）"></a>Count Window（数量窗口）</h4><p>Count Window 也有滚动窗口、滑动窗口等。由于使用比较少，在课程中不再赘述了。</p>
+<h3 id="2-Window-的-API"><a href="#2-Window-的-API" class="headerlink" title="2.Window 的 API"></a>2.Window 的 API</h3><p>在以后的实际案例中 Keyed Window 使用最多，所以我们需要掌握 Keyed Window 的算子， 在每个窗口算子中包含了 ：</p>
+<p>Windows Assigner、Windows Trigger（窗口触发器）、Evictor （数据剔除器）、Lateness（时延设定）、Output Tag（输出标签）以及 Windows Funciton 等组成部分，其中 Windows Assigner 和 Windows Funciton 是所有窗口算子必须指定的属性， 其余的属性都是根据实际情况选择指定。</p>
+<pre><code class="scala">stream.keyBy(...) // 是Keyed类型数据集
+.window(...) //指定窗口分配器类型
+[.trigger(...)] //指定触发器类型（可选）
+[.evictor(...)] //指定evictor或者不指定（可选）
+[.allowedLateness(...)] //指定是否延迟处理数据（可选）
+[.sideOutputLateData(...)] //指定Output Lag（可选）
+.reduce/aggregate/fold/apply() //指定窗口计算函数
+[.getSideOutput(...)] //根据Tag输出数据（可选）
+
+ Windows Assigner：指定窗口的类型，定义如何将数据流分配到一个或多个窗口；
+ Windows Trigger：指定窗口触发的时机，定义窗口满足什么样的条件触发计算；
+ Evictor：用于数据剔除；
+ allowedLateness：标记是否处理迟到数据，当迟到数据到达窗口中是否触发计算；
+ Output Tag：标记输出标签，然后在通过 getSideOutput 将窗口中的数据根据标签输出；
+ Windows Funciton：定义窗口上数据处理的逻辑，例如对数据进行 sum 操作。
+</code></pre>
+<h3 id="3-窗口聚合函数"><a href="#3-窗口聚合函数" class="headerlink" title="3.窗口聚合函数"></a>3.窗口聚合函数</h3><p>如果定义了 Window Assigner 之后，下一步就可以定义窗口内数据的计算逻辑，这也就 是 Window Function 的定义。Flink 中提供了四种类型的 Window Function，分别为 ReduceFunction、AggregateFunction 以及 ProcessWindowFunction,（sum 和 max)等</p>
+<p>前三种类型的 Window Fucntion 按照计算原理的不同可以分为两大类：</p>
+<ul>
+<li><p>一类是增量聚合函数：对应有 ReduceFunction、AggregateFunction；</p>
+</li>
+<li><p>另一类是全量窗口函数，对应有 ProcessWindowFunction（还有 WindowFunction）。</p>
+</li>
+</ul>
+<p>增量聚合函数计算性能较高，占用存储空间少，主要因为基于中间状态的计算结果，窗 口中只维护中间结果状态值，不需要缓存原始数据。</p>
+<p>而全量窗口函数使用的代价相对较高， 性能比较弱，主要因为此时算子需要对所有属于该窗口的接入数据进行缓存，然后等到窗口 触发的时候，对所有的原始数据进行汇总计算</p>
+<h4 id="ReduceFunction"><a href="#ReduceFunction" class="headerlink" title="ReduceFunction"></a>ReduceFunction</h4><p>ReduceFunction 定义了对输入的两个相同类型的数据元素按照指定的计算方法进行聚 合的逻辑，然后输出类型相同的一个结果元素。</p>
+<pre><code class="scala">//每隔5秒统计每个基站的日志数量
+data.map(stationLog=&gt;((stationLog.sid,1)))
+.keyBy(_._1)
+.window(TumblingEventTimeWindows.of(Time.seconds(5)))
+.reduce((v1,v2)=&gt;(v1._1,v1._2+v2._2))
+</code></pre>
+<h4 id="AggregateFunction"><a href="#AggregateFunction" class="headerlink" title="AggregateFunction"></a>AggregateFunction</h4><p>和 ReduceFunction 相似，AggregateFunction 也是基于中间状态计算结果的增量计算 函数，但 AggregateFunction 在窗口计算上更加通用。AggregateFunction 接口相对 ReduceFunction 更加灵活，实现复杂度也相对较高。</p>
+<p>AggregateFunction 接口中定义了三个 需要复写的方法，其中 add()定义数据的添加逻辑，getResult 定义了根据 accumulator 计算结果的逻辑，merge 方法定义合并 accumulator 的逻辑</p>
+<pre><code class="scala">//每隔3秒计算最近5秒内，每个基站的日志数量
+data.map(stationLog=&gt;((stationLog.sid,1)))
+.keyBy(_._1)
+.timeWindow(Time.seconds(5),Time.seconds(3))
+.aggregate(new AggregateFunction[(String,Int),(String,Long),(String,Long)] &#123;
+override def createAccumulator() = (&quot;&quot;,0)
+override def add(in: (String, Int), acc: (String, Long)) = &#123;
+(in._1,acc._2+in._2)
+&#125;
+override def getResult(acc: (String, Long)) = acc
+override def merge(acc: (String, Long), acc1: (String, Long)) = &#123;
+(acc._1,acc1._2+acc._2)
+&#125;
+&#125;)
+
+//* @param &lt;IN&gt;被聚合的值的类型(输入值)
+//  @param &lt;ACC&gt;累加器的类型(中间聚合状态)。
+//* @param &lt;OUT&gt;聚合结果的类型
+</code></pre>
+<h4 id="ProcessWindowFunction"><a href="#ProcessWindowFunction" class="headerlink" title="ProcessWindowFunction"></a>ProcessWindowFunction</h4><p>前面提到的 ReduceFunction 和 AggregateFunction 都是基于中间状态实现增量计算的 窗口函数，虽然已经满足绝大多数场景，但在某些情况下，统计更复杂的指标可能需要依赖 于窗口中所有的数据元素，或需要操作窗口中的状态数据和窗口元数据，这时就需要使用到 ProcessWindowsFunction，ProcessWindowsFunction 能够更加灵活地支持基于窗口全部数 据 元 素 的 结 果 计 算 ， 例 如 对 整 个 窗 口 数 据 排 序 取 TopN， 这 样 的 需 要 就 必 须 使 用 ProcessWindowFunction。</p>
+<pre><code class="scala">//每隔5秒统计每个基站的日志数量
+data.map(stationLog=&gt;((stationLog.sid,1)))
+.keyBy(_._1)
+.timeWindow(Time.seconds(5))
+.process(new
+ProcessWindowFunction[(String,Int),(String,Int),String,TimeWindow] &#123;
+override def process(key: String, context: Context, elements: Iterable[(String, Int)], out: Collector[(String, Int)]): Unit = &#123;
+println(&quot;-------&quot;)
+out.collect((key,elements.size))
+&#125;
+&#125;)
+.print()
+</code></pre>
+<h2 id="Flink-Time-详解"><a href="#Flink-Time-详解" class="headerlink" title="Flink Time 详解"></a>Flink Time 详解</h2><p>对于流式数据处理，最大的特点是数据上具有时间的属性特征，Flimk 根据时间产生的位置不同，将时间区分为三种时间语义，分别为事件生成时间（Event Time）、事件接入时 间（Ingestion Time）和事件处理时间（Processing Time）。 </p>
+<ul>
+<li><p>Event Time：事件产生的时间，它通常由事件中的时间戳描述。 </p>
+</li>
+<li><p>Ingestion Time：事件进入 Flink 的时间。 </p>
+</li>
+<li><p>Processing Time：事件被处理时当前系统的时间。</p>
+</li>
+</ul>
+<h3 id="1-时间语义-Time"><a href="#1-时间语义-Time" class="headerlink" title="1.时间语义 Time"></a>1.时间语义 Time</h3><p>数据从终端产生，或者从系统中产生的过程中生成的时间为事件生成时间，当数据经过 消息中间件传入到 Flink 系统中，在 DataSource 中接入的时候会生成事件接入时间，当数据在 Flink 系统中通过各个算子实例执行转换操作的过程中，算子实例所在系统的时间为数据处理时间。Flink 已经支持这三种类型时间概念，用户能够根据需要选择时间类型作为对 流式数据的依据，这种情况极大地增强了对事件数据处理的灵活性和准确性。</p>
+<p><img src="/flink/flink/image-20220519185923161.png" alt="image-20220519185923161"></p>
+<h4 id="1）设置时间语义"><a href="#1）设置时间语义" class="headerlink" title="1）设置时间语义"></a>1）设置时间语义</h4><p>在 Flink 中默认情况下使用是 Process Time 时间语义，如果用户选择使用 Event Time 或 者 Ingestion Time 语 义 ， 则 需 要 在 创 建 的 StreamExecutionEnvironment 中 调 用 setStreamTimeCharacteristic() 方 法 设 定 系 统 的 时 间 概 念 ， 如 下 代 码 使 用 TimeCharacteristic.EventTime 作为系统的时间语义</p>
+<pre><code class="scala">//设置使用EventTime
+streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+//设置使用IngestionTime
+streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.IngestionTime)
+
+//注意：但是上面的代码还没有指定具体的时间到底是什么值，所以后面还有代码需要设置！
+</code></pre>
+<h3 id="2-WaterMark-水位"><a href="#2-WaterMark-水位" class="headerlink" title="2.WaterMark 水位"></a>2.WaterMark 水位</h3><p>在使用 EventTime 处理 Stream 数据的时候会遇到数据乱序的问题，流处理从 Event（事 件）产生，流经 Source，再到 Operator，这中间需要一定的时间。虽然大部分情况下，传 输到 Operator 的数据都是按照事件产生的时间顺序来的，但是也不排除由于网络延迟等原因而导致乱序的产生，特别是使用 Kafka 的时候，多个分区之间的数据无法保证有序。因此， 在进行 Window 计算的时候，不能无限期地等下去，必须要有个机制来保证在特定的时间后， 必须触发 Window 进行计算，这个特别的机制就是 Watermark（水位线）。Watermark 是用于 处理乱序事件的。</p>
+<p><img src="/flink/flink/image-20220519213500035.png" alt="image-20220519213500035"></p>
+<h4 id="1）Watermark-原理"><a href="#1）Watermark-原理" class="headerlink" title="1）Watermark 原理"></a>1）Watermark 原理</h4><p>在 Flink 的窗口处理过程中，如果确定全部数据到达，就可以对 Window 的所有数据做 窗口计算操作（如汇总、分组等），如果数据没有全部到达，则继续等待该窗口中的数据全 部到达才开始处理。这种情况下就需要用到水位线（WaterMarks）机制，它能够衡量数据处理进度（表达数据到达的完整性），保证事件数据（全部）到达 Flink 系统，或者在乱序及 延迟到达时，也能够像预期一样计算出正确并且连续的结果。当任何 Event 进入到 Flink 系统时，会根据当前最大事件时间产生 Watermarks 时间戳。</p>
+<p>注意：<strong>Watermark 本质可以理解成一个延迟触发机制。</strong></p>
+<p>当Flink接收到每一条数据时，都会产生一条Watermark，这条Watermark就等于当前所有到达数据中的maxEventTime-延迟时长，也就是说Watermark是由数据携带的，一旦数据携带的Watermark比当前未触发的窗口停止时间要晚，就会触发相应窗口的执行。由于Watermark是由数据携带的，因此，如果运行过程中无法获得新的数据，你们没有被触发的窗口将永远都不会被触发。</p>
+<p>1.有序流watermarker：Watermaker设置为0</p>
+<p><img src="/flink/flink/image-20220519215223201.png" alt="image-20220519215223201"></p>
+<p>2.乱序流Watermarker：Watermaker设置为2</p>
+<p><img src="/flink/flink/image-20220519215308959.png" alt="image-20220519215308959"></p>
+<p>上图中，我们设置允许最大延迟到达时间为2s，所以时间戳为7s的事件对应的Watermark是5s，时间戳为12s的事件Watermark是10s，如果窗口1是1s-5s，窗口2是6s-10s，那么时间戳为7s的事件到达时的watermarker恰好触发窗口1，时间戳为12s的事件到达时Watermark恰好触发窗口2.</p>
+<p>3.并行数据流中的 Watermark</p>
+<p>在多并行度的情况下，Watermark 会有一个对齐机制，这个对齐机制会取所有 Channel 中最小的 Watermark。</p>
+<p><img src="/flink/flink/image-20220519220620668.png" alt="image-20220519220620668"></p>
+<h4 id="2）引入-Watermark-和-EventTim"><a href="#2）引入-Watermark-和-EventTim" class="headerlink" title="2）引入 Watermark 和 EventTim"></a>2）引入 Watermark 和 EventTim</h4><h5 id="1-有序数据流中引入-Watermark-和-EventTime"><a href="#1-有序数据流中引入-Watermark-和-EventTime" class="headerlink" title="1.有序数据流中引入 Watermark 和 EventTime"></a>1.有序数据流中引入 Watermark 和 EventTime</h5><p>对于有序的数据，代码比较简洁，主要需要从源Event 中抽取 EventTime</p>
+<pre><code class="scala">//读取文件数据
+val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.to
+Long)
+&#125;)
+//根据EventTime有序的数据流
+data.assignAscendingTimestamps(_.callTime)
+//StationLog对象中抽取EventTime就是callTime属性
+</code></pre>
+<h5 id="2-乱序序数据流中引入-Watermark-和-EventTime"><a href="#2-乱序序数据流中引入-Watermark-和-EventTime" class="headerlink" title="2.乱序序数据流中引入 Watermark 和 EventTime"></a>2.乱序序数据流中引入 Watermark 和 EventTime</h5><p>对于乱序数据流，有两种常见的引入方法：周期性和间断性</p>
+<h6 id="1-With-Periodic（周期性的）"><a href="#1-With-Periodic（周期性的）" class="headerlink" title="1.With Periodic（周期性的）"></a>1.With Periodic（周期性的）</h6><p><strong>Watermark 周期性地生成 Watermark 的生成，默认是 100ms</strong>。不论是否有数据的流入都会周期性的调用getCurrentWatermark（）方法。</p>
+<p>每隔 N 毫秒自动向流里注入一个 Watermark，时间间隔由streamEnv.getConfig.setAutoWatermarkInterval()  决定。最简单 的写法如下：</p>
+<pre><code class="scala">//读取文件数据
+val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+//如果EventTime是乱序的，需要考虑一个延迟时间t
+//当前代码设置的延迟时间为3秒
+data.assignTimestampsAndWatermarks(new BoundedOutOfOrdernessTimestampExtractor[StationLog](Time.seconds(3)) //延迟时间
+&#123;
+override def extractTimestamp(element: StationLog) = &#123;
+element.callTime //设置EventTime的值
+&#125;
+&#125;)
+</code></pre>
+<p>另外还有一种复杂的写法：</p>
+<pre><code class="scala">//读取文件数据
+val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.to
+Long)
+&#125;)
+//如果EventTime是乱序的，需要考虑一个延迟时间t
+//当前代码设置的延迟时间为3秒
+data.assignTimestampsAndWatermarks(
+new MyCustomerPeriodicWatermark(3000L)) //自定义延迟3秒
+&#125;
+class MyCustomerPeriodicWatermark(delay: Long) extends
+AssignerWithPeriodicWatermarks[StationLog]&#123;
+var maxTime :Long=0
+override def getCurrentWatermark: Watermark = &#123;
+new Watermark(maxTime-delay) //创建水位线
+&#125;
+override def extractTimestamp(element: StationLog, previousElementTimestamp: Long): Long = &#123;
+maxTime=maxTime.max(element.callTime) //maxtime永远是最大值
+element.callTime
+&#125;
+&#125;
+</code></pre>
+<h6 id="2-With-Punctuated（间断性的）-Watermark"><a href="#2-With-Punctuated（间断性的）-Watermark" class="headerlink" title="2.With Punctuated（间断性的） Watermark"></a>2.With Punctuated（间断性的） Watermark</h6><p>间断性的生成 Watermark 一般是<strong>基于某些事件触发</strong> Watermark 的生成和发送，比如：在 我们的基站数据中，有一个基站的 CallTime 总是没有按照顺序传入，其他基站的时间都是 正常的，那我们需要对这个基站来专门生成 Watermark。</p>
+<pre><code class="scala">//读取文件数据
+val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.to
+Long)
+&#125;)
+//只有station_1的EventTime是无序的，所以只需要针对station_1做处理
+//当前代码设置station_1基站的延迟处理时间为3秒
+data.assignTimestampsAndWatermarks(
+new MyCustomerPunctuatedWatermarks(3000L)) //自定义延迟
+｝
+class MyCustomerPunctuatedWatermarks(delay:Long) extends AssignerWithPunctuatedWatermarks[StationLog]&#123;
+var maxTime :Long=0
+override def checkAndGetNextWatermark(element: StationLog, extractedTimestamp: Long): Watermark = &#123;
+if(element.sid.equals(&quot;station_1&quot;))&#123;//当基站ID为:station_1 才生成水位线
+maxTime =maxTime.max(extractedTimestamp)
+new Watermark(maxTime-delay)
+&#125;else&#123;
+return null //其他情况下不返回水位线
+&#125;
+&#125;
+override def extractTimestamp(element: StationLog, previousElementTimestamp:Long): Long = &#123;
+element.callTime //抽取EventTime的值
+&#125;
+&#125;
+</code></pre>
+<h4 id="3-WaterMark案例"><a href="#3-WaterMark案例" class="headerlink" title="3.WaterMark案例"></a>3.WaterMark案例</h4><p>需求：每隔 5 秒中统计一下最近 10 秒内每个基站中通话时间最长的一次通话发生的呼叫时间、主叫号码，被叫号码，通话时长。并且还得告诉我到底是哪个时间范围（10 秒） 内的。 注意：基站日志数据传入的时候是无序的，通过观察发现时间最多延迟了 3 秒。</p>
+<pre><code class="scala">/*
+* 每隔5秒中统计一下最近10秒内每个基站中通话时间最长的一次通话发生的
+* 呼叫时间、主叫号码，被叫号码，通话时长。
+* 并且还得告诉我到底是哪个时间范围（10秒）内的。
+*/
+object MaxLongCallTime &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv: StreamExecutionEnvironment =
+StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+//读取文件数据
+val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+.assignTimestampsAndWatermarks( //引入Watermark
+new BoundedOutOfOrdernessTimestampExtractor[StationLog](Time.seconds(3))&#123;//延迟3秒
+override def extractTimestamp(element: StationLog) = &#123;
+element.callTime
+&#125;
+&#125;)
+//分组，开窗处理
+data.keyBy(_.sid)
+.timeWindow(Time.seconds(10),Time.seconds(5))
+//reduce 函数做增量聚合 ,MaxTimeAggregate能做到来一条数据处理一条，
+//ReturnMaxTime 在窗口触发的时候调用
+reduce(new MaxTimeReduce,new ReturnMaxTime)
+.print()
+streamEnv.execute()
+&#125;
+class MaxTimeReduce extends ReduceFunction[StationLog]&#123;
+override def reduce(t: StationLog, t1: StationLog): StationLog = &#123;
+//通话时间比较
+if(t.duration &gt; t1.duration) t else t1
+&#125;
+&#125;
+class ReturnMaxTime extends
+WindowFunction[StationLog,String,String,TimeWindow]&#123;
+override def apply(key: String, window: TimeWindow, input: Iterable[StationLog], out: Collector[String]): Unit = &#123;
+var sb =new StringBuilder
+sb.append(&quot;窗口范围是：
+&quot;).append(window.getStart).append(&quot;----&quot;).append(window.getEnd)
+sb.append(&quot;\n&quot;)
+sb.append(&quot;通话日志:&quot;).append(input.iterator.next())
+out.collect(sb.toString())
+&#125;
+&#125;
+&#125;
+</code></pre>
+<p><img src="/flink/flink/image-20220519232931477.png" alt="image-20220519232931477"></p>
+<p><img src="/flink/flink/image-20220519232953021.png" alt="image-20220519232953021"></p>
+<p>结论：事件事件event time 窗口计算时，当前eventtime+10秒后的数据会触发窗口计算，但不会将这条数据包含在内。</p>
+<h3 id="3-Window-的-allowedLateness和sideoutput"><a href="#3-Window-的-allowedLateness和sideoutput" class="headerlink" title="3.Window 的 allowedLateness和sideoutput"></a>3.Window 的 allowedLateness和sideoutput</h3><p>基于 Event-Time 的窗口处理流式数据，虽然提供了 Watermark 机制，却只能在一定程 度上解决了数据乱序的问题。默认情况下，当watermark通过end-of-window激活window计算结束之后，再有之前的数据到达时，这些数据会被删除。</p>
+<p>为了避免有些迟到的数据被删除，因此产生了allowedLateness，使用allowedLateness延迟销毁窗口，允许有一段时间（也是以event time来衡量）来等待之前的数据到达，以便再次处理这些数据。此时就需要使用 Allowed Lateness 机制来对迟到的数据进行额外的处理。</p>
+<p>allowedLateness的迟到流数据，也是通过.sideOutputLateData(outputTag)和result.getSideOutput(outputTag)的侧输出流方式输出的，通过使用 sideOutputLateData（OutputTag）来标记迟到数据计算的结果，然后使用 getSideOutput（lateOutputTag）从窗口结果中获取 lateOutputTag 标签对应的数据，之后转成独立的 DataStream 数据集进行处理，创建 late-data 的 OutputTag，再通过该标签从窗口结果中将迟到数据筛选出来。<strong>allowedLateness只针对eventTime</strong>，因为processingTime不存在延时的情况。</p>
+<p>注意：如果有 Watermark 同时也有 Allowed Lateness。那么窗口函数再次触发的条件 是：watermark &lt; end-of-window + allowedLatenes</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><pre><code class="scala">object LateDataOnWindow &#123;
+def main(args: Array[String]): Unit = &#123;
+//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv: StreamExecutionEnvironment =
+StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+//读取文件数据
+val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+.assignTimestampsAndWatermarks( //引入Watermark
+new BoundedOutOfOrdernessTimestampExtractor[StationLog](Time.seconds(2))&#123;//延迟2秒
+override def extractTimestamp(element: StationLog) = &#123;
+element.callTime
+&#125;
+&#125;)
+//分组，开窗处理
+//定义一个侧输出流 的标签
+var lateTag =new OutputTag[StationLog](&quot;late&quot;)
+val mainStream: DataStream[String] = data.keyBy(_.sid)
+.timeWindow(Time.seconds(10), Time.seconds(5))
+//注意：只要符合watermark &lt; end-of-window + allowedLateness之内到达的数据，都会被再次触发窗口的计算
+//超过之外的迟到数据会被放入侧输出流
+.allowedLateness(Time.seconds(5)) //允许数据迟到5秒
+.sideOutputLateData(lateTag)//窗口watermark和allowedLateness之后依然迟到的流数据
+.aggregate(new AggregateCount, new OutputResult)//自定义操作
+    
+mainStream.getSideOutput(lateTag).print(&quot;late&quot;)//迟到很久的数据可以另外再处理
+mainStream.print(&quot;main&quot;)
+streamEnv.execute()
+&#125;
+//三个参数，in，累加器类型，out
+class AggregateCount extends AggregateFunction[StationLog,Long,Long]&#123;
+override def createAccumulator(): Long = 0
+override def add(in: StationLog, acc: Long): Long = acc+1
+override def getResult(acc: Long): Long = acc
+override def merge(acc: Long, acc1: Long): Long = acc+acc1
+&#125;
+class OutputResult extends WindowFunction[Long,String,String,TimeWindow]&#123;
+override def apply(key: String, window: TimeWindow, input: Iterable[Long], out:
+Collector[String]): Unit = &#123;
+var sb =new StringBuilder
+sb.append(&quot;窗口范围是：&quot;).append(window.getStart).append(&quot;----&quot;).append(window.getEnd)
+sb.append(&quot;\n&quot;)
+sb.append(&quot;当前基站是：&quot;).append(key)
+.append(&quot; 呼叫数量是: &quot;).append(input.iterator.next())
+out.collect(sb.toString())
+&#125;
+&#125;
+&#125;
+</code></pre>
+<h2 id="TableAPI-和-Flink-SQL"><a href="#TableAPI-和-Flink-SQL" class="headerlink" title="TableAPI 和 Flink SQL"></a>TableAPI 和 Flink SQL</h2><p>Flink 也提供了关系型编程接口 Table API 以及基于 Table API 的 SQL API，让用户能够通过使用结构化编程 接口高效地构建 Flink 应用。同时 Table API 以及 SQL 能够统一处理批量和实时计算业务， 无须切换修改任何应用代码就能够基于同一套 API 编写流式应用和批量应用，从而达到真正 意义的批流统一。</p>
+<h3 id="1-开发环境构建"><a href="#1-开发环境构建" class="headerlink" title="1.开发环境构建"></a>1.开发环境构建</h3><p>在 Flink 1.9 中，Table 模块迎来了核心架构的升级，引入了阿里巴巴 Blink 团队贡献的诸多功能，取名叫： <strong>Blink Planner</strong>。在使用 Table API 和 SQL 开发 Flink 应用之前， 通过添加 Maven 的依赖配置到项目中，在本地工程中引入相应的依赖库，库中包含了 Table API 和 SQL 接口。</p>
+<pre><code class="xml">&lt;dependency&gt;
+&lt;groupId&gt;org.apache.flink&lt;/groupId&gt;
+&lt;artifactId&gt;flink-table-planner_2.11&lt;/artifactId&gt;
+&lt;version&gt;1.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+&lt;groupId&gt;org.apache.flink&lt;/groupId&gt;
+&lt;artifactId&gt;flink-table-api-scala-bridge_2.11&lt;/artifactId&gt;
+&lt;version&gt;1.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h3 id="2-TableEnvironment"><a href="#2-TableEnvironment" class="headerlink" title="2.TableEnvironment"></a>2.TableEnvironment</h3><p>和 DataStream API 一样，Table API 和 SQL 中具有相同的基本编程模型。首先需要构 建对应的 TableEnviroment 创建关系型编程环境，才能够在程序中使用 Table API 和 SQL 来编写应用程序，另外 Table API 和 SQL 接口可以在应用中同时使用，Flink SQL 基于 Apache Calcite 框架实现了 SQL 标准协议，是构建在 Table API 之上的更高级接口。 首先需要在环境中创建 TableEnvironment 对象，TableEnvironment 中提供了注册内部 表、执行 Flink SQL 语句、注册自定义函数等功能。根据应用类型的不同，TableEnvironment 创建方式也有所不同，但是都是通过调用 create()方法创建。 流计算环境下创建 TableEnviroment：</p>
+<pre><code class="scala">//初始化Flink的Streaming（流计算）上下文执行环境
+val streamEnv: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+//初始化Table API的上下文环境
+val tableEvn =StreamTableEnvironment.create(streamEnv)
+</code></pre>
+<p>在 Flink1.9 之后由于引入了 Blink Planner，还可以为：</p>
+<pre><code class="scala">val bsSettings = EnvironmentSettings.newInstance().useOldPlanner().inStreamingMode().build()
+val bsTableEnv = StreamTableEnvironment.create(streamEnv, bsSettings)
+</code></pre>
+<p>注意：Flink 社区完整保留原有 Flink Planner (Old Planner)，同时又引入了新的 Blink Planner，用户可以自行选择使用 Old Planner 还是 Blink Planner。官方推荐暂时 使用 Old Planner。</p>
+<h3 id="3-Table-API"><a href="#3-Table-API" class="headerlink" title="3.Table API"></a>3.Table API</h3><p>在 Flink 中创建一张表有两种方法： </p>
+<ol>
+<li>从一个文件中导入表结构（Structure）（常用于批计算）（静态） </li>
+<li>从 DataStream 或者 DataSet 转换成 Table （动态)</li>
+</ol>
+<h4 id="1-创建Table"><a href="#1-创建Table" class="headerlink" title="1.创建Table"></a>1.创建Table</h4><h5 id="从文件中创建-Table（静态表）"><a href="#从文件中创建-Table（静态表）" class="headerlink" title="从文件中创建 Table（静态表）"></a>从文件中创建 Table（静态表）</h5><p>Flink 允许用户从本地或者分布式文件系统中读取和写入数据，在 Table API 中可以通 过 CsvTableSource 类来创建，只需指定相应的参数即可。但是文件格式必须是 CSV 格式的。 其 他 文 件 格 式 也 支 持 （ 在 Flink 还 有 Connector 的 来 支 持 其 他 格 式 或 者 自 定 义 TableSource）。</p>
+<pre><code class="scala">object TableApiExercise &#123;
+  def main(args: Array[String]): Unit = &#123;
+    val environment: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+    val settings: EnvironmentSettings = EnvironmentSettings.newInstance().useOldPlanner().inStreamingMode().build()
+    val tableEnvironment: StreamTableEnvironment = StreamTableEnvironment.create(environment, settings)
+
+    val tableSouce = new CsvTableSource(
+      &quot;station.log&quot;,
+      Array[String](&quot;sid&quot;, &quot;callOut&quot;, &quot;callIn&quot;, &quot;callType&quot;, &quot;callTime&quot;, &quot;duration&quot;),
+      Array(Types.STRING, Types.STRING, Types.STRING, Types.STRING, Types.LONG, Types.LONG)
+    )
+    tableEnvironment.registerTableSource(&quot;t_table&quot;,tableSouce)
+    tableEnvironment.scan(&quot;t_table&quot;).printSchema()
+</code></pre>
+<p><img src="/flink/flink/image-20220523001615794.png" alt="image-20220523001615794"></p>
+<h5 id="从-DataStream-中创建-Table（动态表"><a href="#从-DataStream-中创建-Table（动态表" class="headerlink" title="从 DataStream 中创建 Table（动态表)"></a>从 DataStream 中创建 Table（动态表)</h5><p>前面已经知道 Table API 是构建在 DataStream API 和 DataSet API 之上的一层更高级 的抽象，因此用户可以灵活地使用 Table API 将 Table 转换成 DataStream 或 DataSet 数据集，也可以将 DataSteam 或 DataSet 数据集转换成 Table，这和 Spark 中的 DataFrame 和 RDD 的关系类似。</p>
+<p>使用SQL使用这种</p>
+<pre><code class="scala">val data = streamEnv.readTextFile(getClass.getResource(&quot;/station.log&quot;).getPath)
+// val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+//把DataStream对象变成一个Table
+tableEvn.registerDataStream(&quot;t_station_log&quot;,data) //注册表
+val table: Table = tableEvn.scan(&quot;t_station_log&quot;)
+table.printSchema() //打印表结构
+streamEnv.execute()
+</code></pre>
+<p>使用TableAPI注册table</p>
+<pre><code class="scala">val data = streamEnv.readTextFile(getClass.getResource(&quot;/station.log&quot;).getPath)
+// val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+//把DataStream对象变成一个Table
+val table: Table = tableEvn.fromDataStream(data) //直接变成table对象
+table.printSchema() //打印表结构
+streamEnv.execute()
+</code></pre>
+<h4 id="2-修改-Table-中字段名"><a href="#2-修改-Table-中字段名" class="headerlink" title="2.修改 Table 中字段名"></a>2.修改 Table 中字段名</h4><p>Flink 支持把自定义 POJOs 类的所有 case 类的属性名字变成字段名，也可以通过基于 字段偏移位置和字段名称两种方式重新修改：</p>
+<pre><code class="scala">//导入table库中的隐式转换
+import org.apache.flink.table.api.scala._
+// 基于位置重新指定字段名称为&quot;field1&quot;, &quot;field2&quot;, &quot;field3&quot;
+val table = tStreamEnv.fromDataStream(stream, &#39;field1, &#39;field2, &#39;field3)
+// 将DataStream转换成Table,并且将字段名称重新成别名
+val table: Table = tStreamEnv.fromDataStream(stream, &#39;rowtime as &#39;newTime, &#39;id as &#39;newId,&#39;variable as &#39;newVariable)
+//注意！使用as修改字段时，要修改表中所有的字段。
+</code></pre>
+<h4 id="3-查询和过滤"><a href="#3-查询和过滤" class="headerlink" title="3.查询和过滤"></a>3.查询和过滤</h4><p>在 Table 对象上使用 select 操作符查询需要获取的指定字段，也可以使用 filter 或 where 方法过滤字段和检索条件，将需要的数据检索出来。</p>
+<p>其中 toAppendStream 函数是吧 Table 对象转换成 DataStream 对象。</p>
+<pre><code class="scala">object TableAPITest &#123;
+def main(args: Array[String]): Unit = &#123;
+val streamEnv: StreamExecutionEnvironment =
+StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//初始化Table API的上下文环境
+val tableEvn =StreamTableEnvironment.create(streamEnv)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+import org.apache.flink.table.api.scala._ val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.to
+Long)
+&#125;)
+val table: Table = tableEvn.fromDataStream(data)
+//查询
+tableEvn.toAppendStream[Row](
+table.select(&#39;sid,&#39;callType as &#39;type,&#39;callTime,&#39;callOut))
+.print()
+    
+//过滤查询   val value: DataStream[Row]=
+tableEvn.toAppendStream[Row](
+table.filter(&#39;callType===&quot;success&quot;) //filter
+.where(&#39;callType===&quot;success&quot;)) //where
+    
+.print()
+tableEvn.execute(&quot;sql&quot;)
+&#125;
+</code></pre>
+<h4 id="4-分组聚合"><a href="#4-分组聚合" class="headerlink" title="4.分组聚合"></a>4.分组聚合</h4><pre><code class="scala">// toRetractDstream 得到的第一个boolean型字段标识 true就是最新的数据，false表示过期老数据  DataStream[(Boolean, (String, Long))]
+//如果使用 groupby table转换为流的时候只能用toRetractDstream
+tableEnvironment.toRetractStream[Row](
+      table1.groupBy(&#39;sid2).select(&#39;sid2,&#39;sid2.count as &#39;num_sid)
+    ).filter(_._1==true).print()
+tableEnvironment.registerDataStream(&quot;t_table&quot;,data2)
+</code></pre>
+<p>在代码中可以看出，使用 toAppendStream 和 toRetractStream 方法将 Table 转换为 DataStream[T]数据集，T 可以是 Flink 自定义的数据格式类型 Row，也可以是用户指定的数 据 格 式 类 型 。</p>
+<h4 id="5-UDF-自定义的函数"><a href="#5-UDF-自定义的函数" class="headerlink" title="5.UDF 自定义的函数"></a>5.UDF 自定义的函数</h4><p>用户可以在 Table API 中自定义函数类，常见的抽象类和接口是：</p>
+<p><strong>ScalarFunction</strong></p>
+<p><strong>TableFunction</strong></p>
+<p><strong>AggregateFunction</strong></p>
+<p><strong>TableAggregateFunction</strong></p>
+<h5 id="案例："><a href="#案例：" class="headerlink" title="案例："></a>案例：</h5><p>使用 Table 完成基于流的 WordCount</p>
+<pre><code class="scala">object TableAPITest2 &#123;
+def main(args: Array[String]): Unit = &#123;
+val streamEnv: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+streamEnv.setParallelism(1)
+//初始化Table API的上下文环境
+val tableEvn =StreamTableEnvironment.create(streamEnv)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+import org.apache.flink.table.api.scala._ val stream: DataStream[String] =
+streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+val table: Table = tableEvn.fromDataStream(stream,&#39;words)
+var my_func =new MyFlatMapFunction()//自定义UDF
+val result: Table = table.flatMap(my_func(&#39;words)).as(&#39;word, &#39;count)
+.groupBy(&#39;word) //分组
+.select(&#39;word, &#39;count.sum as &#39;c) //聚合
+tableEvn.toRetractStream[Row](result)
+.filter(_._1==true)
+.print()
+tableEvn.execute(&quot;table_api&quot;)
+&#125;
+    
+    
+    
+//自定义UDF
+class MyFlatMapFunction extends TableFunction[Row]&#123;
+//定义类型
+override def getResultType: TypeInformation[Row] = &#123;
+Types.ROW(Types.STRING, Types.INT)
+&#125;
+//函数主体
+def eval(str:String):Unit =&#123;
+str.trim.split(&quot; &quot;)
+.foreach(&#123;word=&gt;&#123;
+var row =new Row(2)
+row.setField(0,word)
+row.setField(1,1)
+collect(row)
+&#125;&#125;)
+&#125;
+&#125;
+&#125;
+</code></pre>
+<h4 id="6-Window"><a href="#6-Window" class="headerlink" title="6.Window"></a>6.Window</h4><p>Flink 支持 ProcessTime、EventTime 和 IngestionTime 三种时间概念，针对每种时间 概念，Flink Table API 中使用 Schema 中单独的字段来表示时间属性，当时间字段被指定 后，就可以在基于时间的操作算子中使用相应的时间属性。 </p>
+<p>在 Table API 中通过使用**.rowtime 来定义 EventTime** 字段，在 ProcessTime 时间字段名后使用**.proctime 后缀来指定 ProcessTime** 时间属性</p>
+<h5 id="tumble案例"><a href="#tumble案例" class="headerlink" title="tumble案例"></a>tumble案例</h5><pre><code class="scala">object TableAPITest &#123;
+def main(args: Array[String]): Unit = &#123;
+val streamEnv: StreamExecutionEnvironment =
+StreamExecutionEnvironment.getExecutionEnvironment
+//指定EventTime为时间语义
+streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+streamEnv.setParallelism(1)
+//初始化Table API的上下文环境
+val tableEvn =StreamTableEnvironment.create(streamEnv)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+import org.apache.flink.table.api.scala._ val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+.assignTimestampsAndWatermarks( //引入Watermark
+new BoundedOutOfOrdernessTimestampExtractor[StationLog](Time.seconds(2))&#123;//延迟2秒
+override def extractTimestamp(element: StationLog) = &#123;
+element.callTime
+&#125;
+&#125;)
+//注册表并设置时间属性
+val table: Table = tableEvn.fromDataStream(data,&#39;sid,&#39;callOut,&#39;callIn,&#39;callType,&#39;callTime.rowtime)
+//滚动Window ,第一种写法
+val result: Table = table.window(Tumble over 5.second on &#39;callTime as &#39;window)
+//第二种写法
+val result: Table = table.window(Tumble.over(&quot;5.second&quot;).on(&quot;callTime&quot;).as(&quot;window&quot;))
+    
+.groupBy(&#39;window, &#39;sid)
+.select(&#39;sid, &#39;window.start, &#39;window.end, &#39;window.rowtime, &#39;sid.count)
+//打印结果
+tableEvn.toRetractStream[Row](result)
+.filter(_._1==true)
+.print()
+tableEvn.execute(&quot;sql&quot;)
+&#125;
+&#125;
+</code></pre>
+<h5 id="slide案例"><a href="#slide案例" class="headerlink" title="slide案例"></a>slide案例</h5><pre><code class="scala">object TableAPITest &#123;
+def main(args: Array[String]): Unit = &#123;
+val streamEnv: StreamExecutionEnvironment =
+StreamExecutionEnvironment.getExecutionEnvironment
+//指定EventTime为时间语义
+streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+streamEnv.setParallelism(1)
+//初始化Table API的上下文环境
+val tableEvn =StreamTableEnvironment.create(streamEnv)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+import org.apache.flink.table.api.scala._ val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+.assignTimestampsAndWatermarks( //引入Watermark
+new BoundedOutOfOrdernessTimestampExtractor[StationLog](Time.seconds(2))&#123;//延迟2秒
+override def extractTimestamp(element: StationLog) = &#123;
+element.callTime
+&#125;
+&#125;)
+//注册表并设置时间属性
+val table: Table = tableEvn.fromDataStream(data,&#39;sid,&#39;callOut,&#39;callIn,&#39;callType,&#39;callTime.rowtime)
+//!!!!滑动Window 窗口大小为：10秒，滑动步长为5秒 :第一种写
+val result: Table = table.window(slide over 10.second every 5.second on &#39;callTime as &#39;window)
+//第二种写法
+val result: Table = table.window(slide.over(&quot;10.second&quot;).every(&quot;5.second&quot;).on(&quot;callTime&quot;).as(&quot;window&quot;))
+    
+.groupBy(&#39;window, &#39;sid)
+.select(&#39;sid, &#39;window.start, &#39;window.end, &#39;window.rowtime, &#39;sid.count)
+//打印结果
+tableEvn.toRetractStream[Row](result)
+.filter(_._1==true)
+.print()
+tableEvn.execute(&quot;sql&quot;)
+&#125;
+&#125;
+</code></pre>
+<h4 id="Flink-SQL"><a href="#Flink-SQL" class="headerlink" title="Flink  SQL"></a>Flink  SQL</h4><p>SQL 作为 Flink 中提供的接口之一，占据着非常重要的地位，主要是因为 SQL 具有灵活 和丰富的语法，能够应用于大部分的计算场景。<strong>Flink SQL 底层使用 Apache Calcite 框架</strong>， 将标准的 Flink SQL 语句解析并转换成底层的算子处理逻辑，并在转换过程中基于语法规则 层面进行性能优化，比如谓词下推等。另外用户在使用 SQL 编写 Flink 应用时，能够屏蔽底层技术细节，能够更加方便且高效地通过SQL语句来构建Flink应用。Flink SQL构建在Table API 之上，并含盖了大部分的 Table API 功能特性。同时 Flink SQL 可以和 Table API 混用， Flink 最终会在整体上将代码合并在同一套代码逻辑中</p>
+<h5 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h5><p>通过实例来了解 Flink SQL 整体的使用方式，案例：统计每个基站通话成功的通话时长总和。</p>
+<pre><code class="scala">val data = streamEnv.readTextFile(getClass.getResource(&quot;/station.log&quot;).getPath)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.to
+Long)
+&#125;)
+val table: Table = tableEvn.fromDataStream(data)
+//sqlQuery来编写sql语句，可以通过$来引用变量。
+val result: Table = tableEvn.sqlQuery(s&quot;select sid,sum(duration) as sd from $table where callType=&#39;success&#39; group by sid&quot;)
+//打印结果
+tableEvn.toRetractStream[Row](result)
+.filter(_._1==true)
+.print()
+tableEvn.execute(&quot;sql_api&quot;)
+</code></pre>
+<p><strong>另外可以有第二种写法：</strong></p>
+<pre><code class="scala">//第二种sql调用方式,注册表后直接表名的方式调用。
+tableEvn.registerDataStream(&quot;t_station_log&quot;,data)
+val result: Table = tableEvn.sqlQuery(&quot;select sid ,sum(duration) as sd from t_station_log where callType=&#39;success&#39; group by sid&quot;)
+tableEvn.toRetractStream[Row](result)
+.filter(_._1==true)
+.print()
+</code></pre>
+<h5 id="SQL-中的-Window"><a href="#SQL-中的-Window" class="headerlink" title="SQL 中的 Window"></a>SQL 中的 Window</h5><p>Flink SQL 也支持三种窗口类型，分别为 </p>
+<ul>
+<li>Tumble Windows</li>
+<li>HOP Windows（Sliding Window）</li>
+<li>Session Windows</li>
+</ul>
+<p>其中 HOP Windows 对应 Table API 中的 Sliding Window，同时每种窗口分别有相应的使用场景和方法。</p>
+<h6 id="案例-2"><a href="#案例-2" class="headerlink" title="案例"></a>案例</h6><h6 id="Tumble案例："><a href="#Tumble案例：" class="headerlink" title="Tumble案例："></a>Tumble案例：</h6><p>统计最近每 5 秒中内，每个基站的通话成功时间总和：</p>
+<pre><code class="scala">object TestSQL &#123;
+def main(args: Array[String]): Unit = &#123;
+val streamEnv: StreamExecutionEnvironment =
+StreamExecutionEnvironment.getExecutionEnvironment
+//指定EventTime为时间语义
+streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+streamEnv.setParallelism(1)
+//初始化Table API的上下文环境
+val tableEvn =StreamTableEnvironment.create(streamEnv)
+//导入隐式转换，建议写在这里，可以防止IDEA代码提示出错的问题
+import org.apache.flink.streaming.api.scala._
+import org.apache.flink.table.api.scala._
+// val data = streamEnv.readTextFile(getClass.getResource(&quot;/station.log&quot;).getPath)
+val data = streamEnv.socketTextStream(&quot;hadoop101&quot;,8888)
+.map(line=&gt;&#123;
+var arr =line.split(&quot;,&quot;)
+new
+StationLog(arr(0).trim,arr(1).trim,arr(2).trim,arr(3).trim,arr(4).trim.toLong,arr(5).trim.toLong)
+&#125;)
+.assignTimestampsAndWatermarks( //引入Watermark
+new BoundedOutOfOrdernessTimestampExtractor[StationLog](Time.seconds(2))&#123;//延迟2秒
+override def extractTimestamp(element: StationLog) = &#123;
+element.callTime
+&#125;
+&#125;)
+//滚动窗口,窗口大小为5秒，需求：统计每5秒内，每个基站的成功通话时长总和
+tableEvn.registerDataStream(&quot;t_station_log&quot;,data,&#39;sid,&#39;callOut,&#39;callIn,&#39;callType,&#39;callTime.rowtime,&#39;duration)
+var result =tableEvn.sqlQuery( &quot;select sid ,sum(duration) from t_station_log where callType=&#39;success&#39; group by
+tumble(callTime,interval &#39;5&#39; second),sid&quot;)
+tableEvn.toRetractStream[Row](result)
+.filter(_._1==true)
+.print()
+tableEvn.execute(&quot;sql_api&quot;)
+&#125;
+&#125;
+</code></pre>
+<h6 id="slide案例-1"><a href="#slide案例-1" class="headerlink" title="slide案例"></a>slide案例</h6><p>是滑动窗口的话：需求：每隔 5 秒钟，统计最近 10 秒内每个基站的通话成功时间总和</p>
+<pre><code class="scala">//滑动窗口，窗口大小10秒，步长5秒，需求：每隔5秒，统计最近10秒内，每个基站通话成功时长总和
+tableEvn.registerDataStream(&quot;t_station_log&quot;,data,&#39;sid,&#39;callType,&#39;callTime.rowtime,&#39;duration)
+//hop_start    滑动窗口开始时间
+//hop_end	   滑动窗口结束时间
+var result =tableEvn.sqlQuery( &quot;select sid ,sum(duration) , hop_start(callTime,interval &#39;5&#39; second,interval &#39;10&#39; second) as winStart,&quot; +
+&quot;hop_end(callTime,interval &#39;5&#39; second,interval &#39;10&#39; second) as winEnd &quot; +
+&quot;from t_station_log where callType=&#39;success&#39; &quot; +
+&quot;group by hop(callTime,interval &#39;5&#39; second,interval &#39;10&#39; second),sid&quot;)
+tableEvn.toRetractStream[Row](result) //打印每个窗口的起始时间
+.filter(_._1==true)
+.print()
+tableEvn.execute(&quot;sql_api&quot;)
+</code></pre>
+<h2 id="Flink-CEP（复杂事件处理）"><a href="#Flink-CEP（复杂事件处理）" class="headerlink" title="Flink CEP（复杂事件处理）"></a>Flink CEP（复杂事件处理）</h2><p>复杂事件处理（CEP）是一种基于流处理的技术，将系统数据看作不同类型的事件，通 过分析事件之间的关系，建立不同的事件关系序列库，并利用过滤、关联、聚合等技术，最 终由简单事件产生高级事件，并通过模式规则的方式对重要信息进行跟踪和分析，从实时数 据中发掘有价值的信息。复杂事件处理主要应用于防范网络欺诈、设备故障检测、风险规避 和智能营销等领域。Flink 基于 DataStrem API 提供了 FlinkCEP 组件栈，专门用于对复杂 事件的处理，帮助用户从流式数据中发掘有价值的信息。</p>
+<p>&#x2F;&#x2F;没有写</p>
+<h2 id="Flink-性能优化"><a href="#Flink-性能优化" class="headerlink" title="Flink 性能优化"></a>Flink 性能优化</h2><p>对于构建好的 Flink 集群，如何能够有效地进行集群以及任务方面的监控与优化是非常 重要的，尤其对于 7*24 小时运行的生产环境。重点介绍 Checkpointing 的监控。然后通过分析各种监控指标帮助用户更好地对 Flink 应用进行性能优化，以提高 Flink 任务执行的数 据处理性能和效率。</p>
+<h3 id="1-Checkpoint-页面监控与优化"><a href="#1-Checkpoint-页面监控与优化" class="headerlink" title="1.Checkpoint 页面监控与优化"></a>1.Checkpoint 页面监控与优化</h3><p>Flink Web 页面中也提供了针对 Job Checkpointing 相关的监控信息，Checkpointing 监控页面中共有 Overview、History、Summary 和 Configuration 四个页签，分别对 Checkpointing 从不同的角度进行了监控，每个页面中都包含了与 Checkpointing 相关的指标。</p>
+<h4 id="1）Overview-页签"><a href="#1）Overview-页签" class="headerlink" title="1）Overview 页签"></a>1）Overview 页签</h4><p>Overview 页签中宏观地记录了 Flink 应用中 Checkpoints 的数量以及 Checkpoint 的最 新记录，包括失败和完成的 Checkpoints。</p>
+<img src="/flink/flink/image-20220531160838963.png" alt="image-20220531160838963">
+
+<ul>
+<li>Checkpoint Counts：包含了触发、进行中、完成、失败、重置等 Checkpoint 状态数量 统计。 </li>
+<li>Latest Completed Checkpoint：记录了最近一次完成的 Checkpoint 信息，包括结束时 间，端到端时长，状态大小等。 </li>
+<li>Latest Failed Checkpoint：记录了最近一次失败的 Checkpoint 信息。 </li>
+<li>Latest Savepoint：记录了最近一次 Savepoint 触发的信息。 </li>
+<li>Latest Restore：记录了最近一次重置操作的信息，包括从 Checkpoint 和 Savepoint 两种数据中重置恢复任务。</li>
+</ul>
+<h4 id="2）Configuration-页签"><a href="#2）Configuration-页签" class="headerlink" title="2）Configuration 页签"></a>2）Configuration 页签</h4><p>Configuration 页签中包含 Checkpoints 中所有的基本配置，具体的配置解释如下：</p>
+<ul>
+<li>Checkpointing Mode:标记 Checkpointing 是 Exactly Once 还是 At Least Once 的模式。 </li>
+<li>Interval: Checkpointing 触 发 的 时 间 间 隔 ， 时 间 间 隔 越 小 意 味 着 越 频 繁 的 Checkpointing。 </li>
+<li>Timeout: Checkpointing 触发超时时间，超过指定时间 JobManager 会取消当次 Checkpointing，并重新启动新的 Checkpointing。</li>
+<li>Minimum Pause Between Checkpoints:配置两个 Checkpoints 之间最短时间间隔，当上 一次 Checkpointing 结束后，需要等待该时间间隔才能触发下一次 Checkpoints，避触发过多的 Checkpoints 导致系统资源被消耗。 </li>
+<li>Persist Checkpoints Externally:如果开启 Checkpoints，数据将同时写到外部持久 化存储中。</li>
+</ul>
+<p><img src="/flink/flink/image-20220531161226146.png" alt="image-20220531161226146"></p>
+<h3 id="2-Flink-内存优化"><a href="#2-Flink-内存优化" class="headerlink" title="2.Flink 内存优化"></a>2.Flink 内存优化</h3><p>在大数据领域，大多数开源框架（Hadoop、Spark、Storm）都是基于 JVM 运行，但是 JVM 的内存管理机制往往存在着诸多类似 OutOfMemoryError 的问题，主要是因为创建过多 的对象实例而超过 JVM 的最大堆内存限制，却没有被有效回收掉，这在很大程度上影响了系 统的稳定性，尤其对于大数据应用，面对大量的数据对象产生，仅仅靠 JVM 所提供的各种垃 圾回收机制很难解决内存溢出的问题。在开源框架中有很多框架都实现了自己的内存管理， 例如 Apache Spark 的 Tungsten 项目，在一定程度上减轻了框架对 JVM 垃圾回收机制的依赖， 从而更好地使用 JVM 来处理大规模数据集。 </p>
+<p>Flink 也基于 JVM 实现了自己的内存管理，将 JVM 根据内存区分为 <strong>Unmanned Heap、Flink Managed Heap、Network Buffers</strong> 三个区域。</p>
+<p>在 Flink 内部对 Flink Managed Heap 进行管理，在启动集群的过程中直接将堆内存初始化成 Memory Pages Pool，也就是将内存全部以 二进制数组的方式占用，形成虚拟内存使用空间。新创建的对象都是以序列化成二进制数据 的方式存储在内存页面池中，当完成计算后数据对象 Flink 就会将 Page 置空，而不是通过 JVM 进行垃圾回收，保证数据对象的创建永远不会超过 JVM 堆内存大小，也有效地避免了因 为频繁 GC 导致的系统稳定性问题。</p>
+<p><img src="/flink/flink/image-20220531195320118.png" alt="image-20220531195320118"></p>
+<h4 id="1-JobManager-配置"><a href="#1-JobManager-配置" class="headerlink" title="1)JobManager 配置"></a>1)JobManager 配置</h4><p>JobManager 在 Flink 系统中主要承担管理集群资源、接收任务、调度 Task、收集任务 状态以及管理 TaskManager 的功能，JobManager 本身并不直接参与数据的计算过程中，因 此 JobManager 的内存配置项不是特别多，只要指定 JobManager 堆内存大小即可</p>
+<pre><code>jobmanager.heap.size：设定JobManager堆内存大小，默认为1024MB。
+</code></pre>
+<h4 id="2）TaskManager-配置"><a href="#2）TaskManager-配置" class="headerlink" title="2）TaskManager 配置"></a>2）TaskManager 配置</h4><p>TaskManager作为Flink集群中的工作节点，所有任务的计算逻辑均执行在TaskManager 之上，因此对 TaskManager 内存配置显得尤为重要，可以通过以下参数配置对 TaskManager 进行优化和调整。对应的官方文档是</p>
+<p><img src="/flink/flink/image-20220531195412615.png" alt="image-20220531195412615"></p>
+<ul>
+<li>taskmanager.heap.size：设定 TaskManager 堆内存大小，默认值为 1024M，如果在 Yarn 的集群中，TaskManager 取决于 Yarn 分配给 TaskManager Container 的内存大小，且 Yarn 环境下一般会减掉一部分内存用于 Container 的容错。</li>
+<li>taskmanager.jvm-exit-on-oom：设定 TaskManager 是否会因为 JVM 发生内存溢出而停 止，默认为 false，当 TaskManager 发生内存溢出时，也不会导致 TaskManager 停止。 </li>
+<li>taskmanager.memory.size：设定 TaskManager 内存大小，默认为 0，如果不设定该值 将会使用 taskmanager.memory.fraction 作为内存分配依据。</li>
+<li>taskmanager.memory.fraction：设定 TaskManager 堆中去除 Network Buffers 内存后的内存分配比例。该内存主要用于 TaskManager 任务排序、缓存中间结果等操作。例如， 如果设定为 0.8，则代表 TaskManager 保留 80%内存用于中间结果数据的缓存，剩下 20% 的 内 存 用 于 创 建 用 户 定 义 函 数 中 的 数 据 对 象 存 储 。 注 意 ， 该 参 数 只 有 在 taskmanager.memory.size 不设定的情况下才生效。 </li>
+<li>taskmanager.memory.off-heap：设 置是 否开 启堆 外内 存供 Managed Memory 或 者 Network Buffers 使用。 </li>
+<li>taskmanager.memory.preallocate：设置是否在启动 TaskManager 过程中直接分配 TaskManager 管理内存。 </li>
+<li>taskmanager.numberOfTaskSlots：每个 TaskManager 分配的 slot 数量。</li>
+</ul>
+<h3 id="3-Flink-的网络缓存优化"><a href="#3-Flink-的网络缓存优化" class="headerlink" title="3.Flink 的网络缓存优化"></a>3.Flink 的网络缓存优化</h3><p>Flink 将 JVM 堆内存切分为三个部分，其中一部分为 Network Buffers 内存。Network Buffers 内存是 Flink 数据交互层的关键内存资源，主要目的是缓存分布式数据处理过程中 的输入数据。。通常情况下，比较大的 Network Buffers 意味着更高的吞吐量。如果系统出 现“Insufficient number of network buffers”的错误，一般是因为 Network Buffers 配置过低导致，因此，在这种情况下需要适当调整 TaskManager 上 Network Buffers 的内存 大小，以使得系统能够达到相对较高的吞吐量</p>
+<p>目前 Flink 能够调整 Network Buffer 内存大小的方式有两种：一种是通过直接指定 Network Buffers 内存数量的方式，另外一种是通过配置内存比例的方式。</p>
+<h4 id="1）设定-Network-Buffer-内存数量（过时）"><a href="#1）设定-Network-Buffer-内存数量（过时）" class="headerlink" title="1）设定 Network Buffer 内存数量（过时）"></a>1）设定 Network Buffer 内存数量（过时）</h4><p>直接设定 Nework Buffer 数量需要通过如下公式计算得出： NetworkBuffersNum &#x3D; total-degree-of-parallelism * intra-node-parallelism * n 其 中 total-degree-of-parallelism 表 示 每 个 TaskManager 的 总 并 发 数 量 ， intra-node-parallelism 表示每个 TaskManager 输入数据源的并发数量，n 表示在预估计算 过程中 Repar-titioning 或 Broadcasting 操作并行的数量。intra-node-parallelism 通常 情况下与 Task-Manager 的所占有的 CPU 数一致，且 Repartitioning 和 Broadcating 一般下 不会超过 4 个并发。可以将计算公式转化如下： NetworkBuffersNum &#x3D; ^2 * &lt; TMs&gt;* 4 其中 slots-per-TM 是每个 TaskManager 上分配的 slots 数量，TMs 是 TaskManager 的 总数量。对于一个含有 20 个 TaskManager，每个 TaskManager 含有 8 个 Slot 的集群来说， 总共需要的 Network Buffer 数量为 8^2<em>20</em>4&#x3D;5120 个，因此集群中配置 Network Buffer 内存的大小约为 300M 较为合适。 计算完 Network Buffer 数量后，可以通过添加如下两个参数对 Network Buffer 内存进 行配置。其中 segment-size 为每个 Network Buffer 的内存大小，默认为 32KB，一般不需 要修改，通过设定 numberOfBuffers 参数以达到计算出的内存大小要求。  taskmanager.network.numberOfBuffers：指定 Network 堆栈 Buffer 内存块的数量。  taskmanager.memory.segment-size.：内存管理器和 Network 栈使用的内存 Buffer 大 小，默认为 32K</p>
+<h4 id="2）设定-Network-内存比例"><a href="#2）设定-Network-内存比例" class="headerlink" title="2）设定 Network 内存比例"></a>2）设定 Network 内存比例</h4><p>从 1.3 版本开始，Flink 就提供了通过指定内存比例的方式设置 Network Buffer 内大小。 </p>
+<ul>
+<li>taskmanager.network.memory.fraction: JVM 中用于 Network Buffers 的内存比例。</li>
+<li>taskmanager.network.memory.min: 最小的 Network Buffers 内存大小，默认为 64MB。 </li>
+<li>taskmanager.network.memory.max: 最大的 Network Buffers 内存大小，默认 1GB。 </li>
+<li>taskmanager.memory.segment-size: 内存管理器和 Network 栈使用的 Buffer 大小，默 认为 32KB。</li>
+</ul>
+<h2 id="Flink端口"><a href="#Flink端口" class="headerlink" title="Flink端口"></a>Flink端口</h2><p>6123				JobManager的通信端口号</p>
+<p>8081				访问JobManager的端口号</p>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="Flink如何保证消费kafka数据的一致性"><a href="#Flink如何保证消费kafka数据的一致性" class="headerlink" title="Flink如何保证消费kafka数据的一致性"></a>Flink如何保证消费kafka数据的一致性</h3><p>Flink有一个checkpoint的机制，挂掉的话可以从这里恢复，</p>
+<p>Flink可以保存状态，在消费kafka数据时，可以将offset当成一个状态保存在flink中，到时候恢复的时候就可以将偏移量恢复出来，重新再提交一遍,Flink是自动的，不需要自己进行手动，非常舒服（如果是Spark，也能保证数据一致性，但是得自己手动的进行）</p>
+<p>Flink在与kafka链接的时候自动保证了状态的一致性</p>
+<h3 id="Flink-如何实现-Exactly-once-语义？"><a href="#Flink-如何实现-Exactly-once-语义？" class="headerlink" title="Flink 如何实现 Exactly-once 语义？"></a>Flink 如何实现 Exactly-once 语义？</h3><p>使用执行exactly-once的数据源，如kafka。</p>
+<p>开启checkpoint，设置checkpointingMode。EXACTLY_ONCE，不让消费者自动提交偏移量存储系统支持覆盖（redis，Hbase，ES），使用其幂等性，将原来的数据覆盖</p>
+<p>Barrier（流屏障）可以保证一个流水线中所有算子都完成了对该条数据做的checkpoint。存储系统支持事务</p>
+<p>Jobmanager定时出发checkpoint的定时器（checkpointCodination）给有状态的subtask做checkpoint</p>
+<p>checkpoint成功后，将数据写入statebackend中，成功后向jobmanager发送ack应答</p>
+<p>jobmanager接收到的所有subtask响应后，jobmanager向所有实现了checkpointlistener的subtask发送notify completed方法成功的消息。</p>
+<p>把数据写入kafka，提交事务，及时提交事务失败，也没关系，会重启从checkpoint恢复后再写。</p>
+<p>Flink 时间类型的分类和各自的实现原理？</p>
+<h3 id="Flink-如何处理数据乱序和延迟？"><a href="#Flink-如何处理数据乱序和延迟？" class="headerlink" title="Flink 如何处理数据乱序和延迟？"></a>Flink 如何处理数据乱序和延迟？</h3><p>waterwark+allowedlateness+sideoutput</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">三山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://star-light-star-bright.github.io/flink/flink/">https://star-light-star-bright.github.io/flink/flink/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">三山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Flink/">
+                                    <span class="chip bg-color">Flink</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/shu-ju-cang-ku/id-mapping/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="ID_MAPPING">
+                        
+                        <span class="card-title">ID_MAPPING</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E4%BB%93/" class="post-category">
+                                    数仓
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ID-Mapping/">
+                        <span class="chip bg-color">ID_Mapping</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/java/she-ji-mo-shi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="设计模式">
+                        
+                        <span class="card-title">设计模式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                    设计模式
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="chip bg-color">设计模式</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">三山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

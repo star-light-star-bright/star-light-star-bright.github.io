@@ -1,0 +1,1509 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Spring常用注解, ZWHBlog">
+    <meta name="description" content="@SpringBootApplication是Sprnig Boot项目的核心注解，目的是开启自动配置
+实现了以下三个注解的功能：
+@EnableAutoConfiguration：启用Spring Boot的自动配置机制
+@Compone">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>Spring常用注解 | ZWHBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWHBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWHBlog</div>
+        <div class="logo-desc">
+            
+            这是我的博客网站
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Spring常用注解</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java%E6%A1%86%E6%9E%B6/">
+                                <span class="chip bg-color">Java框架</span>
+                            </a>
+                        
+                            <a href="/tags/Spring/">
+                                <span class="chip bg-color">Spring</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java%E6%A1%86%E6%9E%B6/" class="post-category">
+                                Java框架
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-16
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h2><p>是Sprnig Boot项目的核心注解，目的是开启自动配置</p>
+<p>实现了以下三个注解的功能：</p>
+<p><strong>@EnableAutoConfiguration</strong>：启用Spring Boot的自动配置机制</p>
+<p><strong>@ComponentScan</strong>：启用@Component对应用程序所在的软件包的扫描</p>
+<p><strong>@Configuration</strong>：允许在上下文中注册额外的bean或导入其他配置类</p>
+<h2 id="Enable"><a href="#Enable" class="headerlink" title="@Enable*"></a>@Enable*</h2><p>启用什么什么服务，里面会import导入配置类</p>
+<h2 id="Table"><a href="#Table" class="headerlink" title="@Table"></a>@Table</h2><p>spring @Table注解  作用是 ： 声明此对象映射到数据库的数据表，通过它可以为实体指定表(talbe)</p>
+<p>常用的两个属性：<br>1、name 用来命名 当前实体类 对应的数据库 表的名字 </p>
+<pre><code class="java">@Table(name = &quot;tab_user&quot;）
+</code></pre>
+<p>2、uniqueConstraints 用来批量命名唯一键<br>其作用等同于多个：@Column(unique &#x3D; true)</p>
+<pre><code class="java">@Table(name = &quot;tab_user&quot;,uniqueConstraints = &#123;@UniqueConstraint(columnNames=&#123;&quot;uid&quot;,&quot;email&quot;&#125;)&#125;)
+</code></pre>
+<h2 id="Basic"><a href="#Basic" class="headerlink" title="@Basic"></a>@Basic</h2><p>@Basic表示一个简单的属性到数据库表的字段的映射,对于没有任何标注的getXxxx()方法,默认 即为 </p>
+<pre><code class="java">@Basic
+　　(1)、FetchType.LAZY：懒加载，加载一个实体时，定义懒加载的属性不会马上从数据库中加载。
+
+　　(2)、FetchType.EAGER：急加载，加载一个实体时，定义急加载的属性会立即从数据库中加载。
+</code></pre>
+<pre><code class="java">　　示例:
+
+@Basic(fetch=FetchType,optional=true)
+
+public String getAddress() &#123; return address; &#125;
+</code></pre>
+<h2 id="Column"><a href="#Column" class="headerlink" title="@Column"></a>@Column</h2><p>@Column描述了数据库表中该字段的详细定义,这对于根据JPA注解生成数据库表结构的工具非常 有作用.</p>
+<pre><code class="java">    @Column:
+　　name:表示数据库表中该字段的名称,默认情形属性名称一致
+
+　　nullable:表示该字段是否允许为null,默认为true
+
+　　unique:表示该字段是否是唯一标识,默认为false
+
+　　length:表示该字段的大小,仅对String类型的字段有效
+
+　　insertable:表示在ORM框架执行插入操作时,该字段是否应出现INSETRT语句中,默认为true
+
+　　updateable:表示在ORM框架执行更新操作时,该字段是否应该出现在UPDATE语句中,默认为 true.对于一经创建就不可以更改的字段,该属性非常有用,如对于birthday字段.
+
+　　columnDefinition:表示该字段在数据库中的实际类型.通常ORM框架可以根据属性类型自动判 断数据库中字段的类型,但是对于Date类型仍无法确定数据库中字段类型究竟是DATE,TIME还是 TIMESTAMP.此外,String的默认映射类型为VARCHAR,如果要将String类型映射到特定数据库的 BLOB或TEXT字段类型,该属性非常有用.
+</code></pre>
+<pre><code class="java">　　示例:
+
+　　@Column(name=&quot;BIRTH&quot;,nullable=&quot;false&quot;,columnDefinition=&quot;DATE&quot;)
+
+　　public String getBithday() &#123; return birthday; &#125;
+</code></pre>
+<h2 id="id"><a href="#id" class="headerlink" title="@id"></a>@id</h2><p>@Id 标注用于声明一个实体类的属性映射为数据库的主键列。<br>该属性通常置于属性声明语句之前，可与声明语句同行，也可写在单独行上。<br>@Id标注也可置于属性的getter方法之前。</p>
+<pre><code class="java">　　示例:
+
+@Table(name=&quot;admin&quot;)
+public class Customer &#123;
+    @Id
+    private Integer id;
+    private String name;
+    private String email;
+    private int age;
+    
+    @Basic	
+    @Column(name=&quot;id&quot;)
+    public Integer getId() &#123;
+        return id;
+    &#125;
+    public void setId(Integer id) &#123;
+        this.id = id;
+    &#125;
+</code></pre>
+<h2 id="Scope"><a href="#Scope" class="headerlink" title="@Scope"></a>@Scope</h2><p>用于指定scope作用域的（用在类上）</p>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qiuz1024/article/details/100530260">@Configuration推荐文章连接</a><br>从Spring3.0，@Configuration用于定义配置类，可替换xml配置文件，被注解的类内部包含有一个或多个被@Bean注解的方法，这些方法将会被AnnotationConfigApplicationContext或AnnotationConfigWebApplicationContext类进行扫描，并用于构建bean定义，初始化Spring容器。</p>
+<pre><code class="java">　　示例:
+　　
+@Configuration
+public class TestConfiguration &#123;
+    public TestConfiguration() &#123;
+        System.out.println(&quot;TestConfiguration容器启动初始化。。。&quot;);
+    &#125;
+&#125;
+
+
+@Configuration
+public class TestConfiguration &#123;
+    public TestConfiguration() &#123;
+        System.out.println(&quot;TestConfiguration容器启动初始化。。。&quot;);
+    &#125;
+
+    // @Bean注解注册bean,同时可以指定初始化和销毁方法
+    // @Bean(name=&quot;testBean&quot;,initMethod=&quot;start&quot;,destroyMethod=&quot;cleanUp&quot;)
+    @Bean
+    @Scope(&quot;prototype&quot;)
+    public TestBean testBean() &#123;
+        return new TestBean();
+    &#125;
+&#125;
+</code></pre>
+<h2 id="Bean"><a href="#Bean" class="headerlink" title="@Bean"></a>@Bean</h2><p>Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。</p>
+<pre><code class="java">@Bean:
+
+value： name属性的别名，在不需要其他属性时使用，也就是说value 就是默认值
+
+name： 此bean 的名称，或多个名称，主要的bean的名称加别名。如果未指定，则bean的名称是带注解方法的名称。如果指定了，方法的名称就会忽略，如果没有其他属性声明的话，bean的名称和别名可能通过value属性配置
+
+initMethod ：指定初始化方法             
+
+destroyMethod：指定销毁的方法    PS：相当于xml文件中 init-method &amp;destroy-method属性
+</code></pre>
+<h2 id="token相关注解："><a href="#token相关注解：" class="headerlink" title="token相关注解："></a>token相关注解：</h2><p>下面两个注解是token的请求相关的，官网文档地址：<br><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security-oauth2-boot/docs/2.2.0.RELEASE/reference/html5/">https://docs.spring.io/spring-security-oauth2-boot/docs/2.2.0.RELEASE/reference/html5/</a></p>
+<h3 id="EnableAuthorizationServer"><a href="#EnableAuthorizationServer" class="headerlink" title="@EnableAuthorizationServer"></a>@EnableAuthorizationServer</h3><p>启用授权服务器，默认情况下，@EnableAuthorizationServer授予客户端访问客户端凭据的权限<br>与其他Spring Boot@Enable注释类似，可以将@EnableAuthorizationServer注释添加到main方法的类中</p>
+<pre><code class="java">　　示例:
+　　
+@EnableAuthorizationServer
+@SpringBootApplication
+public class SimpleAuthorizationServerApplication &#123;
+    public static void main(String[] args) &#123;
+        SpringApplication.run(SimpleAuthorizationServerApplication, args);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="EnableResourceServer"><a href="#EnableResourceServer" class="headerlink" title="@EnableResourceServer"></a>@EnableResourceServer</h3><p>指定用于验证承载令牌的策略，添加此注释会添加OAuth2AuthenticationProcessingFilter，尽管它还需要进行其他配置才能知道如何适当地处理和验证令牌。</p>
+<p>与其他Spring Boot@Enable注释类似，可以将@EnableResourceServer注释添加到main方法的类中</p>
+<pre><code class="java">　　示例:
+　　
+@EnableResourceServer
+@SpringBootApplication
+public class SimpleAuthorizationServerApplication &#123;
+    public static void main(String[] args) &#123;
+        SpringApplication.run(SimpleAuthorizationServerApplication, args);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="EnableWebSecurity"><a href="#EnableWebSecurity" class="headerlink" title="@EnableWebSecurity"></a>@EnableWebSecurity</h3><p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/andy_zhang2007/article/details/90023901">https://blog.csdn.net/andy_zhang2007&#x2F;article&#x2F;details&#x2F;90023901</a><br>首先,EnableWebSecurity注解是个组合注解,他的注解中,又使用了@EnableGlobalAuthentication注解:<br>@EnableWebSecurity是Spring Security用于启用Web安全的注解。典型的用法是该注解用在某个Web安全配置类上(实现了接口WebSecurityConfigurer或者继承自WebSecurityConfigurerAdapter)。典型的使用例子如下 :</p>
+<pre><code class="java">　　示例:
+　　
+ @Configuration
+ @EnableWebSecurity
+ public class MyWebSecurityConfiguration extends WebSecurityConfigurerAdapter &#123;
+
+        @Override
+        public void configure(WebSecurity web) throws Exception &#123;
+                web.ignoring()
+                // Spring Security should completely ignore URLs starting with /resources/
+                                .antMatchers(&quot;/resources/**&quot;);
+        &#125;
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception &#123;
+                http.authorizeRequests().antMatchers(&quot;/public/**&quot;).permitAll().anyRequest()
+                                .hasRole(&quot;USER&quot;).and()
+                                // Possibly more configuration ...
+                                .formLogin() // enable form based log in
+                                // set permitAll for all URLs associated with Form Login
+                                .permitAll();
+        &#125;
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception &#123;
+                auth
+                // enable in memory based authentication with a user named &quot;user&quot; and &quot;admin&quot;
+                .inMemoryAuthentication().withUser(&quot;user&quot;).password(&quot;password&quot;).roles(&quot;USER&quot;)
+                                .and().withUser(&quot;admin&quot;).password(&quot;password&quot;).roles(&quot;USER&quot;, &quot;ADMIN&quot;);
+        &#125;
+
+        // Possibly more overridden methods ...
+ &#125;
+</code></pre>
+<h2 id="Qualifier"><a href="#Qualifier" class="headerlink" title="@Qualifier"></a>@Qualifier</h2><p>使用@Qualifier明确指定使用那个实现类了。</p>
+<h2 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h2><p>@Autowired 注释，它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作<br>它是按照类型来自动进行标注</p>
+<pre><code class="java">　　示例:
+　　
+@Service
+public class UserService &#123;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public void save()&#123;
+        userRepository.save();
+    &#125;
+&#125;
+</code></pre>
+<h2 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h2><p>实现bean的注入<br>针对不同的使用场景所采取的特定功能化的注解。</p>
+<h2 id="Service"><a href="#Service" class="headerlink" title="@Service"></a>@Service</h2><p>一般使用@Service注解标记这个类属于业务逻辑层。<br>就是针对不同的使用场景所采取的特定功能化的注解。</p>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h2><p>这个注解主要告诉Spring这个类作为控制器，可以看做标记为暴露给前端的入口。@Controller 用于标记在一个类上，使用它标记的类就是一个SpringMVC Controller 对象。分发处理器将会扫描使用了该注解的类的方法。通俗来说，被Controller标记的类就是一个控制器，这个类中的方法，就是相应的动作。<br>就是针对不同的使用场景所采取的特定功能化的注解。</p>
+<h2 id="Repository"><a href="#Repository" class="headerlink" title="@Repository"></a>@Repository</h2><p>这个注解用来标识这个类是用来直接访问数据库的，dao层使用@repository注解。</p>
+<h2 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h2><p>@Controller+@ResponseBody</p>
+<h2 id="ResponseBody"><a href="#ResponseBody" class="headerlink" title="@ResponseBody"></a>@ResponseBody</h2><p>@ResponseBody的作用其实是将java对象转为json格式的数据。</p>
+<p>@responseBody注解的作用是将controller的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据。</p>
+<h2 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h2><p>注解@RequestParam接收的参数是来自HTTP请求体或请求url的QueryString中。<br>@RequestParam有三个配置参数：</p>
+<p>required 表示是否必须，默认为 true，必须。<br>defaultValue 可设置请求参数的默认值。<br>value 为接收url的参数名（相当于key值）。<br>@RequestParam用来处理 Content-Type 为 application&#x2F;x-www-form-urlencoded 编码的内容，Content-Type默认为该属性。@RequestParam也可用于其它类型的请求，例如：POST、DELETE等请求。</p>
+<h2 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h2><p>注解@RequestBody接收的参数是来自requestBody中，即请求体。一般用于处理非 Content-Type: application&#x2F;x-www-form-urlencoded编码格式的数据，比如：application&#x2F;json、application&#x2F;xml等类型的数据。<br>通俗的讲，就是会把你传入的json字符解析成该参数类型的Javabean对象。</p>
+<p>GET 方式无请求体，所以 @RequestBody 接收数据时，前端必须是 POST 方式进行提交，然后给页面的数据默认也是 json</p>
+<p>同一个方法中，@RequestBody 与 @RequestParam() 可以同时使用，前者最多只能有一个，后者可以有多个</p>
+<h2 id="GetMapping"><a href="#GetMapping" class="headerlink" title="@GetMapping"></a>@GetMapping</h2><p>@GetMapping 注解将 HTTP GET 请求映射到特定的处理程序方法。</p>
+<h2 id="PostMapping"><a href="#PostMapping" class="headerlink" title="@PostMapping"></a>@PostMapping</h2><p>@GetMapping 注解将 HTTP POST 请求映射到特定的处理程序方法。</p>
+<h2 id="PutMapping"><a href="#PutMapping" class="headerlink" title="@PutMapping"></a>@PutMapping</h2><p>@GetMapping 注解将 HTTP PUT 请求映射到特定的处理程序方法。</p>
+<h2 id="DeleteMapping"><a href="#DeleteMapping" class="headerlink" title="@DeleteMapping"></a>@DeleteMapping</h2><p>@GetMapping 注解将 HTTP Delete 请求映射到特定的处理程序方法。</p>
+<h2 id="Select"><a href="#Select" class="headerlink" title="@Select"></a>@Select</h2><p>在Mapper层使用@Select注解，以此省略掉mapper.xml文件</p>
+<pre><code class="java">　　示例:
+　　
+　　@Select(&quot;&lt;script&gt;&quot;
+            +&quot;select * from mi_taobao where 1=1&quot;
+            +&quot;&lt;if test=&#39;status != null&#39;&gt;&quot;
+            +&quot;and status = #&#123;status&#125;&quot;
+            +&quot;&lt;/if&gt;&quot;
+            +&quot;&lt;/script&gt;&quot;)
+    public List&lt;Taobao&gt; getTaobao(@Param(&quot;status&quot;) Integer status);
+
+
+
+    @Select(&#123; &quot;SELECT &quot;
+                + &quot; a.id, &quot;
+                + &quot; a.role_name roleName, &quot;
+                + &quot; a.enabled, &quot;
+                + &quot; a.create_by createBy, &quot;
+                + &quot; a.create_time createTime &quot;
+            + &quot; FROM &quot;
+                + &quot; sys_role a &quot;
+            + &quot; WHERE &quot;
+            + &quot; a.id = #&#123;roleId&#125;&quot; &#125;)
+    SysRole selectSysRoleById(Long roleId);
+</code></pre>
+<h2 id="MapperScan"><a href="#MapperScan" class="headerlink" title="@MapperScan"></a>@MapperScan</h2><p>指定要变成实现类的接口所在的包，然后包下面的所有接口在编译之后都会生成相应的实现类<br>在Springboot启动类上面添加</p>
+<pre><code class="java">　　示例:
+　　
+@SpringBootApplication
+//@EnableEurekaClient
+@MapperScan(&quot;com.winter.dao&quot;)
+public class SpringbootMybatisDemoApplication &#123;
+    public static void main(String[] args) &#123;
+        SpringApplication.run(SpringbootMybatisDemoApplication.class, args);
+    &#125;
+
+&#125;
+
+多个包扫描：
+@SpringBootApplication  
+@MapperScan(&#123;&quot;com.kfit.demo&quot;,&quot;com.kfit.user&quot;&#125;)  
+public class App &#123;  
+    public static void main(String[] args) &#123;  
+       SpringApplication.run(App.class, args);  
+    &#125;  
+&#125; 
+</code></pre>
+<h2 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h2><p>作用在实体类上，生成对应的getset方法，需要导入lombok包</p>
+<h2 id="NoArgsConstructor"><a href="#NoArgsConstructor" class="headerlink" title="@NoArgsConstructor"></a>@NoArgsConstructor</h2><p>作用在实体类上，生成对应的无参构造方法，需要导入lombok包</p>
+<h2 id="AllArgsConstructor"><a href="#AllArgsConstructor" class="headerlink" title="@AllArgsConstructor"></a>@AllArgsConstructor</h2><p>作用在实体类上，生成对应的有参构造方法，需要导入lombok包</p>
+<h2 id="Param"><a href="#Param" class="headerlink" title="@Param"></a>@Param</h2><p>作为Dao层的注解，作用是用于传递参数，从而可以与SQL中的的字段名相对应，一般在2&#x3D;&lt;参数数&lt;&#x3D;5时使用最佳。</p>
+<pre><code class="java">　　示例:
+　　
+public List&lt;Role&gt; findRoleByAnnotation(@Param(&quot;roleName&quot;) String roleName, @Param(&quot;note&quot;) String note);
+
+&lt;select id=&quot;findRoleByMap&quot; parameterType=&quot;map&quot; resultType=&quot;role&quot;&gt;
+    SELECT id,name FROM t_role
+    WHERE roleName=#&#123;roleName&#125;
+    AND note=#&#123;note&#125;
+&lt;select&gt;
+</code></pre>
+<h2 id="Resource"><a href="#Resource" class="headerlink" title="@Resource"></a>@Resource</h2><p>@Resource和@Autowired注解都是用来实现依赖注入的。只是@AutoWried按by type自动注入，而@Resource默认按byName自动注入。</p>
+<p>@Resource有两个重要属性，分别是name和type</p>
+<p>spring将name属性解析为bean的名字，而type属性则被解析为bean的类型。所以如果使用name属性，则使用byName的自动注入策略，如果使用type属性则使用byType的自动注入策略。如果都没有指定，则通过反射机制使用byName自动注入策略。</p>
+<pre><code class="java">　　示例:
+　　
+@Resource (name= &quot;baseDao&quot; )
+private BaseDao baseDao;
+</code></pre>
+<h2 id="ControllerAdvice"><a href="#ControllerAdvice" class="headerlink" title="@ControllerAdvice"></a>@ControllerAdvice</h2><p>是一个增强的 Controller。使用这个 Controller ，可以实现三个方面的功能：</p>
+<ol>
+<li>全局异常处理</li>
+<li>全局数据绑定</li>
+<li>全局数据预处理<br>异常集中处理，更好的使业务逻辑与异常处理剥离开；其是对Controller层进行拦截</li>
+</ol>
+<p>注意事项: </p>
+<p>一个Controller下多个@ExceptionHandler上的异常类型不能出现一样的，否则运行时抛异常.</p>
+<p>   @ExceptionHandler method mapped for;</p>
+<p>@ExceptionHandler下方法返回值类型支持多种，常见的ModelAndView，@ResponseBody注解标注，ResponseEntity等类型都OK.</p>
+<pre><code class="java">　　示例:
+　　
+@ControllerAdvice
+@ResponseBody
+public class ErrorController &#123;
+
+&#125;
+</code></pre>
+<h2 id="ExceptionHandler"><a href="#ExceptionHandler" class="headerlink" title="@ExceptionHandler"></a>@ExceptionHandler</h2><p>统一处理某一类异常，从而能够减少代码重复率和复杂度</p>
+<pre><code class="java">　　示例:
+　　
+/**
+ * 统一错误处理
+ */
+@ControllerAdvice
+@ResponseBody
+public class ErrorController &#123;
+
+    @ExceptionHandler(Exception.class)
+    public RequestResults customException(Exception e) &#123;
+        RequestResults results = new RequestResults();
+        results.setCode(RequestStatusEnum.SYSTEM_ERROR.getCode());
+        results.setMsg(RequestStatusEnum.SYSTEM_ERROR.getMsg());
+        results.setSystemErrorMsg(e.getMessage());
+        results.setData(e.getMessage());
+        e.printStackTrace();
+        return results;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="ResponseStatus"><a href="#ResponseStatus" class="headerlink" title="@ResponseStatus"></a>@ResponseStatus</h2><p>可以将某种异常映射为HTTP状态码</p>
+<h2 id="AOP注解："><a href="#AOP注解：" class="headerlink" title="AOP注解："></a>AOP注解：</h2><h3 id="Aspect"><a href="#Aspect" class="headerlink" title="@Aspect"></a>@Aspect</h3><p>作用是把当前类标识为一个切面供容器读取</p>
+<h3 id="Before"><a href="#Before" class="headerlink" title="@Before"></a>@Before</h3><p>前置通知, 在方法执行之前执行</p>
+<h3 id="After"><a href="#After" class="headerlink" title="@After"></a>@After</h3><p>后置通知, 在方法执行之后执行，final增强，不管是抛出异常或者正常退出都会执行</p>
+<h3 id="AfterRunning"><a href="#AfterRunning" class="headerlink" title="@AfterRunning"></a>@AfterRunning</h3><p>返回通知, 在方法返回结果之后执行，方法正常退出时执行</p>
+<h3 id="AfterThrowing"><a href="#AfterThrowing" class="headerlink" title="@AfterThrowing"></a>@AfterThrowing</h3><p>异常通知, 在方法抛出异常之后<br>异常抛出增强，相当于ThrowsAdvice</p>
+<h3 id="Around"><a href="#Around" class="headerlink" title="@Around"></a>@Around</h3><p>环绕通知, 围绕着方法执行</p>
+<pre><code class="java">@Aspect
+@Component
+public class PostDataAspect &#123;
+
+    @Pointcut(&quot;@annotation(org.springframework.web.bind.annotation.PostMapping)&quot;)
+    public void post() &#123;&#125;
+
+
+    @Around(&quot;post()&quot;)
+    public Object around(ProceedingJoinPoint point) throws Throwable &#123;
+        //执行方法
+        Object result = point.proceed();
+        //如果是返回的结果对象就直接返回
+        if(result instanceof RequestResults)&#123;
+            return result;
+        &#125;
+        return RequestResults.success(result);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="Pointcut"><a href="#Pointcut" class="headerlink" title="@Pointcut"></a>@Pointcut</h3><p>Pointcut是植入Advice的触发条件。每个Pointcut的定义包括2部分，一是表达式，二是方法签名。方法签名必须是 public及void型。可以将Pointcut中的方法看作是一个被Advice引用的助记符，因为表达式不直观，因此我们可以通过方法签名的方式为 此表达式命名。因此Pointcut中的方法只需要方法签名，而不需要在方法体内编写实际代码。<br>切入点，指定说明匹配的方法或者是</p>
+<pre><code class="java">　　示例:
+
+    定义了这个
+    @Pointcut(&quot;@annotation(org.springframework.web.bind.annotation.PostMapping)&quot;)
+    public void post() &#123;&#125;　
+
+    定义了这个包及子包下面的所有方法进行匹配
+    public class AopPointcutClass &#123;
+    @Pointcut(&quot;execution(* com.spring.service..*(..))&quot;)
+    public void logsMean()&#123;&#125;
+    &#125;
+</code></pre>
+<h3 id="AfterReturning"><a href="#AfterReturning" class="headerlink" title="@AfterReturning"></a>@AfterReturning</h3><p>后置增强，相当于AfterReturningAdvice，方法正常退出时执行</p>
+<h2 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h2><h2 id><a href="#" class="headerlink" title></a></h2><pre><code class="java">　　示例:
+1.创建一个配置类，在配置类上添加 @ComponentScan 注解。该注解默认会扫描该类所在的包下所有的配置类，相当于之前的 &lt;context:component-scan&gt;。
+
+@ComponentScan(value = &quot;io.mieux.controller&quot;)
+public class BeanConfig &#123;
+
+&#125;
+
+2.basePackageClasses属性会去扫描类所在包下的所有组件，而不是指定某个组件！
+  basePackages 属性会扫描指定的组件，也可以指定当前类的所有组件
+  但得写成：&lt;context:component-scan base-package=&quot;controller.**&quot; /&gt;
+
+
+  综上， 可以分析出，**匹配任意class文件和包，而*只能匹配包，因此无法扫描到包下的类，因此也就无法被Spring管理。
+
+@ComponentScan(basePackages = &#123;
+        &quot;com.common.config.aspect&quot;
+        ,&quot;com.common.config.error&quot;
+        ,&quot;com.common.config.auth&quot;
+&#125;, basePackageClasses = AutoDriveApplication.class)
+</code></pre>
+<h2 id="Primary"><a href="#Primary" class="headerlink" title="@Primary"></a>@Primary</h2><p>@Primary 告诉spring 在犹豫的时候优先选择哪一个具体的实现。<br>在有多个实现类在自动注入时，</p>
+<h2 id="PostConstruct"><a href="#PostConstruct" class="headerlink" title="@PostConstruct"></a>@PostConstruct</h2><p>用于指定初始化方法（用在方法上）</p>
+<h2 id="PreDestory"><a href="#PreDestory" class="headerlink" title="@PreDestory"></a>@PreDestory</h2><p>用于指定销毁方法（用在方法上）</p>
+<h2 id="EnableWebSocket"><a href="#EnableWebSocket" class="headerlink" title="@EnableWebSocket"></a>@EnableWebSocket</h2><h2 id="ServerEndpoint"><a href="#ServerEndpoint" class="headerlink" title="@ServerEndpoint"></a>@ServerEndpoint</h2><p>这个注解指明了Encoders and Decoders（编码器和解码器）</p>
+<h2 id="KafkaListener"><a href="#KafkaListener" class="headerlink" title="@KafkaListener"></a>@KafkaListener</h2><p>@KafkaListeners是@KafkaListener的Container Annotation，这也是jdk8的新特性之一，注解可以重复标注。</p>
+<pre><code class="java">@KafkaListener(topics = &#123; &quot;topic1&quot;,&quot;topic2&quot;,&quot;topic3&quot;&#125;)
+    public void listen(ConsumerRecord&lt;?, ?&gt; consumerRecord) &#123;
+    &#125;
+</code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">三山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://star-light-star-bright.github.io/java/spring/spring-chang-yong-zhu-jie-zong-jie/">https://star-light-star-bright.github.io/java/spring/spring-chang-yong-zhu-jie-zong-jie/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">三山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Java%E6%A1%86%E6%9E%B6/">
+                                    <span class="chip bg-color">Java框架</span>
+                                </a>
+                            
+                                <a href="/tags/Spring/">
+                                    <span class="chip bg-color">Spring</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/java/spring/mybatis-de-jian-dan-shi-yong-kuang-jia-yi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Mybatis-框架一">
+                        
+                        <span class="card-title">Mybatis-框架一</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    Java框架
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">Java框架</span>
+                    </a>
+                    
+                    <a href="/tags/Mybatis/">
+                        <span class="chip bg-color">Mybatis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/java/spring/spring-de-jian-dan-shi-yong-kuang-jia-er/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Spring框架学习">
+                        
+                        <span class="card-title">Spring框架学习</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    Java框架
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">三山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

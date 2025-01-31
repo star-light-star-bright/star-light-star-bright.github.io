@@ -1,0 +1,1504 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Spring Sentinel, ZWHBlog">
+    <meta name="description" content="Spring SleuthSleuth 是什么？在微服务框架中，一个由客户端发起的请求在后端系统中会经过多个不同的服务节点调用来协同产生最后的请求结果，每一个客户端请求都会形成一条复杂的分布式服务服务调用链路，链路中的任何一环出现高延迟或错">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>Spring Sentinel | ZWHBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWHBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWHBlog</div>
+        <div class="logo-desc">
+            
+            这是我的博客网站
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Spring Sentinel</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Spring/">
+                                <span class="chip bg-color">Spring</span>
+                            </a>
+                        
+                            <a href="/tags/Spring-Sentinel/">
+                                <span class="chip bg-color">Spring Sentinel</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Spring/" class="post-category">
+                                Spring
+                            </a>
+                        
+                            <a href="/categories/Spring/Spring-Sentinel/" class="post-category">
+                                Spring Sentinel
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-25
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Spring-Sleuth"><a href="#Spring-Sleuth" class="headerlink" title="Spring Sleuth"></a>Spring Sleuth</h2><h2 id="Sleuth-是什么？"><a href="#Sleuth-是什么？" class="headerlink" title="Sleuth 是什么？"></a>Sleuth 是什么？</h2><p>在微服务框架中，一个由客户端发起的请求在后端系统中会经过多个不同的服务节点调用来协同产生最后的请求结果，每一个客户端请求都会形成一条复杂的分布式服务服务调用链路，链路中的任何一环出现高延迟或错误都会引起整个请求最后的失败。</p>
+<p>  微服务跟踪(sleuth)其实是一个工具,它在整个分布式系统中能跟踪一个用户请求的过程(包括数据采集，数据传输，数据存储，数据分析，数据可视化)，捕获这些跟踪数据，就能构建微服务的整个调用链的视图，这是调试和监控微服务的关键工具。</p>
+<h3 id="Sleuth概念图"><a href="#Sleuth概念图" class="headerlink" title="Sleuth概念图"></a>Sleuth概念图</h3><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/640" alt="Sleuth架构图" style="zoom:150%;">
+
+<h3 id="Sentinel的组成"><a href="#Sentinel的组成" class="headerlink" title="Sentinel的组成"></a>Sentinel的组成</h3><p>Sentinel由两部分组成</p>
+<p>前台和后台两部分，前台默认端口是8080端口号</p>
+<ul>
+<li>核心库（java客户端） 不依赖任何框架&#x2F;库，运行所有java运行时环境，同时对Dubbo&#x2F;Spring Cloud等框架也有较好的支持。</li>
+<li>控制台（Dashboard）基于Spring Boot 开发，打包后可以直接运行，不需要额外的Tomcat等应用容器</li>
+</ul>
+<h3 id="Sentinel的使用"><a href="#Sentinel的使用" class="headerlink" title="Sentinel的使用"></a>Sentinel的使用</h3><ol>
+<li>下载dashboard的jar包</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/alibaba/Sentinel/releases">https://github.com/alibaba/Sentinel/releases</a></p>
+<ol start="2">
+<li>jar -jar 启动jar</li>
+<li>访问页面</li>
+<li>账号密码都是Sentinel</li>
+</ol>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212141953193.png" alt="sentinel监控页面"></p>
+<h3 id="项目中的使用"><a href="#项目中的使用" class="headerlink" title="项目中的使用"></a>项目中的使用</h3><ol>
+<li>建立module，修改pom文件</li>
+</ol>
+<p>主要导入依赖：nacos（3个）和sentinel（1个）的依赖</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;parent&gt;
+        &lt;artifactId&gt;cloud2020&lt;/artifactId&gt;
+        &lt;groupId&gt;org.exercise.springcloud&lt;/groupId&gt;
+        &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;/parent&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;artifactId&gt;cloudalibaba-sentinel-service8401&lt;/artifactId&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;!--   nacos config     --&gt;
+        &lt;!--        &lt;dependency&gt;--&gt;
+        &lt;!--            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;--&gt;
+        &lt;!--            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;/artifactId&gt;--&gt;
+        &lt;!--        &lt;/dependency&gt;--&gt;
+        &lt;!--  SpringCloud alibaba nacos    --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--    后续做持久化用到  P137课  --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.csp&lt;/groupId&gt;
+            &lt;artifactId&gt;sentinel-datasource-nacos&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--   sentinel     --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-alibaba-sentinel&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--   openfeign     --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--  web组件      --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--    引入自定义的api通用包，可以使用Payment支付Entity    --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.george.springcloud&lt;/groupId&gt;
+            &lt;artifactId&gt;cloud-api-commons&lt;/artifactId&gt;
+            &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+        &lt;/dependency&gt;
+
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+<ol start="2">
+<li>修改yml文件</li>
+</ol>
+<pre><code class="yaml">server:
+  port: 8401
+spring:
+  application:
+    name: cloudalibaba-sentinel-service
+  cloud:
+    nacos:
+      discovery:
+        #Nacos注册中心地址
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        #配置Sentinel dashboard地址    8080监控8401
+        dashboard: localhost:8080
+        #默认8719端口,假如被占用会自动从8719开始依次+1扫描,直至找到未被占用的端口
+        port: 8719
+      datasource:
+        dsl:
+          nacos:
+            server-addr: localhost:8848
+            dataId: cloudalibaba-sentinel-service
+            groupId: DEFAULT_GROUP
+            data_type: json
+            rule-type: flow
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: &quot;*&quot;
+</code></pre>
+<ol start="3">
+<li>编写Controller</li>
+</ol>
+<pre><code class="java">package com.exercise.springcloud.controller;
+
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.TimeUnit;
+
+@RestController
+@Slf4j
+public class FlowLimitController &#123;
+
+    @GetMapping(&quot;/testA&quot;)
+    public String testA() &#123;
+        try &#123;
+            TimeUnit.MILLISECONDS.sleep(800);
+        &#125; catch (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+        return &quot;----------testA&quot;;
+    &#125;
+
+    @GetMapping(&quot;/testB&quot;)
+    public String testB() &#123;
+        log.info(&quot;----------testB:[&#123;&#125;]&quot;, Thread.currentThread().getName());
+        return &quot;----------testB&quot;;
+    &#125;
+
+    @GetMapping(&quot;/testD&quot;)
+    public String testD() &#123;
+        try &#123;
+            TimeUnit.SECONDS.sleep(1);
+        &#125; catch (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+//        log.info(&quot;testD 测试RT&quot;);
+        log.info(&quot;testD 异常比例&quot;);
+        int age = 10 / 0;
+        return &quot;------testD&quot;;
+    &#125;
+
+
+    @GetMapping(&quot;/testE&quot;)
+    public String testE() &#123;
+        log.info(&quot;testE 测试异常数&quot;);
+        int age = 10 / 0;
+        return &quot;------testE 测试异常数&quot;;
+    &#125;
+
+    @GetMapping(&quot;/testHotKey&quot;)
+    @SentinelResource(value = &quot;testHotKey&quot;, blockHandler = &quot;deal_testHotKey&quot;)
+    public String testHotKey(@RequestParam(value = &quot;p1&quot;, required = false) String p1,
+                             @RequestParam(value = &quot;p2&quot;, required = false) String p2) &#123;
+        return &quot;-------testHotKey&quot;;
+    &#125;
+
+    public String deal_testHotKey(String p1, String p2,
+                                  BlockException exception) &#123;
+        return &quot;----deal_testHotKey,o(╥﹏╥)o&quot;;
+
+    &#125;
+
+&#125;
+</code></pre>
+<ol start="4">
+<li>启动并查看监控页面</li>
+</ol>
+<p>注意事项：是懒加载模式的，需要先进行访问才能够出现监控结果</p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212145213776.png" alt="控制台的监控页面"></p>
+<h3 id="流控规则"><a href="#流控规则" class="headerlink" title="流控规则"></a>流控规则</h3><p>流量控制限制规则</p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212151415939.png" alt="说明图"></p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212150813328.png" alt="新增流控规则页面"></p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212150857264.png" alt="QPS含义"></p>
+<p>资源名称</p>
+<p>这里设置阈值是1，代表了每秒只能访问一次，超过就会报错。</p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212151030607.png" alt="报错界面"></p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212155001505.png" alt="流量控制"></p>
+<h4 id="warm-Up"><a href="#warm-Up" class="headerlink" title="warm Up"></a>warm Up</h4><p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212155256753.png" alt="warn up描述"></p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212155504442.png" alt="公式计算"></p>
+<p>就是允许刚开始3  在5秒中不断增加，到达阈值。这里的初始化3是默认值</p>
+<h4 id="排队等待"><a href="#排队等待" class="headerlink" title="排队等待"></a>排队等待</h4><p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210212160738204.png" alt="排队说明图"></p>
+<h3 id="降级规则（熔断降级）"><a href="#降级规则（熔断降级）" class="headerlink" title="降级规则（熔断降级）"></a>降级规则（熔断降级）</h3><p>Sentinel 熔断降级会再调用链路中某个资源出现不稳定状态时（例如调用超时或异常比例升高），对这个资源的调用进行限制，让请求快速失败，避免影响到其他的资源而导致级联错误。</p>
+<p>资源被降级后，接下来的降级时间窗口之内，对该资源的调用都自动熔断（默认行为时抛出 DegradeException）</p>
+<h4 id="RT（慢调用比例）"><a href="#RT（慢调用比例）" class="headerlink" title="RT（慢调用比例）"></a>RT（慢调用比例）</h4><p>平均响应时间，超出阈值 且 在时间窗口内通过的请求数&gt;5 两个条件同时满足出发降级</p>
+<p>窗口期过后关闭断路器</p>
+<p>RT最大4900（更大的需要通过-Dcsp.sentinel.statistic.max.rt&#x3D;XXX 才生效）</p>
+<h4 id="异常比例"><a href="#异常比例" class="headerlink" title="异常比例"></a>异常比例</h4><p>QPS	&gt;&#x3D; 5 且  异常比例（秒级统计）超过阈值时，触发降级；时间窗口结束后，关闭降级</p>
+<h4 id="异常数"><a href="#异常数" class="headerlink" title="异常数"></a>异常数</h4><p>异常数（分钟统计） 超过阈值时，触发降级；时间窗口结束后，关闭降级	</p>
+<h3 id="热点规则"><a href="#热点规则" class="headerlink" title="热点规则"></a>热点规则</h3><p>何为热点？热点即经常访问的数据。很多时候我们希望统计某个热点数据中访问频次最高的 Top K 数据，并对其访问进行限制。比如：</p>
+<ul>
+<li>商品 ID 为参数，统计一段时间内最常购买的商品 ID 并进行限制</li>
+<li>用户 ID 为参数，针对一段时间内频繁访问的用户 ID 进行限制</li>
+</ul>
+<p>热点参数限流会统计传入参数中的热点参数，并根据配置的限流阈值与模式，对包含热点参数的资源调用进行限流。热点参数限流可以看做是一种特殊的流量控制，仅对包含热点参数的资源调用生效。</p>
+<p>注意点：这里只能拦截配置的出错，如qps配置限制，对runtimeexerception</p>
+<h4 id="热点key限流"><a href="#热点key限流" class="headerlink" title="热点key限流"></a>热点key限流</h4><ol>
+<li>controller编写  <code>@SentinelResource</code>  注解使用</li>
+</ol>
+<pre><code class="java">    @GetMapping(&quot;/testHotKey&quot;)
+    //value 和getmapping一样作为表示，blockhandler 表明他的对应处理方法名称
+    @SentinelResource(value = &quot;testHotKey&quot;, blockHandler = &quot;deal_testHotKey&quot;)
+    public String testHotKey(@RequestParam(value = &quot;p1&quot;, required = false) String p1,
+                             @RequestParam(value = &quot;p2&quot;, required = false) String p2) &#123;
+        return &quot;-------testHotKey&quot;;
+    &#125;
+
+    public String deal_testHotKey(String p1, String p2,
+                                  BlockException exception) &#123;
+        return &quot;----deal_testHotKey,o(╥﹏╥)o&quot;;
+        //如果不指定方法就会返回异常到前台
+        // sentinel默认提示都是 Blocked by Sentinel (flow limiting),
+    &#125;
+</code></pre>
+<ol start="2">
+<li><p>yml和pom文件都和上面一样</p>
+</li>
+<li><p>启动项目并指定配置</p>
+</li>
+</ol>
+<p>注意事项：先访问在配置，sentinel  懒加载</p>
+<p>只对指定的索引参数生效</p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210214095239833.png" alt="配置页面"></p>
+<h4 id="指定参数key进行热点限流"><a href="#指定参数key进行热点限流" class="headerlink" title="指定参数key进行热点限流"></a>指定参数key进行热点限流</h4><p>下面的图只有参数0   是5的时候 qps200  其他参数都是1 </p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210214100540946.png" alt="高级选项"></p>
+<h3 id="系统规则"><a href="#系统规则" class="headerlink" title="系统规则"></a>系统规则</h3><h4 id="系统规则添加"><a href="#系统规则添加" class="headerlink" title="系统规则添加"></a>系统规则添加</h4><p>不太使用，做了解</p>
+<p>针对的是整个服务平台，不是某个接口或微服务</p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210214102228674.png" alt="系统规则页面"></p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210214102307160.png" alt="模式说明"></p>
+<h2 id="什么是Zipkin"><a href="#什么是Zipkin" class="headerlink" title="什么是Zipkin"></a>什么是Zipkin</h2><p>Sleuth整合了Zipken</p>
+<h3 id="Zipkin的使用"><a href="#Zipkin的使用" class="headerlink" title="Zipkin的使用"></a>Zipkin的使用</h3><p>Zipkin在Spring Cloud的F版本之后不需要自己来搭建服务端了，只需要下载对应的jar包运行就行。</p>
+<ol>
+<li>下载zipkin然后java -jar 运行</li>
+</ol>
+<pre><code>java -jar zipkin-server-2.12.9-exec.jar
+</code></pre>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210208193741568.png" alt="运行界面"></p>
+<ol start="2">
+<li>pom依赖配置</li>
+</ol>
+<p>客户端和服务端都添加</p>
+<pre><code class="xml">        &lt;!-- 包含了 sleuth zipkin 数据链路追踪--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-zipkin&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+</code></pre>
+<ol start="3">
+<li>服务端yml文件配置</li>
+</ol>
+<p>主要配置： zipkin开始  datasource前面</p>
+<pre><code class="yaml">#端口号配置
+server:
+  port: 8001
+
+#服务的名称
+spring:
+  application:
+    name: cloud-payment-service
+  #将数据放到zipkin上打印图标
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      # 0~1 1 表示全部采集
+      probability: 1
+
+  #jdbc配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/exercise?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC
+    # druid  德鲁伊的数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysql驱动类
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+
+#指定map文件的位置
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  #指定实体包下面类的别名
+  type-aliases-package: com.exercise.springcloud.entities
+
+eureka:
+  client:
+    #是否将自己注册到eureka
+    register-with-eureka: true
+    #是否获取eureka注册信息，默认为true，单节点无所谓，集群必须设置true才能够配合ribbon使用负载均衡
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka,http://localhost:7002/eureka
+
+  instance:
+    instance-id: payment8001
+    prefer-ip-address: true
+    # Eureka客户端向服务端发送心跳时间的间隔，单位为秒（默认是30秒）
+#    lease-renewal-interval-in-seconds: 1
+    # Eureka服务端在收到最后一次心跳后等待时间的一个上限，单位为秒（默认是90秒），超市将剔除服务
+#    lease-expiration-duration-in-seconds: 2
+</code></pre>
+<ol start="4">
+<li>客户端yml配置</li>
+</ol>
+<pre><code class="yaml">server:
+  port: 80
+
+#服务的名称
+spring:
+  application:
+    name: cloud-order-service
+  #将数据放到zipkin上打印图标
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      # 0~1 1 表示全部采集
+      probability: 1
+
+eureka:
+  client:
+    #是否将自己注册到eureka
+    register-with-eureka: true
+    #是否获取eureka注册信息，默认为true，单节点无所谓，集群必须设置true才能够配合ribbon使用负载均衡
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka,http://localhost:7002/eureka
+</code></pre>
+<ol start="5">
+<li>访问监控页面</li>
+</ol>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210208182553239.png" alt="zipkin监控页面"></p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210208182703877.png" alt="结果查看"></p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/image-20210208182744806.png" alt="任务查看"></p>
+<p>可以查看具体请求的请求时间和调用关系，上方可以看到服务有两个，cloud-order-service调用的cloud-payment-service。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">三山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://star-light-star-bright.github.io/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/">https://star-light-star-bright.github.io/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">三山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Spring/">
+                                    <span class="chip bg-color">Spring</span>
+                                </a>
+                            
+                                <a href="/tags/Spring-Sentinel/">
+                                    <span class="chip bg-color">Spring Sentinel</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Spring Alibaba概述">
+                        
+                        <span class="card-title">Spring Alibaba概述</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Spring/" class="post-category">
+                                    Spring
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                    <a href="/tags/Spring-Alibaba/">
+                        <span class="chip bg-color">Spring Alibaba</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/java/spring/spring-cloud/fu-wu-zong-xian/bus/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Spring Bus">
+                        
+                        <span class="card-title">Spring Bus</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Spring/" class="post-category">
+                                    Spring
+                                </a>
+                            
+                            <a href="/categories/Spring/Spring-Bus/" class="post-category">
+                                    Spring Bus
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                    <a href="/tags/Spring-Bus/">
+                        <span class="chip bg-color">Spring Bus</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">三山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

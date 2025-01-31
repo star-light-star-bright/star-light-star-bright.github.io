@@ -1,0 +1,2087 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Flume, ZWHBlog">
+    <meta name="description" content="Flume是什么非官方中文文档地址：https://flume.liyifeng.org/#hdfs-sink
+是cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统
+日志收集
+数据处理
+什么要用flume将">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>Flume | ZWHBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWHBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWHBlog</div>
+        <div class="logo-desc">
+            
+            这是我的博客网站
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Flume</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Flume/">
+                                <span class="chip bg-color">Flume</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Flume/" class="post-category">
+                                Flume
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-11-03
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="Flume是什么"><a href="#Flume是什么" class="headerlink" title="Flume是什么"></a>Flume是什么</h3><p>非官方中文文档地址：<a target="_blank" rel="noopener" href="https://flume.liyifeng.org/#hdfs-sink">https://flume.liyifeng.org/#hdfs-sink</a></p>
+<p>是cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统</p>
+<p>日志收集</p>
+<p>数据处理</p>
+<h4 id="什么要用flume"><a href="#什么要用flume" class="headerlink" title="什么要用flume"></a>什么要用flume</h4><p>将客户端的请求经过负载均衡，写入到日志文件中，<strong>通过flume采集日志放到flume中，监控变化</strong>，etl对hdfs中的日志数据进行清洗和转换，然后可以放入到hbase或hive中，统计数据的结果(mr,spark,flink)，结果经过sqoop放入到MySQL(mongodb,redis)中，返回给客户端进行展示结果</p>
+<h4 id="高可靠性"><a href="#高可靠性" class="headerlink" title="高可靠性"></a>高可靠性</h4><p>当节点出现故障时，日志能被传送到其他节点上而不会丢失</p>
+<p>三种级别的可靠性保障，从强到弱排序</p>
+<p>end-to-end （收到数据agent首先将event写到磁盘上，当数据传送成功后，再删除，如果数据发送失败，可以重新发送）</p>
+<p>Store on failure（这也是scribe采用的策略，当数据接收方crash时，将数据写到本地，待恢复后，继续发送）</p>
+<p>Best effort（数据发送到接收方后，不会进行确认）</p>
+<h3 id="安装flume"><a href="#安装flume" class="headerlink" title="安装flume"></a>安装flume</h3><p>1、上传flume的tar包</p>
+<p>2、解压tar包</p>
+<pre><code>tar -zxvf apache-fluem....
+</code></pre>
+<p>3、配置etc环境变量</p>
+<pre><code>export JAVA_HOME=/root/Downloads/jdk1.8.0_161
+export PATH=$PATH:$JAVA_HOME/bin
+export HADOOP_HOME=/root/Downloads/hadoop-2.6.5
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+export ZOOKEEPER_HOME=/root/Downloads/zookeeper-3.4.5
+export PATH=$PATH:$ZOOKEEPER_HOME/bin
+export HIVE_HOME=/root/Downloads/apache-hive-1.2.0-bin
+export PATH=$PATH:$HIVE_HOME/bin
+export FLUME_HOME=/root/Downloads/apache-flume-1.6.0-bin
+export PATH=$PATH:$FLUME_HOME/bin
+</code></pre>
+<p>4、刷新配置文件</p>
+<pre><code>source /etc/profile
+</code></pre>
+<p>5、验证是否成功</p>
+<pre><code>flume-ng version
+</code></pre>
+<p>6、更改flume的conf下的flume-env.sh</p>
+<p>主要设置JAVA_HOME的变量设置(带env的都是组件的运行环境配置)</p>
+<pre><code>export JAVA_HOME=/root/Downloads/jdk1.8.0_161
+</code></pre>
+<h3 id="flume的版本"><a href="#flume的版本" class="headerlink" title="flume的版本"></a>flume的版本</h3><p>flume的逻辑分三层架构</p>
+<p>agent,collector,storage</p>
+<h4 id="flume-og"><a href="#flume-og" class="headerlink" title="flume og"></a>flume og</h4><p>og采用了多mast的方式，保证数据一致性而引入了zookeeper，保存配置数据，zookeeper本身可以保证配置数据地一致性和高可用，发生变化zookeeper通知flume master 节点，master间使用gossip协议同步数据</p>
+<h5 id="flume-og的特点"><a href="#flume-og的特点" class="headerlink" title="flume og的特点"></a>flume og的特点</h5><p>三种角色</p>
+<p>代理节点（agent）、收集节点（collector）、主节点（master）</p>
+<p>agent从各个数据源收集日志数据，将收集到的数据集中到collector，然后手机节点汇总hdfs。master负责管理agent，collector的活动</p>
+<p>agent、collector都成为node，node角色根据配置的不同分为logical node（逻辑节点）、physical node（物理节点）</p>
+<p>agent、collector由source、sink组成，代表在当前节点数据是从source传送到sink</p>
+<h4 id="flume-ng"><a href="#flume-ng" class="headerlink" title="flume ng"></a>flume ng</h4><p>ng取消了集中管理配置的zookeeper和master，是一个纯粹的传输工具。</p>
+<p>flume ng的另一个不同点是读入数据和写出数据由不同的工作线程处理(称为runner).在flume ng中读入线程同样做写出工作（除了故障重试），如果写出速度太慢的话（不是完全失败），他将阻塞flume接收数据的能力。这种异步的设计使读入线程可以顺畅的工作，而无需关注下游的任何问题</p>
+<h5 id="flume-ng的特点"><a href="#flume-ng的特点" class="headerlink" title="flume ng的特点"></a>flume ng的特点</h5><p>只有一种角色</p>
+<p>代理节点（agent）</p>
+<p>没有collector、master节点，这是最核心的变化</p>
+<p>去除了physical nodes(物理节点)、logical nodes(逻辑节点)的概念和相关内容</p>
+<p>agent节点的组成也发生了变化，flume ng的agent由source、sink、Channel组成</p>
+<h4 id="Flume-逻辑上分三层架构"><a href="#Flume-逻辑上分三层架构" class="headerlink" title="Flume 逻辑上分三层架构"></a>Flume 逻辑上分三层架构</h4><p>Agent，collector，storage</p>
+<p>Agent<br>用于采集数据，agent 是 flume 中存储数据流的地方，同时 agent 会将产生的数据传输到 collector<br>Coolector<br>Collector 的作用是坚多个 agent 的数据汇总后，加载到 storage 中，多个 collector 之间遵循负载均衡规则<br>Storage<br>Storage 是存储系统，可以是一个普通 file，也可以是 HDFS，HIVE，Hbase 等。<br>————————————————<br>版权声明：本文为CSDN博主「郑斯道」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhengshidao/article/details/78312299">https://blog.csdn.net/zhengshidao/article/details/78312299</a></p>
+<h4 id="flume-ng-的组件"><a href="#flume-ng-的组件" class="headerlink" title="flume ng 的组件"></a>flume ng 的组件</h4><h5 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h5><p>flume以agent是flume的最小执行单位。一个agent就是一个jvm，单个agent由source、sink和channel三大组件构成，agent是产生数据流的地方</p>
+<p><img src="/flume/flume/999804-20171108130603872-780242084.png" alt="img"></p>
+<h4 id="1、source（单线程）"><a href="#1、source（单线程）" class="headerlink" title="1、source（单线程）"></a>1、source（单线程）</h4><p>完成对日志数据的采集，分成transtion和event打入channel</p>
+<p>Event： 一个数据单元，消息头和消息体组成。（Events可以是日志记录、 avro 对象等。）可以选择配置batchsize和batchtimeout两个参数</p>
+<p>一个source可以接入多个channel。</p>
+<p><img src="/flume/flume/999804-20171108130931325-512757774.png" alt="img"></p>
+<h6 id="source-avro-类型"><a href="#source-avro-类型" class="headerlink" title="source  avro 类型"></a>source  avro 类型</h6><p>avro是监控的本地文件</p>
+<p>vim avro.conf</p>
+<pre><code class="properties">a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+#取个别名
+a1.sources.r1.type = avro
+a1.sources.r1.bind = localhost
+a1.sources.r1.port = 6666
+#类型、地址、端口号，端口号只要不被占用就好
+a1.sinks.k1.type = logger
+#sink的类型时logger(不产生实体文件，只在控制台打印)
+
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 1000
+#channel最大存储event的数量是1000
+a1.channels.c1.transactionCapacity = 100
+#每次送到sink的event数量是100
+
+a1.sources.r1.channels = c1
+a1.sinks.k1.channel = c1                 
+</code></pre>
+<p>启动命令</p>
+<pre><code>flume-ng agent -n a1 -c . -f avro.conf -Dflume.root.logger=INFO,console
+#-c	配置文件的所在位置
+#-f	flume定义组件的配置文件
+#-n	启动agent的名称
+-Dflume.root.logger  设置logger日志的级别，一般测试的时候
+</code></pre>
+<p>监控文件</p>
+<pre><code>flume-ng avro-client -c /root/Downloads/apache-flume-1.6.0-bin/conf -H linux01 -p 6666 -F /ssss.txt
+#avro-client   数据远程发送到客户端
+#-c   flume启动所依赖的配置文件的目录
+#-H   指定主机
+#-p   端口号
+#-F   指定要发送的文件
+</code></pre>
+<p>进行追加数据来测试是否成功</p>
+<pre><code>echo adf &gt;&gt; /ssss.txt
+</code></pre>
+<h6 id="source-exec"><a href="#source-exec" class="headerlink" title="source  exec"></a>source  exec</h6><p>exec是监控指定文件，是一个单线程的，只能监控一个文件</p>
+<p>不支持断点续传，需要手动生成一个索引文件来实现断点续传</p>
+<p>vim file_exec.conf</p>
+<pre><code class="properties">a1.sources=r1
+a1.sinks=k1
+a1.channels=c1
+
+a1.sources.r1.type=exec
+a1.sources.r1.command=tail -f /root/ssss.txt
+#tail -f 是通过文件inode编号来实时获取文件尾部的数据  command是exec类型必须配置的参数
+#tail -F 是通过文件名来实时获取文件尾部数据的
+
+a1.channels.c1.type=memory
+a1.channels.c1.capacity=1000
+a1.channels.c1.transactionCapacity=100
+
+a1.sinks.k1.type=logger
+
+a1.sources.r1.channels=c1
+a1.sinks.k1.channel=c1
+</code></pre>
+<p>启动命令</p>
+<pre><code>flume-ng agent -n a1 -c . -f file_exec.conf -Dflume.root.logger=INFO,console
+#-c	配置文件的所在位置
+#-f	flume定义组件的配置文件
+#-n	启动agent的名称
+#Dflume.root.logger 设置日志等级 
+</code></pre>
+<p>在启动或因为已经在配置文件中设置好监控文件，直接进行测试即可</p>
+<pre><code>echo adf &gt;&gt; /ssss.txt
+</code></pre>
+<h6 id="source-tcp"><a href="#source-tcp" class="headerlink" title="source tcp"></a>source tcp</h6><p>读取日志文件产生event，支持tcp和udp两种协议</p>
+<p>vim tcp.conf</p>
+<pre><code class="properties">a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+
+a1.sources.r1.type = syslogtcp
+a1.sources.r1.bind = localhost
+a1.sources.r1.port = 6666
+
+a1.sinks.k1.type = logger
+
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 1000
+a1.channels.c1.transactionCapacity = 100
+
+a1.sources.r1.channels = c1
+a1.sinks.k1.channel = c1
+</code></pre>
+<p>启动命令</p>
+<pre><code>flume-ng agent -n a1 -c . -f tcp.conf -Dflume.root.logger=INFO,console
+#-c	配置文件的所在位置
+#-f	flume定义组件的配置文件
+#-n	启动agent的名称
+</code></pre>
+<p>tcp在测试时，需要安装nc的rpm包</p>
+<pre><code>rpm -ivh nc-1.84-22....
+</code></pre>
+<p>测试</p>
+<pre><code>nc localhost 6666
+#跟上面配置文件中端口号一致
+</code></pre>
+<h6 id="source-http"><a href="#source-http" class="headerlink" title="source http"></a>source http</h6><p> HTTP post或get方式的数据源，支持json、blob表示形式</p>
+<p>vim http.conf</p>
+<pre><code class="properties">a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+
+a1.sources.r1.type = org.apache.flume.source.http.HTTPSource
+a1.sources.r1.port = 6666
+
+a1.sinks.k1.type = logger
+
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 1000
+a1.channels.c1.transactionCapacity = 100
+
+a1.sources.r1.channels = c1
+a1.sinks.k1.channel = c1
+</code></pre>
+<p>进行测试</p>
+<pre><code>curl -X post -d &#39;[&#123;&quot;headers&quot;:&#123;&quot;a1&quot;:&quot;a&quot;&#125;,&quot;body&quot;:&quot;i am a log&quot;&#125;]&#39; linux01:6666
+</code></pre>
+<p>结果显示</p>
+<p><img src="/flume/flume/1568806782986.png" alt="1568806782986"></p>
+<h6 id="source-spooldir"><a href="#source-spooldir" class="headerlink" title="source spooldir"></a>source spooldir</h6><p>监控目录下的文件变化，一次性，在采集后不可修改，文件后缀名变为.COMPLETED，此时不能再对文件内容进行改变，否则flume会抛出异常</p>
+<p>即spool source类型只适合采集一次写入。<strong>不支持断点续传</strong></p>
+<p>vim spool.conf</p>
+<pre><code class="properties">a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+
+a1.sources.r1.type = spooldir
+a1.sources.r1.spoolDir=/flumee
+#在此指定的文件夹必须存在
+a1.sources.r1.fileHeader=true
+
+a1.sinks.k1.type = logger
+
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 1000
+a1.channels.c1.transactionCapacity = 100
+
+a1.sources.r1.channels = c1
+a1.sinks.k1.channel = c1
+</code></pre>
+<p>启动</p>
+<pre><code>mkdir /flumee
+//创建文件夹
+flume-ng agent -n a1 -c . -f spool.conf -Dflume.root.logger=INFO,console
+#-c	配置文件的所在位置
+#-f	flume定义组件的配置文件
+#-n	启动agent的名称
+</code></pre>
+<p>测试</p>
+<p>在配置文件中指定的文件夹中修改文件就会触发监控</p>
+<h6 id="source-Taildir"><a href="#source-Taildir" class="headerlink" title="source Taildir"></a>source Taildir</h6><p>flume1.7才出来的，建议用1.8，1.8修复了一个taildirsource的bug</p>
+<p><strong>taildirsouce可以自动保存处理出局的偏移量，支持断点续传和故障转移，还可以同时监控多个目录，是多线程的</strong>，文件改变名称也不会重复采集，因为是根据inode号来进行采集的。</p>
+<pre><code class="properties">a1.sources = r1
+a1.channels = c1
+a1.sources.r1.type = TAILDIR
+a1.sources.r1.channels = c1
+a1.sources.r1.positionFile = /var/log/flume/taildir_position.json
+# 被监控的文件夹目录集合，这些文件夹下的文件都会被监控，多个用空格分隔
+a1.sources.r1.filegroups = f1 f2
+#被监控文件夹的绝对路径。正则表达式（注意不会匹配文件系统的目录）只是用来匹配文件名
+a1.sources.r1.filegroups.f1 = /var/log/test1/example.log
+#f就是head的key，f1是value
+a1.sources.r1.headers.f1.f = f1
+a1.sources.r1.filegroups.f2 = /var/log/test2/.*log.*
+a1.sources.r1.headers.f2.f = f2
+a1.sources.r1.headers.f2.f3 = f3
+#添加绝对路径的头文件fileheader
+a1.sources.r1.fileHeader = true
+#自定义fileheader的key的名称
+#a1.sources.ri.fileHeaderKey = aa
+</code></pre>
+<h4 id="2、channel（缓存区，一次性）"><a href="#2、channel（缓存区，一次性）" class="headerlink" title="2、channel（缓存区，一次性）"></a>2、channel（缓存区，一次性）</h4><p>主要提供队列功能，对source提供的数据进行简单的缓存，是连接Source和Sink的组件，还可以对source和sink之间进行解耦</p>
+<p>可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。</p>
+<p>处理场景：source端数据高峰sink端速度比source端慢，这时候channel就起到了它的作用。</p>
+<p><img src="/flume/flume/999804-20171108131248653-2068131817.png" alt="img"></p>
+<h6 id="channel-memory-类型-常用"><a href="#channel-memory-类型-常用" class="headerlink" title="channel memory 类型(常用)"></a>channel memory 类型(常用)</h6><pre><code class="properties">a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+#取个别名
+a1.sources.r1.type = avro
+a1.sources.r1.bind = localhost
+a1.sources.r1.port = 6666
+#类型、地址、端口号，端口号只要不被占用就好
+a1.sinks.k1.type = logger
+
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 1000
+#一次输入的容量
+a1.channels.c1.transactionCapacity = 100
+#事务的一次输出量
+a1.sources.r1.channels = c1
+a1.sinks.k1.channel = c1    
+</code></pre>
+<h6 id="channel-file"><a href="#channel-file" class="headerlink" title="channel file"></a>channel file</h6><p>数据保存在磁盘中,一般用这个，不用memory，memory不安全还占资源</p>
+<p>vim file-channel.conf</p>
+<pre><code class="properties">a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+
+a1.sources.r1.type = spooldir
+a1.sources.r1.spoolDir=/flumee
+
+a1.sinks.k1.type = logger
+
+a1.channels.c1.type = file
+a1.channels.c1.dataDir=/flumedata
+#数据存储的文件夹
+a1.channels.c1.checkpointDir=/flumecke
+#检查点的目录
+## 下面的配置不要产生大量小文件
+a1.channels.c1.maxFileSize = 2146435071  
+#存储的最大文件的大小
+a1.channels.c1.capacity = 1000000   
+#缓存的容量
+
+a1.sources.r1.channels = c1
+a1.sinks.k1.channel = c1 
+</code></pre>
+<h6 id="channel-file的优化"><a href="#channel-file的优化" class="headerlink" title="channel file的优化"></a>channel file的优化</h6><p>1）通过配置dataDirs指向多个路径，每个路径对应不同的硬盘，增大Flume吞吐量。</p>
+<p>2）checkpointDir和backupCheckpointDir也尽量配置在不同硬盘对应的目录中，保证checkpoint坏掉后，可以快速使用backupCheckpointDir恢复数据</p>
+<h6 id="channel-kafka"><a href="#channel-kafka" class="headerlink" title="channel kafka"></a>channel kafka</h6><p>直接往kafka中放入数据，省去了sink，提高了效率</p>
+<h6 id="FileChannel和MemoryChannel区别"><a href="#FileChannel和MemoryChannel区别" class="headerlink" title="FileChannel和MemoryChannel区别"></a>FileChannel和MemoryChannel区别</h6><p>MemoryChannel传输数据速度更快，但因为数据保存在JVM的堆内存中，Agent进程挂掉会导致数据丢失，适用于对数据质量要求不高的需求。</p>
+<p>FileChannel传输速度相对于Memory慢，但数据安全保障高，Agent进程挂掉也可以从失败中恢复数据。</p>
+<h4 id="3、sink（单线程）"><a href="#3、sink（单线程）" class="headerlink" title="3、sink（单线程）"></a>3、sink（单线程）</h4><p>取出channel的数据，进行相应的存储文件系统，数据库，或者提交到远程服务器</p>
+<p>Sink负责持久化日志或者把事件推向另一个Source。</p>
+<p>一个sink只能接入一个channel。</p>
+<p><img src="/flume/flume/999804-20171108131516809-1930573599.png" alt="img"></p>
+<h6 id="sink-hdfs"><a href="#sink-hdfs" class="headerlink" title="sink hdfs"></a>sink hdfs</h6><p>生成的监控文件在hdfs中，在浏览器中 linux:50070  来查看结果，hdfs dfs -text 路径  查看数据</p>
+<p>vim hdfs-sink.conf </p>
+<pre><code class="properties">@sink必配项
+a1.sources=r1
+a1.sinks=k1
+@a1.channels=c1
+
+a1.sources.r1.type=spooldir
+a1.sources.r1.spoolDir=/flumee
+a1.sources.r1.fileHeader=true
+
+a1.channels.c1.type=file
+a1.channels.c1.checkpointDir=/flume_checkpoint
+a1.channels.c1.dataDir=/flume_data
+
+@a1.sinks.k1.type=hdfs
+@a1.sinks.k1.hdfs.path = hdfs://linux01:9000/flumehhaa
+a1.sinks.k1.hdfs.filePrefix = 1811A
+a1.sinks.k1.hdfs.round = true
+a1.sinks.k1.hdfs.roundValue = 1
+a1.sinks.k1.hdfs.roundUnit = minute
+#文件压缩编码
+a1.sinks.k1.hdfs.codeC=snappy
+#文件类型，不压缩
+a1.sinks.k1.hdfs.fileType=DataStream
+a1.sinks.k1.hdfs.writeFormat=Text
+##下面这3个是文件夹下的文件的控制，谁先满足按谁来
+#这三个属性一定要配
+a1.sinks.k1.hdfs.rollInterval=0
+a1.sinks.k1.hdfs.rollSize=1024
+a1.sinks.k1.hdfs.rollCount=0
+
+a1.sinks.k1.hdfs.idleTimeout=30
+
+type        sinks的类型
+#path hdfs://linux01:9000/flumehaha  HDFS路径
+#filePrefix 保存数据文件的前缀名
+#round		是否启用时间上的”舍弃”，开启后会取整
+#roundvalue	时间上进行“舍弃”的值
+#roundunit	时间上进行”舍弃”的单位，包含：second,minute,hour
+#filetype  文件格式，包括：SequenceFile, DataStream,CompressedStre，
+#writeformat  写 sequence 文件的格式。包含：Text, Writable（默认）
+#rollinterval  间隔多长将临时文件滚动成最终目标文件，单位：秒,正常一个小时，0就是不使用这个策略。
+#rollsize    当临时文件达到多少（单位：bytes）时，滚动成目标文件，0就是不使用这个策略。
+#rolllcount   当events数据达到该数量时候，将临时文件滚动成目标文件，0就是不使用这个策略。
+#idleTimeout   当目前被打开的临时文件在该参数指定的时间（秒）内，没有任何数据写入，则将该临时文件关闭并重命名成目标文件(闲置N秒后，关闭当前文件（去掉.tmp后缀）)
+
+a1.sources.r1.channels=c1
+a1.sinks.k1.channel=c1
+</code></pre>
+<p>启动</p>
+<pre><code>flume-ng agent -n a1 -c . -f hdfs-sink.conf -Dflume.root.logger=info,console
+</code></pre>
+<h6 id="sink-file"><a href="#sink-file" class="headerlink" title="sink file"></a>sink file</h6><p>存储数据到本地文件系统</p>
+<p>vim file-sink.conf</p>
+<pre><code class="properties">a1.sources=r1
+a1.sinks=k1
+a1.channels=c1
+
+a1.sources.r1.type=spooldir
+a1.sources.r1.spoolDir=/flumee
+
+a1.channels.c1.type=memory
+a1.channels.c1.capacity=1000
+a1.channels.c1.transactionCapacity=100
+
+a1.sinks.k1.type=file_roll
+a1.sinks.k1.sink.directory=/flog
+#flog文件夹必须存在，建空文件存放在此目录下
+a1.sinks.k1.sink.serializer=TEXT
+#序列化器  输出的格式时text
+
+a1.sources.r1.channels=c1
+a1.sinks.k1.channel=c1
+</code></pre>
+<p>启动</p>
+<pre><code>flume-ng agent -n a1 -c . -f file-sink.conf -Dflume.root.logger=info,console
+</code></pre>
+<h6 id="sink-avro"><a href="#sink-avro" class="headerlink" title="sink avro"></a>sink avro</h6><p>vim ftof-sink.conf</p>
+<pre><code class="properties">a1.sources=r1
+a1.sinks=k1
+a1.channels=c1
+
+a1.sources.r1.type=spooldir
+a1.sources.r1.spoolDir=/flume_log
+
+a1.channels.c1.type=memory
+a1.channels.c1.capacity=1000
+a1.channels.transactionCapacity=100
+
+a1.sinks.k1.type=avro
+a1.sinks.k1.hostname=192.168.130.107
+a1.sinks.k1.port=8888
+
+a1.sources.r1.channels=c1
+a1.sinks.k1.channel=c1
+</code></pre>
+<p>启动</p>
+<pre><code>flume-ng agent -n a1 -c . -f ftof-sink.conf -Dflume.root.logger=info,console
+</code></pre>
+<h6 id="sink-kafka"><a href="#sink-kafka" class="headerlink" title="sink kafka"></a>sink kafka</h6><pre><code class="properties">a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+
+a1.sources.r1.type = netcat
+a1.sources.r1.bind = 0.0.0.0
+a1.sources.r1.port = 44444
+
+a1.sources.r1.channels = c1
+a1.channels.c1.type = memory
+# capacity:容量
+a1.channels.c1.capacity = 1000
+# transactionCapacity:事务的容量
+a1.channels.c1.transactionCapacity = 100
+
+a1.sinks.k1.channel = c1
+a1.sinks.k1.type = org.apache.flume.sink.kafka.KafkaSink
+# kafak集群
+a1.sinks.k1.kafka.bootstrap.servers = cenos7-1:9092,cenos7-2:9092,cenos7-3:9092,centos7-4:9092
+# kafka主题
+a1.sinks.k1.kafka.topic = bigdata1
+a1.sinks.k1.kafka.flumeBatchSize = 20
+a1.sinks.k1.kafka.producer.acks = 1
+</code></pre>
+<h6 id="sink-HDFS存入大量小文件，有什么影响？"><a href="#sink-HDFS存入大量小文件，有什么影响？" class="headerlink" title="sink HDFS存入大量小文件，有什么影响？"></a>sink HDFS存入大量小文件，有什么影响？</h6><p><strong>元数据层面：</strong>每个小文件都有一份元数据，其中包括文件路径，文件名，所有者，所属组，权限，创建时间等，这些信息都保存在Namenode内存中。所以小文件过多，会占用Namenode服务器大量内存，影响Namenode性能和使用寿命.</p>
+<p><strong>计算层面：</strong>默认情况下MR会对每个小文件启用一个Map任务计算，非常影响计算性能。同时也影响磁盘寻址时间。</p>
+<h6 id="sink-hdfs怎么防止写入大量小文件？"><a href="#sink-hdfs怎么防止写入大量小文件？" class="headerlink" title="sink hdfs怎么防止写入大量小文件？"></a>sink hdfs怎么防止写入大量小文件？</h6><p>官方默认的这三个参数配置写入HDFS后会产生小文件，hdfs.rollInterval、hdfs.rollSize、hdfs.rollCount</p>
+<p>基于以上hdfs.rollInterval&#x3D;3600，hdfs.rollSize&#x3D;134217728，hdfs.rollCount &#x3D;0（event个数），hdfs.roundValue&#x3D;10，hdfs.roundUnit&#x3D; second（这两个是控制目录）几个参数综合作用，效果如下：</p>
+<p>（1）tmp文件在达到128M时会滚动生成正式文件</p>
+<p>（2）tmp文件创建超10秒时会滚动生成正式文件</p>
+<p>举例：在2018-01-01 05:23的时侯sink接收到数据，那会产生如下tmp文件：</p>
+<p>&#x2F;home&#x2F;20180101&#x2F;admin.201801010520.tmp 时间到了 把tmp去掉 </p>
+<p>即使文件内容没有达到128M，也会在05:33时滚动生成正式文件</p>
+<h4 id="分布式flume配置"><a href="#分布式flume配置" class="headerlink" title="分布式flume配置"></a>分布式flume配置</h4><p>linux01节点的flume负责拉取webserver数据，同时发送给linux02和linux03节点，03  04节点flume接收到linux01的数据并将数据以日志的形式下沉到各自的控制台</p>
+<h6 id="linux01配置文件"><a href="#linux01配置文件" class="headerlink" title="linux01配置文件"></a>linux01配置文件</h6><pre><code class="properties">a1.sources=r1
+a1.channels=c1 c2
+a1.sinks=k1 k2
+
+a1.sources.r1.type=exec
+a1.sources.r1.command=tail -F /aa.txt
+
+a1.channels.c1.type=memory
+a1.channels.c1.capacity=1000
+a1.channels.c1.transactionCapacity=100
+
+a1.channels.c2.type=memory
+a1.channels.c2.capacity=1000
+a1.channels.c2.transactionCapacity=100
+
+a1.sinks.k1.type=avro
+a1.sinks.k1.hostname=linux02
+a1.sinks.k1.port=6666
+
+a1.sinks.k2.type=avro
+a1.sinks.k2.hostname=linux03
+a1.sinks.k2.port=6665
+
+a1.sources.r1.channels=c1 c2
+a1.sinks.k1.channel=c1
+a1.sinks.k2.channel=c2
+</code></pre>
+<h6 id="linux02配置文件"><a href="#linux02配置文件" class="headerlink" title="linux02配置文件"></a>linux02配置文件</h6><pre><code class="properties">a1.sources=r1
+a1.channels=c1
+a1.sinks=k1
+
+a1.sources.r1.type=avro
+a1.sources.r1.bind=linux02
+a1.sources.r1.port=6666
+
+a1.channels.c1.type=memory
+a1.channels.c1.capacity=1000
+a1.channels.c1.transactionCapacity=100
+
+a1.sinks.k1.type=logger
+
+a1.sources.r1.channels=c1
+a1.sinks.k1.channel=c1
+</code></pre>
+<h6 id="linux03配置文件"><a href="#linux03配置文件" class="headerlink" title="linux03配置文件"></a>linux03配置文件</h6><pre><code class="properties">a1.sources=r1
+a1.channels=c1
+a1.sinks=k1
+
+a1.sources.r1.type=avro
+a1.sources.r1.bind=linux03
+a1.sources.r1.port=6665
+
+a1.channels.c1.type=memory
+a1.channels.c1.capacity=1000
+a1.channels.c1.transactionCapacity=100
+
+a1.sinks.k1.type=logger
+
+a1.sources.r1.channels=c1
+a1.sink.k1.channel=c1
+</code></pre>
+<p>先启动linux02和linux03，然后再启动linux01</p>
+<pre><code>flume-ng agent -n a1 -c . -f ftof-sink.conf -Dflume.root.logger=INFO,console
+
+//-c  配置文件的位置
+//-f  flume定义组件的配置文件名
+//-n  启动agent的名称 该名称在配置文件中定义
+//-Dflume.root.logger 信息打印到控制台
+</code></pre>
+<p>在linux01中追加数据，linux02,linux03会监控到数据</p>
+<h4 id="flume的运行单位"><a href="#flume的运行单位" class="headerlink" title="flume的运行单位"></a>flume的运行单位</h4><p>flume的最小运行单位是Agent</p>
+<h4 id="flume的最小传输单位"><a href="#flume的最小传输单位" class="headerlink" title="flume的最小传输单位"></a>flume的最小传输单位</h4><p>flume的最小传输单位是event(事件)</p>
+<h4 id="Flume的启动构建过程"><a href="#Flume的启动构建过程" class="headerlink" title="Flume的启动构建过程"></a>Flume的启动构建过程</h4><p>先构造channel，在构建sink，最后是source。</p>
+<h4 id="Event-事件-的组成"><a href="#Event-事件-的组成" class="headerlink" title="Event(事件)的组成"></a>Event(事件)的组成</h4><p>一行文本内容会被反序列化成一个event </p>
+<p>event是传输数据的核心，他的组成有<strong>headers</strong>和<strong>body</strong>两部分组成：Header是一个集合 Map[String,String]用于携带一些KV类型的元数据（标识，描述等），body部分可以是string和<strong>byte[]字节数组</strong>，body装载着具体的数据内容，headers部分是interceptor,可以存放一些数据属性,header默认是空的</p>
+<p> 从source获取数据后会先封装成event，然后将event发送到channel，sink从channel拿event消费 </p>
+<h4 id="interceptor-拦截器）"><a href="#interceptor-拦截器）" class="headerlink" title="interceptor(拦截器）"></a>interceptor(拦截器）</h4><p>拦截器可以在运行过程中根据开发人员的标准来修改和删除event。他是在source到chananl的过程中发挥作用的</p>
+<h5 id="Timestamp-Interceptor"><a href="#Timestamp-Interceptor" class="headerlink" title="Timestamp Interceptor"></a>Timestamp Interceptor</h5><p>时间戳拦截器，属性中的时间戳会抽取过过来放到event的head中，key默认是timestamp</p>
+<h5 id="Host-Interceptor"><a href="#Host-Interceptor" class="headerlink" title="Host Interceptor"></a>Host Interceptor</h5><p>head中添加你的host主机信息</p>
+<h5 id="Static-Interceptor"><a href="#Static-Interceptor" class="headerlink" title="Static Interceptor"></a>Static Interceptor</h5><p>静态拦截器，key和value都是不会变得</p>
+<h5 id="Remove-Header-Interceptor"><a href="#Remove-Header-Interceptor" class="headerlink" title="Remove Header Interceptor"></a>Remove Header Interceptor</h5><p>将head内容去掉的一个拦截器</p>
+<h5 id="UUID-Interceptor"><a href="#UUID-Interceptor" class="headerlink" title="UUID Interceptor"></a>UUID Interceptor</h5><p>随机生成一个uuid</p>
+<p>…..</p>
+<p>拦截器的位置在source传入到channel中时发挥作用，当我们为Source指定拦截器后，我们在拦截器中会得到event，根据需求我们可以对event进行保留还是抛弃，抛弃的数据不会进入Channel中。</p>
+<h4 id="Source选择器"><a href="#Source选择器" class="headerlink" title="Source选择器"></a>Source选择器</h4><p>选择器在source粗到chananl过程中发挥作用，在拦截器之后，处理拦截器的数据</p>
+<p>Source选择器有两种：</p>
+<p><strong>replicating</strong>(默认)</p>
+<p>复制的方式</p>
+<p>replicating是发给下级所有的channels</p>
+<pre><code class="sh">a1.sources = r1
+a1.channels = c1 c2 c3
+a1.sources.r1.selector.type = replicating
+a1.sources.r1.channels = c1 c2 c3
+#可选的channel，失败了也不会报错
+a1.sources.r1.selector.optional = c3
+</code></pre>
+<p><strong>multiplexing</strong></p>
+<p>multiplexing是根据选择自己配置把不同的数据发送给不同的channels</p>
+<p>根据event的header中的kv来决定这条消息写入到哪个channel中，选择配置一个映射关系：</p>
+<pre><code>a1.sources = r1
+a1.channels = c1 c2 c3 c4
+a1.sources.r1.selector.type = multiplexing
+a1.sources.r1.selector.header = state
+#key是state，
+#v是cz的放入c1
+#v是us的放入c2 c3
+#其他的放入到c4里面
+a1.sources.r1.selector.mapping.CZ = c1
+a1.sources.r1.selector.mapping.US = c2 c3
+a1.sources.r1.selector.default = c4
+</code></pre>
+<pre><code>a1.sources.r1.selector.header = state
+a1.sources.r1.selector.mapping.CZ = c1
+这就意味着header中的value为CZ的话，这条消息就会被写入到c1这个channel
+</code></pre>
+<p>（判断header数据，然后把不同event传输给不同的配置对象）</p>
+<p>可以通过拦截器来再header中添加键值对，如果是启动日志(“topic”,”topic_start)，如果是事件日志，(“topic”,”topic_event)</p>
+<p>拦截器可以通过关键字来进行判断日志类型</p>
+<h4 id="Sink的故障转移和负载均衡"><a href="#Sink的故障转移和负载均衡" class="headerlink" title="Sink的故障转移和负载均衡"></a>Sink的故障转移和负载均衡</h4><p><strong>Sink组逻辑处理器</strong></p>
+<p>你可以把多个sink分成一个组， 这时候 <a target="_blank" rel="noopener" href="https://flume.liyifeng.org/#sink">Sink组逻辑处理器</a> 可以对这同一个组里的几个sink进行负载均衡或者其中一个sink发生故障后将输出Event的任务转移到其他的sink上。</p>
+<h5 id="故障转移"><a href="#故障转移" class="headerlink" title="故障转移"></a>故障转移</h5><p>故障转移机制的工作原理是将故障sink降级到一个池中，在池中为它们分配冷却期（超时时间），在重试之前随顺序故障而增加。 Sink成功发送事件后，它将恢复到实时池。sink具有与之相关的优先级，数值越大，优先级越高。 如果在发送Event时Sink发生故障，会继续尝试下一个具有最高优先级的sink。 例如，在优先级为80的sink之前激活优先级为100的sink。如果未指定优先级，则根据配置中的顺序来选取。</p>
+<pre><code class="properties">a1.sinkgroups = g1
+a1.sinkgroups.g1.sinks = k1 k2
+a1.sinkgroups.g1.processor.type = failover
+a1.sinkgroups.g1.processor.priority.k1 = 5
+a1.sinkgroups.g1.processor.priority.k2 = 10
+a1.sinkgroups.g1.processor.maxpenalty = 10000
+</code></pre>
+<h5 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h5><p>负载均衡Sink 选择器提供了在多个sink上进行负载均衡流量的功能。 它维护一个活动sink列表的索引来实现负载的分配。 默认支持了轮询（<code>round_robin</code>）和随机（<code>random</code>）两种选择机制分配负载。 默认是轮询，可以通过配置来更改。也可以从 <em>AbstractSinkSelector</em> 继承写一个自定义的选择器。</p>
+<ul>
+<li><p>工作时，此选择器使用其配置的选择机制选择下一个sink并调用它。 如果所选sink无法正常工作，则处理器通过其配置的选择机制选择下一个可用sink。 此实现不会将失败的Sink列入黑名单，而是继续乐观地尝试每个可用的Sink。</p>
+<p>如果所有sink调用都失败了，选择器会将故障抛给sink的运行器。</p>
+</li>
+</ul>
+<p>如果backoff设置为true则启用了退避机制，失败的sink会被放入黑名单，达到一定的超时时间后会自动从黑名单移除。 如从黑名单出来后sink仍然失败，则再次进入黑名单而且超时时间会翻倍，以避免在无响应的sink上浪费过长时间。 如果没有启用退避机制，在禁用此功能的情况下，发生sink传输失败后，会将本次负载传给下一个sink继续尝试，因此这种情况下是不均衡的。</p>
+<pre><code class="properties">a1.sinkgroups = g1
+a1.sinkgroups.g1.sinks = k1 k2
+a1.sinkgroups.g1.processor.type = load_balance
+a1.sinkgroups.g1.processor.backoff = true
+a1.sinkgroups.g1.processor.selector = random
+</code></pre>
+<h3 id="自定义source、sink和interceptor"><a href="#自定义source、sink和interceptor" class="headerlink" title="自定义source、sink和interceptor"></a>自定义source、sink和interceptor</h3><p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/wangshuminjava/article/details/83550950">https://blog.csdn.net/wangshuminjava/article/details/83550950</a> </p>
+<h4 id="一、自定义source"><a href="#一、自定义source" class="headerlink" title="一、自定义source"></a>一、自定义source</h4><p> 自定义Source，自定义的Event需要继承PollableSource （轮训拉取）或者EventDrivenSource （事件驱动），另外还需要实现Configurable接口。</p>
+<p>PollableSource或者EventDrivenSource的区别在于：PollableSource是通过线程不断去调用process方法，主动拉取消息，而EventDrivenSource是需要触发一个调用机制，即被动等待。 Configurable接口：便于项目中初始化某些配置用的。 </p>
+<h5 id="1、编写自定义source的代码"><a href="#1、编写自定义source的代码" class="headerlink" title="1、编写自定义source的代码"></a>1、编写自定义source的代码</h5><pre><code class="java">public class CustomSource extends AbstractSource implements Configurable,PollableSource&#123;
+    @Override
+    public long getBackOffSleepIncrement() &#123;
+        // TODO Auto-generated method stub
+        return 0;
+    &#125;
+    @Override
+    public long getMaxBackOffSleepInterval() &#123;
+        // TODO Auto-generated method stub
+        return 0;
+    &#125;
+    @Override
+    public Status process() throws EventDeliveryException &#123;
+ 
+        Random random = new Random();
+        int randomNum = random.nextInt(100);
+        String text = &quot;Hello world&quot; + random.nextInt(100);
+        HashMap&lt;String, String&gt; header = new HashMap&lt;String,String&gt;();
+        header.put(&quot;id&quot;,Integer.toString(randomNum));
+        this.getChannelProcessor()
+            .processEvent(EventBuilder.withBody(text,Charset.forName(&quot;UTF-8&quot;),header));             
+        return Status.READY;
+    &#125;
+    @Override
+    public void configure(Context arg0) &#123;
+ 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2、编写配置文件"><a href="#2、编写配置文件" class="headerlink" title="2、编写配置文件"></a>2、编写配置文件</h5><pre><code class="conf"># 指定Agent的组件名称  
+a1.sources = r1  
+a1.sinks = k1  
+a1.channels = c1  
+ 
+# 指定Flume source(要监听的路径)  
+a1.sources.r1.type = com.harderxin.flume.test.MySource  
+ 
+# 指定Flume sink  
+a1.sinks.k1.type = file_roll  
+# sink的输出目录，根据自己情况定义
+a1.sinks.k1.sink.directory = /home/hadoop/sinkFolder  
+ 
+# 指定Flume channel  
+a1.channels.c1.type = memory  
+a1.channels.c1.capacity = 1000  
+a1.channels.c1.transactionCapacity = 100
+ 
+# 绑定source和sink到channel上  
+a1.sources.r1.channels = c1  
+a1.sinks.k1.channel = c1  
+</code></pre>
+<h5 id="3、项目打jar包，放在flume的lib目录下"><a href="#3、项目打jar包，放在flume的lib目录下" class="headerlink" title="3、项目打jar包，放在flume的lib目录下"></a>3、项目打jar包，放在flume的lib目录下</h5><p>(bin目录网上说成功不了)</p>
+<p>在bin目录下执行</p>
+<pre><code>flume-ng agent -conf conf -conf-file ../conf/custom_source.conf -name a1 
+</code></pre>
+<h4 id="二、自定义sink"><a href="#二、自定义sink" class="headerlink" title="二、自定义sink"></a>二、自定义sink</h4><h5 id="1、编写自定义类继承-AbstractSink-实现-Configurable-接口"><a href="#1、编写自定义类继承-AbstractSink-实现-Configurable-接口" class="headerlink" title="1、编写自定义类继承 AbstractSink  实现 Configurable 接口"></a>1、编写自定义类继承 AbstractSink  实现 Configurable 接口</h5><pre><code class="java">public class CustomSink extends AbstractSink implements Configurable&#123;
+ 
+    @Override
+    public Status process() throws EventDeliveryException &#123;
+ 
+        Status status = Status.READY;
+        Transaction trans = null;
+        try &#123;
+            Channel channel = getChannel();
+            trans = channel.getTransaction();
+            trans.begin();
+            for(int i= 0;i &lt; 100 ;i++) &#123;
+                Event event = channel.take();
+                if(event == null) &#123;
+                    status = status.BACKOFF;
+                    break;
+                &#125;else &#123;
+                    String body = new String(event.getBody());
+                    System.out.println(body);
+                &#125;
+            &#125;
+            trans.commit();
+ 
+        &#125;catch (Exception e) &#123;
+            if(trans != null) &#123;
+                trans.commit();
+            &#125;
+            e.printStackTrace();
+        &#125;finally &#123;
+            if(trans != null) &#123;
+                trans.close();
+            &#125;
+        &#125;
+        return status;
+    &#125;
+ 
+    @Override
+    public void configure(Context arg0) &#123;
+ 
+    &#125;   
+&#125;
+</code></pre>
+<h5 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h5><pre><code class="conf">a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+ 
+# Describe/configure the source
+a1.sources.r1.type = netcat
+a1.sources.r1.bind = 0.0.0.0
+a1.sources.r1.port = 44444
+ 
+# Describe the sink
+a1.sinks.k1.type = com.caoxufeng.MyCustom.CustomSink
+ 
+# Use a channel which buffers events in memory
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 10000
+a1.channels.c1.transactionCapacity = 100
+ 
+# Bind the source and sink to the channel
+a1.sources.r1.channels = c1
+a1.sinks.k1.channel = c1
+</code></pre>
+<h5 id="3、项目打成jar包，放入flume下的-lib目录下"><a href="#3、项目打成jar包，放入flume下的-lib目录下" class="headerlink" title="3、项目打成jar包，放入flume下的 lib目录下"></a>3、项目打成jar包，放入flume下的 lib目录下</h5><pre><code>flume-ng agent -conf conf -conf-file ../conf/custom_sink.conf -name a1 
+</code></pre>
+<h4 id="三、自定义Interceptor（拦截器）"><a href="#三、自定义Interceptor（拦截器）" class="headerlink" title="三、自定义Interceptor（拦截器）"></a>三、自定义Interceptor（拦截器）</h4><p>Flume中拦截器的作用就是对于event中header的部分可以按需塞入一些属性，当然你如果想要处理event的body内容，也是可以的，但是event的body内容是系统下游阶段真正处理的内容，如果让Flume来修饰body的内容的话，那就是强耦合了，这就违背了当初使用Flume来解耦的初衷了。</p>
+<h5 id="1、编写自定义类实现Interceptor接口"><a href="#1、编写自定义类实现Interceptor接口" class="headerlink" title="1、编写自定义类实现Interceptor接口"></a>1、编写自定义类实现Interceptor接口</h5><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.flume&lt;/groupId&gt;
+    &lt;artifactId&gt;flume-ng-core&lt;/artifactId&gt;
+    &lt;version&gt;1.9.0&lt;/version&gt;
+&lt;dependency&gt;
+</code></pre>
+<p>执行过程：内部类config()-》内部类build()-&gt;外部类</p>
+<pre><code class="java">public class CustomInterceptor implements Interceptor&#123;
+ 
+    private final String headerKey;
+    private static final String CONF_HEADER_KEY = &quot;header&quot;;
+    private static final String DEFAULT_HEADER = &quot;count&quot;;
+    private final AtomicLong currentCount;
+ 
+    public CustomInterceptor(Context ctx) &#123;
+        headerKey = ctx.getString(CONF_HEADER_KEY,DEFAULT_HEADER);
+        currentCount = new AtomicLong();
+    &#125;
+ 
+    //运行前的初始化，一般不需要实现
+    @Override
+    public void initialize() &#123;
+        // TODO Auto-generated method stub  
+    &#125;
+    //)处理单个event
+    @Override
+    public Event intercept(Event event) &#123;
+ 
+        long count = currentCount.incrementAndGet();
+        event.getHeaders().put(headerKey, String.valueOf(count));
+        return event;
+    &#125;
+    //批量处理event，循环出路一面的interceptor(Event event)
+    @Override
+    public List&lt;Event&gt; intercept(List&lt;Event&gt; events) &#123;
+        for(Event e:events) &#123;
+            intercept(e);
+        &#125;
+        return events;
+    &#125;
+    @Override
+    public void close() &#123;       
+    &#125;
+    public static class CounterInterceptorBuilder implements Builder &#123;
+        private Context ctx;
+ 
+        //用户构建的一个拦截器实例
+        @Override
+        public Interceptor build() &#123;
+            return new CustomInterceptor(ctx);
+        &#125;
+ 
+        //获取参数的入口，通过context获取配置好的参数
+        @Override
+        public void configure(Context context) &#123;
+            this.ctx = context;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2、编写配置文件-1"><a href="#2、编写配置文件-1" class="headerlink" title="2、编写配置文件"></a>2、编写配置文件</h5><p>注意事项：interceptor type是编写类的全路径，并且内部类使用**$**进行标注</p>
+<pre><code class="properties">a1.sources = r1
+a1.sinks = s1
+a1.channels = c1
+ 
+a1.sources.r1.type = netcat
+a1.sources.r1.bind = localhost
+a1.sources.r1.port = 44444
+a1.sources.r1.interceptors = i1
+a1.sources.r1.interceptors.i1.type = com.caoxufeng.MyCustom.CustomInterceptor$CounterInterceptorBuilder
+# perserveExisting 是 interceptor获取的值
+a1.sources.r1.interceptors.i1.perserveExisting = true
+ 
+a1.sinks.s1.type = logger
+ 
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 2
+a1.channels.c1.transactionCapacity = 2
+ 
+a1.sources.r1.channels = c1
+a1.sinks.s1.channel = c1
+</code></pre>
+<h5 id="3、-项目打成jar包，放入flume下的-lib目录下"><a href="#3、-项目打成jar包，放入flume下的-lib目录下" class="headerlink" title="3、 项目打成jar包，放入flume下的 lib目录下"></a>3、 项目打成jar包，放入flume下的 lib目录下</h5><p>(bin目录网上说成功不了)</p>
+<p><img src="/flume/flume/image-20210302190346472.png" alt="配置文件编写"></p>
+<p>在bin目录下编写配置文件执行</p>
+<pre><code>flume-ng agent -c conf -f ../conf/custom-interceptor.conf -n a1
+</code></pre>
+<h3 id="Flume的失败切换"><a href="#Flume的失败切换" class="headerlink" title="Flume的失败切换"></a>Flume的失败切换</h3><p>Failover Sink Processor失败切换</p>
+<p>将sink分组，一组中只有优先级高的sink工作，另一个在等待。</p>
+<p>如果高优先级的sink发送数据失败，就用优先级低的sink去工作。在配置时间penalty之后，还会尝试高优先级的去发送数据。</p>
+<pre><code class="properties">a1.sinkgroups =g1
+a1.sinkgroups.g1.sinks = k1 k2
+a1.sinkgroups.processor.type = failover
+## 对两个sink分配不同的优先级
+a1.sinkgroups.g1.processor.priority.k1=200
+a1.sinkgroups.g1.processor.priority.k2=100
+##主sink失败后，停用调整时间
+a1.sinkgroups.g1.processor.maxpenalty=5000
+</code></pre>
+<h3 id="Flume内存优化"><a href="#Flume内存优化" class="headerlink" title="Flume内存优化"></a>Flume内存优化</h3><p>1 问题描述：如果启动消费Flume抛出如下异常</p>
+<pre><code>ERROR hdfs.HDFSEventSink: process failed
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+</code></pre>
+<p>2 解决方案步骤：</p>
+<p>1）在服务器的&#x2F;opt&#x2F;modules&#x2F;flume&#x2F;conf&#x2F;flume-env.sh文件中增加如下配置</p>
+<pre><code>export JAVA_OPTS=&quot;-Xms100m -Xmx4096m -Dcom.sun.management.jmxremote&quot;
+</code></pre>
+<p><strong>Xms</strong> 是指设定程序启动时占用内存大小。一般来讲，大点，程序会启动的快一点，但是也可能会导致机器暂时间变慢。</p>
+<p><strong>Xmx</strong> 是指设定程序运行期间最大可占用的内存大小。如果程序运行需要占用更多的内存，超出了这个设置值，就会抛出OutOfMemory异常。</p>
+<p><strong>Xss</strong> 是指设定每个线程的堆栈大小。这个就要依据你的程序，看一个线程大约需要占用多少内存，可能会有多少线程同时运行等。</p>
+<p>2）同步配置到98、97服务器</p>
+<pre><code>[admin@hadoop-yarn conf]$ xsync flume-env.sh
+</code></pre>
+<p>3 Flume内存参数设置及优化</p>
+<p>JVM heap一般设置为4G或更高，部署在单独的服务器上（4核8线程16G内存）</p>
+<p>-Xmx与-Xms最好设置一致，减少内存抖动带来的性能影响，如果设置不一致容易导致频繁fullgc。</p>
+<h2 id="Flume的监控"><a href="#Flume的监控" class="headerlink" title="Flume的监控"></a>Flume的监控</h2><h3 id="内置监控"><a href="#内置监控" class="headerlink" title="内置监控"></a>内置监控</h3><p>flume的自带功能，但是功能比较简陋，只会返回json</p>
+<pre><code>-Dflume.monitoring.type=http -Dflume.monitoring.port=34545
+</code></pre>
+<h3 id="Ganglia"><a href="#Ganglia" class="headerlink" title="Ganglia"></a>Ganglia</h3><p>Ganglia是一个监控工具，不是单独服务flume的工具</p>
+<h4 id="Ganglia的安装与部署"><a href="#Ganglia的安装与部署" class="headerlink" title="Ganglia的安装与部署"></a>Ganglia的安装与部署</h4><p><strong>1)</strong> <strong>安装httpd****服务与php</strong></p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo yum -y install httpd php
+</code></pre>
+<p><strong>2)</strong> <strong>安装其他依赖</strong></p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo yum -y install rrdtool perl-rrdtool rrdtool-devel
+[admin@hadoop-yarn flume]$ sudo yum -y install apr-devel
+</code></pre>
+<p>3）<strong>安装Ganglia</strong></p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+[admin@hadoop-yarn flume]$ sudo yum -y install ganglia-gmetad 
+[admin@hadoop-yarn flume]$ sudo yum -y install ganglia-web
+[admin@hadoop-yarn flume]$ sudo yum install -y ganglia-gmond
+</code></pre>
+<p><strong>4)</strong> <strong>修改配置文件&#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ganglia.conf</strong></p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo vim /etc/httpd/conf.d/ganglia.conf
+</code></pre>
+<p><strong>修改为红颜色的配置：</strong></p>
+<pre><code>\# Ganglia monitoring system php web frontend
+Alias /ganglia /usr/share/ganglia
+&lt;Location /ganglia&gt;
+ Order deny,allow
+ Deny from all
+ Allow from all
+  Allow from 127.0.0.1
+ \# Allow from ::1
+ \# Allow from .example.com
+&lt;/Location&gt;
+</code></pre>
+<p><strong>5)</strong> <strong>修改配置文件&#x2F;etc&#x2F;ganglia&#x2F;gmetad.conf</strong></p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo vim /etc/ganglia/gmetad.conf
+修改为：
+data_source &quot;bw61&quot; 192.168.137.66
+</code></pre>
+<p><strong>6)</strong> <strong>修改配置文件&#x2F;etc&#x2F;ganglia&#x2F;gmond.conf</strong></p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo vim /etc/ganglia/gmond.conf 
+//修改为
+cluster &#123;
+  name = &quot;bw66&quot;
+  owner = &quot;unspecified&quot;
+  latlong = &quot;unspecified&quot;
+  url = &quot;unspecified&quot;
+&#125;
+udp_send_channel &#123;
+  #bind_hostname = yes # Highly recommended, soon to be default.
+                       # This option tells gmond to use a source address
+                       # that resolves to the machine&#39;s hostname.  Without
+                       # this, the metrics may appear to come from any
+                       # interface and the DNS names associated with
+                       # those IPs will be used to create the RRDs.
+  # mcast_join = 239.2.11.71
+  host = bw66
+  port = 8649
+  ttl = 1
+&#125;
+udp_recv_channel &#123;
+  # mcast_join = 239.2.11.71
+  port = 8649
+  bind = bw66
+  retry_bind = true
+  # Size of the UDP buffer. If you are handling lots of metrics you really
+  # should bump it up to e.g. 10MB or even higher.
+  # buffer = 10485760
+&#125;
+</code></pre>
+<p><strong>7)</strong> <strong>修改配置文件&#x2F;etc&#x2F;selinux&#x2F;config</strong></p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo vim /etc/selinux/config
+**修改为：**
+\# This file controls the state of SELinux on the system.
+\# SELINUX= can take one of these three values:
+\#   enforcing - SELinux security policy is enforced.
+\#   permissive - SELinux prints warnings instead of enforcing.
+\#   disabled - No SELinux policy is loaded.
+SELINUX=disabled
+\# SELINUXTYPE= can take one of these two values:
+\#   targeted - Targeted processes are protected,
+\#   mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+</code></pre>
+<p>尖叫提示：selinux本次生效关闭必须重启，如果此时不想重启，可以临时生效之：</p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo setenforce 0
+</code></pre>
+<p><strong>8）启动ganglia</strong></p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo service httpd start
+[admin@hadoop-yarn flume]$ sudo service gmetad start
+[admin@hadoop-yarn flume]$ sudo service gmond start
+</code></pre>
+<p><strong>6)</strong> <strong>打开网页浏览ganglia页面</strong></p>
+<pre><code>http://192.168.137.99/ganglia
+</code></pre>
+<p>尖叫提示：如果完成以上操作依然出现权限不足错误，请修改&#x2F;var&#x2F;lib&#x2F;ganglia目录的权限：</p>
+<pre><code>[admin@hadoop-yarn flume]$ sudo chmod -R 777 /var/lib/ganglia
+</code></pre>
+<h3 id="Flume面试题"><a href="#Flume面试题" class="headerlink" title="Flume面试题"></a>Flume面试题</h3><p><strong>flume采集断掉，要从上面的进度继续采集，怎么弄？</strong></p>
+<p>思想：记录中间传输的状态</p>
+<ol>
+<li>使用interceptor设置，创建日志文件，在中断连接时按照这个里面的日志文件来进行继续</li>
+<li>taildirsource 可以实现断点续传。</li>
+</ol>
+<p><strong>只有上面方式可以实现</strong></p>
+<p>channel中有<strong>transactionCapacity</strong> 参数设置事务容量大小，channel的transactionCapacity参数不能小于sink和source的batchsize。最好是batchsize的倍数。flume正常运行可能会导致数据的重复，但不会丢失数据！但是flume意外停止就会丢失数据。</p>
+<p><strong>Flume在项目中是如何使用的？</strong></p>
+<p>flume通过taildir source来进监控日志文件，使用了自定义拦截器来判断不同的数据，并添加event head，source发送到channel时，选择器使用了 <strong>multiplexing</strong> 选择器，根据head的不同值将event发送到不同的channel，在进行落地到不同的目录中。</p>
+<p>我负责flume的数据采集，数据分路开发，那边的数据我不管，正常发送就行。</p>
+<p><strong>Flume有事务控制吗？</strong></p>
+<p>Flume拥有事务控制，source到channel和channel到sink，这两个过程都可以实现事务控制。（一起成功一起失败，可以回滚）put事务和take事务</p>
+<p>比如spooling directory source 为文件的每一个<strong>event batch</strong>创建一个事务，一旦事务中所有的事件全部传递到Channel且提交成功，那么Soucrce就将event batch标记为完成。</p>
+<p>同理，事务以类似的方式处理从Channel到Sink的传递过程，如果因为某种原因使得事件无法记录，那么事务将会回滚，且所有的事件都会保持到Channel中，等待重新传递。</p>
+<p><strong>Flume的权限控制用什么实现？</strong></p>
+<p>kerberos来实现，通常是运维人员来设置</p>
+<p><strong>配置flume的日志文件名称包含时间？</strong></p>
+<ol>
+<li>flume的可以编写interceptor，将数据的时间进行解析添加到event的头部，进行调用</li>
+<li>通过flume自带的 %Y %M 等一系列特殊符号定义，但是可能会出现半夜12点的数据到了第二天，在处理的时候就会少一部分数据。不建议使用</li>
+</ol>
+<p><strong>Flume使用遇到过什么问题？</strong></p>
+<ol>
+<li>Flume的 channel事务容量和 hdfs sink 的批次大小设置不一样，导致数据写入失败。解决方式：设置channel事务大小和 hdfs sink 批次大小一致。</li>
+<li>配置完成后，source和sink报没有连接到channel，报总容量小于事务容量。解决方式：设置channel的总容量大小。</li>
+</ol>
+<pre><code class="properties">a1.channels.c1.capacity=2000
+</code></pre>
+<p><strong>flume动态加载配置</strong></p>
+<p>运行过程中，如果配置发生改变，需要重新启动flume来使它生效。</p>
+<p>也可以不用重启flume服务，flume会在一段时间后重新检测flume的配置文件，并自动更新。</p>
+<p><strong>flume的运行过程中发生过什么问题？</strong></p>
+<p>flume的内存不够用，内存溢出。解决方法：调大内存</p>
+<p>机器磁盘满了，导致没有空间存储，之前过期数据没有定时处理，写一个脚本定期处理</p>
+<p>事务容量大于容量</p>
+<p><strong>什么是数据的积压？</strong>什么情况下产生积压？积压了怎么解决？</p>
+<p><strong>flume会不会丢数据，会不会产生数据重复？</strong></p>
+<p>看选择的source、channal和sink的类型，选择可靠的类型不会丢失数据，因为他们支持事务。 </p>
+<p><strong>什么情况下会出现采集阻塞，以及，这些情况分别如何应付？</strong></p>
+<h3 id="Failover-Sink-Processor"><a href="#Failover-Sink-Processor" class="headerlink" title="Failover Sink Processor"></a>Failover Sink Processor</h3><p>故障转移接收器处理器维护一个按优先级排序的接收器列表，确保只要有一个可用的事件就会被处理(交付)。</p>
+<p>配置多个sink根据</p>
+<pre><code class="properties">a1.sinkgroups = g1
+a1.sinkgroups.g1.sinks = k1 k2
+a1.sinkgroups.g1.processor.type = failover
+a1.sinkgroups.g1.processor.priority.k1 = 5
+a1.sinkgroups.g1.processor.priority.k2 = 10
+a1.sinkgroups.g1.processor.maxpenalty = 10000
+</code></pre>
+<h3 id="Load-balancing-Sink-Processor"><a href="#Load-balancing-Sink-Processor" class="headerlink" title="Load balancing Sink Processor"></a>Load balancing Sink Processor</h3><p>负载均衡，一组sink中的sink之间轮流发送，策略有：random-robin（轮询）、random（随机）</p>
+<p>负载平衡接收器处理器提供了在多个接收器上负载平衡流的能力。它维护一个活动接收器的索引列表，负载必须分布在该列表上。实现支持通过round_robin或随机选择机制分配负载。选择机制的选择默认为round_robin类型，但可以通过配置重写。通过继承自AbstractSinkSelector的自定义类支持自定义选择机制。</p>
+<pre><code class="properties">a1.sinkgroups = g1
+a1.sinkgroups.g1.sinks = k1 k2
+a1.sinkgroups.g1.processor.type = load_balance
+a1.sinkgroups.g1.processor.backoff = true
+a1.sinkgroups.g1.processor.selector = random
+</code></pre>
+<h2 id="Flume的高可用"><a href="#Flume的高可用" class="headerlink" title="Flume的高可用"></a>Flume的高可用</h2><p>agent中多个sink连接同一个chanal，多个sink会形成组的概念，一个组中的sink消费数据策略有两种，一种是负载均衡发送，每个sink都发送一部分数据，一种是复制的方式每个sink都发同样的内容。</p>
+<p>高可用的实现：</p>
+<p><img src="/flume/flume/%E7%BA%A7%E8%81%94%E6%B1%87%E8%81%9A%E7%82%B9%E7%9A%84HA%E9%85%8D%E7%BD%AE%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="级联汇聚点的HA配置示意图"></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">三山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://star-light-star-bright.github.io/flume/flume/">https://star-light-star-bright.github.io/flume/flume/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">三山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Flume/">
+                                    <span class="chip bg-color">Flume</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/xiao-wen-jian-chu-li/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Hive/Spark小文件的处理">
+                        
+                        <span class="card-title">Hive/Spark小文件的处理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%B0%8F%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96/" class="post-category">
+                                    小文件优化
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B0%8F%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">小文件优化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/git/git-de-shi-yong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Git的使用">
+                        
+                        <span class="card-title">Git的使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Git/" class="post-category">
+                                    Git
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">三山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

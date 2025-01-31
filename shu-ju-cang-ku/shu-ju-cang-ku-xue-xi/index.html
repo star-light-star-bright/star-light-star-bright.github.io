@@ -1,0 +1,1505 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="数据仓库笔记, ZWHBlog">
+    <meta name="description" content="● 数据仓库是什么？数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。
+● 数据仓库特点1.2.1面向主题">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>数据仓库笔记 | ZWHBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWHBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWHBlog</div>
+        <div class="logo-desc">
+            
+            这是我的博客网站
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">数据仓库笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">
+                                <span class="chip bg-color">数据仓库</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" class="post-category">
+                                数据仓库
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-03-04
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="●-数据仓库是什么？"><a href="#●-数据仓库是什么？" class="headerlink" title="● 数据仓库是什么？"></a>● 数据仓库是什么？</h2><p>数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于<strong>分析性报告和决策支持目的</strong>而创建。</p>
+<h2 id="●-数据仓库特点"><a href="#●-数据仓库特点" class="headerlink" title="● 数据仓库特点"></a>● 数据仓库特点</h2><h3 id="1-2-1面向主题"><a href="#1-2-1面向主题" class="headerlink" title="1.2.1面向主题"></a><strong>1.2.1面向主题</strong></h3><p>普通的操作型数据库主要面向事务性处理，而数据仓库中的所有数据一般按照主题进行划分。主题是对业务数据的一种抽象，是从较高层次上对信息系统中的数据进行归纳和整理。</p>
+<p>面向主题的数据可以划分成两部分—-根据原系统业务数据的特点进行主题的抽取和确定每个主题所包含的数据内容。例如客户主题、产品主题、财务主题等；而客户主题包括客户基本信息、客户信用信息、客户资源信息等内容。分析数据仓库主题的时候，一般方法是先确定几个基本的 主题，然后再将范围扩大，最后再逐步求精</p>
+<h3 id="1-2-2集成性"><a href="#1-2-2集成性" class="headerlink" title="1.2.2集成性"></a><strong>1.2.2集成性</strong></h3><p>面向操作型的数据库通常是异构的、并且相互独立，所以无法对信息进行概括和反映信</p>
+<p>息的本质。而数据仓库中的数据是经过数据的抽取、清洗、切换、加载得到的，所以为了保证数据不存在二义性，必须对数据进行编码统一和必要的汇总，以保证数据仓库内数据的一致性。数据仓库在经历数据集成阶段后，使数据仓库中的数据都遵守统一的编码规则，并且消除许多冗余数据。 </p>
+<h3 id="1-2-3稳定性"><a href="#1-2-3稳定性" class="headerlink" title="1.2.3稳定性"></a><strong>1.2.3稳定性</strong></h3><p>数据仓库中的数据反映的都是一段历史时期的数据内容，它的主要操作是查询、分析而</p>
+<p>不进行一般意义上的更新（数据集成前的操作型数据库主要完成数据的增加、修改、删除、查询），一旦某个数据进入到数据仓库后，一般情况下数据会被长期保留，当超过规定的期限才会被删除。通常数据仓库需要做的工作就是加载、查询和分析，一般不进行任何修改操作，是为了企业高层 人员决策分析之用。</p>
+<h3 id="1-2-4反映历史变化"><a href="#1-2-4反映历史变化" class="headerlink" title="1.2.4反映历史变化"></a><strong>1.2.4反映历史变化</strong></h3><p>数据仓库不断从操作型数据库或其他数据源获取变化的数据，从而分析和预测需</p>
+<p>要的历史数据，所以一般数据仓库中数据表的键码（维度）都含有时间键，以表明数据的历史时期信息，然后不断增加新的数据内容。通过这些历史信息可以对企业的发展历程和趋势做出分析和预测。数据仓库的建设需要大量的业务数据作为积累，并将这些宝贵的历史信息经过加工、整理，最后提供给决策分析人员，这是数据仓库建设的根本目的。</p>
+<h2 id="●-数据仓库的技术手段"><a href="#●-数据仓库的技术手段" class="headerlink" title="● 数据仓库的技术手段"></a>● 数据仓库的技术手段</h2><p>传统数仓：一般采用关系型数据库软件，可存可算。</p>
+<p>大数据数仓：使用HDFS来进行存储，hive&#x2F;SparkSql sql引擎，Spark&#x2F;Mapreduce来进行计算，lmpala即是计算引擎也是sql引擎（纯内存的，执行速度比hive和sparksql快）</p>
+<p>项目中使用到的技术</p>
+<p>数据离线采集工具：Flume，sqoop</p>
+<p>数据实时同步工具：FlinkCDC，Canal，Debezium（<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/PgYII2PQkfa3WnarPmrL9g%EF%BC%89">https://mp.weixin.qq.com/s/PgYII2PQkfa3WnarPmrL9g）</a></p>
+<p>存储平台：HDFS</p>
+<p>基础设施：Hive</p>
+<p>运算引擎：MapReduce&#x2F;Spark</p>
+<p>资源调度：Yarn</p>
+<p>任务调度：Azkaban，oozie，DolphinScheduler，airflow</p>
+<p>元数据管理：Atlas</p>
+<p>大数据平台安全服务组件：Apache Ranger</p>
+<p>可视化展示工具：Supset</p>
+<p>资源监控报警工具：Zabbix，Grafana，open-falcon</p>
+<p>列式存储数据库：Hbase</p>
+<p>图形化统一交互平台：hue</p>
+<p>数据库设计工具：PowerDesigner</p>
+<p>etl工具：kettle，datastage，informatica</p>
+<h2 id="●-数据研发流程"><a href="#●-数据研发流程" class="headerlink" title="● 数据研发流程"></a>● 数据研发流程</h2><p>需求分析调研（数据调研，需求调研，业务调研）：明确口径，评估排期，需求正规流程提交</p>
+<p>指标管理：完善指标命名规范，指标同名同义，指标与业务强相关，明确指标构成要素。。</p>
+<p>模型设计：完善开发流程规范，标准化业务调研，知识库文档集中管理，建立模型评审机构</p>
+<p>etl开发：ODS&gt;DWD&gt;DWS&gt;ADS</p>
+<p>数据验证：指定数据测试标准</p>
+<p>任务调度：规范化调度参数配置</p>
+<p>上线管理 </p>
+<h2 id="●-数据建模工具"><a href="#●-数据建模工具" class="headerlink" title="● 数据建模工具"></a>● 数据建模工具</h2><p>PowerDesigner</p>
+<p>power designer是能进行数据库设计的强大的软件，是一款开发人员常用的数据库建模工具</p>
+<p>PDManer (国产建模工具)</p>
+<h2 id="●-实时处理架构设计"><a href="#●-实时处理架构设计" class="headerlink" title="● 实时处理架构设计"></a>● 实时处理架构设计</h2><p>实时大数据的架构有两种：</p>
+<ol>
+<li><strong>lambda架构</strong></li>
+</ol>
+<p>在Lambda架构中，数据处理分为 Speed Layer、Batch Layer 和 Serving Layer 三个部分。</p>
+<ul>
+<li>Speed Layer 负责实时处理数据，计算逻辑直接对接流数据，尽量缩短数据处理的延迟，但由于流数据天生的数据质量不可控，尽管缩短了数据处理时间，但可能牺牲数据的正确性和完整性；</li>
+<li>Batch Layer 负责批量规模性处理数据，可以保证数据的正确性和处理规模</li>
+<li>Serving Layer 负责融合 Speed 和 Batch 两个部分的数据能力，对外提供简单一致的数据访问视图。</li>
+</ul>
+<p><strong>企业需要维护两个复杂的分布式系统，即Batch Layer和Speed Layer，并且保证他们逻辑上产生相同的结果输出到服务层中。</strong></p>
+<ol start="2">
+<li><strong>Kappa 架构</strong></li>
+</ol>
+<p>为了将Batch Layer和Speed Layer进行统一架构，业界由Kafka团队提出了新的Kappa架构，基于Streaming是新的DB（数据库）的设计思想，要将所有的数据消费都基于Kafka，形成统一的数据出口，后续数据处理都基于流式（Kafka）数据源。</p>
+<p>这个架构是随着Kafka上数据加工能力的提升而受到大家关注（特别是Flink框架加持，显著提升流数据处理能力）。Kappa试图解决多个计算引擎带来的开发、运维难题，只保留实时一套代码和数据。<strong>但在实践中，我们发现数据处理的复杂度不完全是一个单向的流式处理可以全部支持的，比如数据模型的演化，历史数据的修补更新，缓慢变化维的处理等等，都需要更灵活的数据建模能力。</strong></p>
+<h2 id="●-数据仓库的设计"><a href="#●-数据仓库的设计" class="headerlink" title="● 数据仓库的设计"></a>● 数据仓库的设计</h2><p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/4631230/blog/4664053">https://my.oschina.net/u/4631230/blog/4664053</a></p>
+<p>数据仓库的设计分为两种：</p>
+<ol>
+<li><strong>Inmon</strong></li>
+</ol>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/328e7f90-fb3a-4184-83b1-96e39274d1a7.png" alt="img"></p>
+<p>inmon 提倡企业数据协调与集成，采用第三范式的格式，注重etl过程，这个数据仓库中的数据口径是统一的。数据集市概念有落地的实现：每个数据集市都有独立的物理存储空间，并被单独使用，以部门为中心，为部分决策提供支持。这个架构中用户可以直接访问数据仓库。</p>
+<p>流程：数据抽取–&gt;数据仓库–&gt;数据集市</p>
+<ol start="2">
+<li><strong>Kimball</strong></li>
+</ol>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/0e8825ca-1733-4fdb-a699-abc9f56e878d.png" alt="img"></p>
+<p>Kimball 架构强调具有一致性维度的企业总线的重要作用，一般采用星型模型，由事实表和维表组成，注重事实表与维表的设计。数据集市只是一个概念，没有具体的物理存储。这个架构中用户不能访问数据仓库，只能访问展示区。</p>
+<p>流程：数据集市(主题划分)–&gt;数据仓库–&gt; 数据抽取</p>
+<h2 id="●-数仓分层"><a href="#●-数仓分层" class="headerlink" title="● 数仓分层"></a>● 数仓分层</h2><p>分为了三层：</p>
+<h3 id="●-ODS-原始数据层"><a href="#●-ODS-原始数据层" class="headerlink" title="● ODS 原始数据层"></a>● ODS 原始数据层</h3><p>主要作用：直接映射操作数据（原始数据），以 json 格式文本文件存储，数据备份； 1）半结构化数据需要设计解析、2）对于增量表，需要设计增量表和全量表，然后合并成全量表数据。</p>
+<ul>
+<li>建模方法：与原始数据结构保持完全一致，不做字段名归一和字段类型统一的操作，如果需要则使用兼容的数据类型</li>
+<li>存储周期：相对来说，存储周期较短；视数据规模，增长速度，以及业务的需求而定；</li>
+<li>对于埋点 日志数据 ODS 层存储，通常可以选择 3 个月或者半年；存 1 年的是土豪公司（或者确有需要）</li>
+<li>一般存储三个月会删除</li>
+</ul>
+<h3 id="●-DW-数据仓库层"><a href="#●-DW-数据仓库层" class="headerlink" title="● DW 数据仓库层"></a>● DW 数据仓库层</h3><p>DW是数据仓库的核心，从ODS层中获得的数据按照主题建立各种数据模型。DW又细分数据明细层DWD 和轻度汇总层DWS。</p>
+<p>这一层和维度建模会有比较深的联系，业务数据是按照<strong>业务流程方便操作的角度</strong>来组织数据的，而统一数仓层是<strong>按照业务易理解的角度或者是业务分析的角度</strong>进行数据组织的，定义了一致的指标、维度，各业务板块、数据域都是按照统一的规范来建设，从而形成统一规范的<strong>标准业务数据体系</strong>，它们通常都是基于Kimball的维度建模理论来构建的，<strong>并通过一致性维度和数据总线来保证各个子主题的维度一致性</strong>。</p>
+<ol>
+<li><p>DWD 数仓明细层</p>
+<p>dwd 主要是对 ods 层做一些数据清洗和规范化的操作，扁平化明细数据），然后加工成面向数仓的基础明细表，这个时候可以加工一些面向分析的大宽表。</p>
+<p>DWD层应该是覆盖所有系统的、完整的、干净的、具有一致性的数据层。在DWD层会根据维度模型，设计事实表和维度表，也就是说DWD层是一个非常规范的、高质量的、可信的数据明细层。</p>
+<ul>
+<li>存储格式：以 orc &#x2F; parquet 文件格式存储 </li>
+<li>存储周期：6 个月</li>
+</ul>
+</li>
+<li><p>DIM 数仓维度层</p>
+<p>维表层，所以其实维度层就是大量维表构成的，为了统一管理这些维度表，所以我们就建设维度层，维度表本身也有很多类型，例如稳定维度维表，渐变维度维表。</p>
+<p>维度表一般为<strong>单一主键</strong>，在ER模型中，实体为客观存在的事务，会带有自己的描述性属性，属性一般为文本性、描述性的，这些描述被称为维度。维度建模的核心是<strong>数据可以抽象为事实和维度</strong>，维度即观察事物的角度，事实某一粒度下的度量词，<strong>维度一定是针对实体而言的</strong></p>
+<p>每个维度表都<strong>包含单一的主键列</strong>。维度表的主键可以作为与之关联的任何事实表的外键，当然，维度表行的描述环境应与事实表行完全对应。维度表通常比较宽，是扁平型非规范表，包含大量的低粒度的文本属性。例如customer（客户表）、goods(商品表)、d_time(时间表)这些都属于维度表，这些表都有一个唯一的主键，然后在表中存放了详细的数据信息。</p>
+<ul>
+<li>存储各种维表</li>
+</ul>
+</li>
+</ol>
+<h4 id="●-设计原则"><a href="#●-设计原则" class="headerlink" title="● 设计原则"></a>● 设计原则</h4><p>维度表通常比较宽，包含多个属性、是扁平的规范表，实际应用中包含几十个或者上百个属性的维度并不少见，所以维度表应该包括一些有意义的描述，方便下游使用。</p>
+<p>维度表的维度属性，应该尽可能的丰富，所以维度表中，经常出现一些反范式的设计，把其他维度属性并到主维度属性中，达到易用少关联的效果。</p>
+<p>维度表的设计包括维度选择，主维表的确定，梳理关联维度，定义维度属性的过程。</p>
+<p>维度的选择一般从报表需求和从业务人员的交谈中发现，主要用于过滤、分组、排序，主维度表一般从业务库直接同步，比如用户表，但是数仓的本身也会有自己的维度，这是因为数仓是面向分析的，所以会有很多从分析的角度出发的维度。</p>
+<p>关联维度主要是不同业务系统或者同一业务系统的表之间存在关联性(范式建模)，根据对业务表的梳理，确定哪些表和主维度表之间存在关联关系，并选择其中的某些表用于生成维度属性。</p>
+<ol start="3">
+<li><p>DWS 轻度（公共）汇总层（维度退化（大宽表），这一层会进行轻度汇总，粒度比明细数据稍粗，<strong>基于DWD层上的基础数据，整合汇总成分析某一个主题域的服务数据</strong>，一般是也是面向分析宽表或者是面向某个注意的汇总表。DWS层应覆盖80%的应用场景，这样我们才能快速响应数据需求，否则的话，如果很多需求都要从ods开始做的话，那说明我们的数仓建设是不完善的。</p>
+<p><strong>一般采用维度模型方法作为理论基础，更多的采用一些维度退化手法，将维度退化至事实表中，减少维度表与事实表的关联，提高明细数据表的易用性；同时在汇总数据层要加强指标的维度退化，采用更多的宽表化手段构建公共指标数据层，提升公共指标的复用性，减少重复加工</strong>。</p>
+<p>从DWD轻度聚合后的数据（用户连续活跃区间记录表））例如按照业务划分，例如流量，订单，用户等，生成字段比较多的宽表，用于后续的业务查询，OLAP分析，数据分析等。</p>
+<ul>
+<li>存储格式：以 ORC&#x2F;PARQUET 文件格式存储 </li>
+<li>存储周期：1 年</li>
+</ul>
+</li>
+</ol>
+<p><strong>清洗过滤</strong> ：</p>
+<ul>
+<li><p>去除 json 数据体中的废弃字段（前端开发人员在埋点设计方案变更后遗留的无用字段）： </p>
+</li>
+<li><p>过滤掉 json 格式不正确的（脏数据）</p>
+</li>
+<li><p>过滤掉日志中 account 及 deviceid 全为空的记录 </p>
+</li>
+<li><p>过滤掉日志中缺少关键字段（properties&#x2F;eventid&#x2F;sessionid 缺任何一个都不行）的记录！ </p>
+</li>
+<li><p>过滤掉日志中不符合时间段的记录（由于 app 上报日志可能的延迟，有数据延迟到达） </p>
+</li>
+<li><p>对于 web 端日志，过滤爬虫请求数据（通过 useragent 标识来<strong>分析）</strong></p>
+</li>
+</ul>
+<p><strong>数据规范处理：</strong></p>
+<ul>
+<li>Boolean 字段，在数据中有使用 1&#x2F;0&#x2F;-1 标识的，也有使用 true&#x2F;false 表示的，统一为 Y&#x2F;N&#x2F;U </li>
+<li>字符串类型字段，在数据中有空串，有 null 值，统一为 null 值 </li>
+<li>日期格式统一, 2020&#x2F;9&#x2F;2 2020-9-2 2020-09-02 都统一成 YYYY-MM-dd</li>
+</ul>
+<p><strong>维度集成</strong> ：</p>
+<ul>
+<li>将日志中的 GPS 经纬度坐标解析成省、市、县（区）信息；（为了方便后续的地域维度分析） </li>
+<li>将日志中的 IP 地址解析成省、市、县（区）信息；（为了方便后续的地域维度分析）</li>
+</ul>
+<h4 id="●-设计原则-1"><a href="#●-设计原则-1" class="headerlink" title="● 设计原则"></a>● 设计原则</h4><p><strong>一致性维度规范</strong><br>公共层的维度表中相同维度属性在不同物理表中的字段名称、数据类型、数据内容必须保持一致，因为这样可以降低我们在使用过程中犯错误的概率，例如使用了不正确的字段，或者因为数据类型的原因导致了一些奇怪的错误</p>
+<p><strong>维度的组合与拆分</strong><br>将维度所描述业务相关性强的字段在一个物理维表实现。相关性强是指经常需要一起查询或进行报表展现、两个维度属性间是否存在天然的关系等。例如，商品基本属性和所属品牌。</p>
+<h3 id="●-ADS-数据应用层"><a href="#●-ADS-数据应用层" class="headerlink" title="● ADS 数据应用层"></a>● ADS 数据应用层</h3><p>数据应用层ApplicationDataService面向业务定制的应用数据，主要提供给数据产品和数据分析使用的数据，一般会放在ES，MYSQL，Redis等系统供线上系统使用，也可以放在Hive中供数据分析和数据挖掘使用，或者使用一下其他的大数据工具进行存储和使用。</p>
+<p>数据应用层，按照业务的需要，然后从统一数仓层和DIM进行取数，并面向业务的特殊需求对数据进行加工,以满足业务和性能的需求。ADS 层因为面向的实众多的需求，所以这一层没有太多的规范，只需要按照命名规范来进行就可以了。</p>
+<ul>
+<li>数据内容：根据业务人员需求，从 DWS 计算出来的报表 </li>
+<li>存储格式：以 ORC&#x2F;PARQUET 文件格式存储</li>
+<li>存储周期：3 年</li>
+</ul>
+<h3 id="●-DM-数据集市层"><a href="#●-DM-数据集市层" class="headerlink" title="● DM 数据集市层"></a>● DM 数据集市层</h3><p>主要是提供数据产品和数据分析的数据，一般会存放在ES、Mysql、也可能直接存储在hive中或者druid供数据分析和数据挖掘使用。主要<strong>解决部门用户报表和分析需求</strong>而建立数据库，数据集市就代表数据仓库的主题域。</p>
+<p>DM 是面向单个主题的，所以它不会从全局考虑进行建设，只专注于自己的数据、往往是某个业务线，例如流量主题、社交主题、电商主题等等。</p>
+<h2 id="●-为什么要分层？"><a href="#●-为什么要分层？" class="headerlink" title="● 为什么要分层？"></a>● 为什么要分层？</h2><p>分层管理和计算</p>
+<p>进行漏斗式的的统计，将复杂的问题分成多层进行统计简化任务</p>
+<p>减少重复开发，减少重复计算，增加结果复用性</p>
+<p>隔离原始数据，保证数据完整性</p>
+<h2 id="●-DWS主题划分"><a href="#●-DWS主题划分" class="headerlink" title="● DWS主题划分"></a>● DWS主题划分</h2><ul>
+<li><p>用户分布分析主题 ：页面浏览事件的：一次会话，一条记录</p>
+</li>
+<li><p>交互事件概况主题</p>
+<ul>
+<li>分享事件，主题明细表</li>
+<li>点赞事件，主题明细表</li>
+<li>收藏事件，主题明细表</li>
+</ul>
+</li>
+<li><p>广告运营位分析主题</p>
+</li>
+<li><p>站外投放广告分析主题</p>
+</li>
+<li><p>优惠券分析主题</p>
+</li>
+<li><p>红包分析主题</p>
+</li>
+<li><p>用户活跃度分析主题</p>
+<ul>
+<li>用户连续活跃区间记录（类似拉链表）</li>
+</ul>
+</li>
+<li><p>新用户留存分析主题</p>
+</li>
+<li><p>常规固定漏斗模型分析主题：漏斗模型，是用来分析业务转化率的！</p>
+</li>
+</ul>
+<h2 id="●-表是怎么命名的"><a href="#●-表是怎么命名的" class="headerlink" title="● 表是怎么命名的"></a>● 表是怎么命名的</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI2MDQzOTk3MQ==&amp;mid=2247484635&amp;idx=1&amp;sn=aaec70cb5cf5900e39849ff7b25a8c6a&amp;chksm=ea68ee17dd1f67018f93c96a6fcd00563022589ba0b7913394e132c5ec9791fc2ffd3ac6998f&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=MzI2MDQzOTk3MQ==&amp;mid=2247484635&amp;idx=1&amp;sn=aaec70cb5cf5900e39849ff7b25a8c6a&amp;chksm=ea68ee17dd1f67018f93c96a6fcd00563022589ba0b7913394e132c5ec9791fc2ffd3ac6998f&amp;scene=21#wechat_redirect</a></p>
+<p>全量表(df),增量表(di),追加表(da)，拉链表(dz)</p>
+<p>ods dwd：**[层次].[业务]<em>[表内容]</em>[周期+处理方式]**</p>
+<p>dw  dws：**[层次].[主题]<em>[表内容]</em>[周期+处理方式]** </p>
+<p>如：ods.test_order_info_df</p>
+<p>wedw_ods表示层次，test表示主题，order_info表示表内容，d表示周期(天)，f表示处理方式(全量抽取)</p>
+<h3 id="●-拆分主题表的意义"><a href="#●-拆分主题表的意义" class="headerlink" title="● 拆分主题表的意义"></a>● 拆分主题表的意义</h3><ol>
+<li>减少了分析时的检索数据量</li>
+<li>方便做成统一二维表结构。方便impala其他组件查询。方便kylin进行cube的构建</li>
+</ol>
+<h2 id="●-Cube是什么？"><a href="#●-Cube是什么？" class="headerlink" title="● Cube是什么？"></a>● Cube是什么？</h2><p>多维数据立方体，可以从不同的角度进行描述数据</p>
+<h2 id="●-建模的方法"><a href="#●-建模的方法" class="headerlink" title="● 建模的方法"></a>● 建模的方法</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI2MDQzOTk3MQ==&amp;mid=2247485443&amp;idx=1&amp;sn=8307b0922a3ee002446936f83153bcc6&amp;chksm=ea68e2cfdd1f6bd96cd1de5fa46a3191c0a70e4e3ca570ed57c1c647abd624fcf8a0901f08cc&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=MzI2MDQzOTk3MQ==&amp;mid=2247485443&amp;idx=1&amp;sn=8307b0922a3ee002446936f83153bcc6&amp;chksm=ea68e2cfdd1f6bd96cd1de5fa46a3191c0a70e4e3ca570ed57c1c647abd624fcf8a0901f08cc&amp;scene=21#wechat_redirect</a></p>
+<p>建模的方式有两种：</p>
+<ul>
+<li>关系建模</li>
+</ul>
+<p>关系模型主要应用与OLTP系统中，为了保证数据的一致性以及避免冗余，所以大部分业务系统的表都是遵循第三范式的。</p>
+<ol>
+<li>属性不可切割</li>
+<li>不能存在“ 部分函数依赖 ”</li>
+<li>不能存在传递依赖</li>
+</ol>
+<ul>
+<li>维度建模</li>
+</ul>
+<p>维度模型主要应用于OLAP系统中，因为关系模型虽然冗余少，但是在大规模数据，跨表分析统计查询过程中，会造成多表关联，这会大大降低执行效率。</p>
+<p>把相关各种表整理成两种：事实表和维度表两种。所有维度表围绕着事实表进行解释。</p>
+<p>维度建模分为三种：</p>
+<ol>
+<li>星形模型</li>
+</ol>
+<p> 星形模型中有一张事实表，以及零个或多个维度表，事实表与维度表通过主键外键相关联，维度表之间没有关联，当所有维表都直接连接到“ 事实表”上时，整个图解就像星星一样，故将该模型称为星型模型。</p>
+<ol start="2">
+<li>雪花模型</li>
+</ol>
+<p>当有一个或多个维表没有直接连接到事实表上，而是通过其他维表连接到事实表上时，其图解就像多个雪花连接在一起，故称雪花模型。雪花模型是对星型模型的扩展。</p>
+<p>它的优点是 : 通过最大限度地减少数据存储量以及联合较小的维表来改善查询性能。雪花型结构去除了数据冗余。缺点是：多表join造成shuffle，大数据不适用这种模型</p>
+<ol start="3">
+<li>星座模型</li>
+</ol>
+<p>星座模型是由星型模型延伸而来，星型模型是基于一张事实表而星座模式是基于多张事实表，并且共享维度表信息，这种模型往往应用于数据关系比星型模型和雪花模型更复杂的场合。<strong>星座模型需要多个事实表共享维度表</strong>，因而可以视为星形模型的集合，故亦被称为星系模型。</p>
+<p>多张事实表共享维度表，并且维度之间有关联。</p>
+<h2 id="●-遇到了什么问题"><a href="#●-遇到了什么问题" class="headerlink" title="● 遇到了什么问题"></a>● 遇到了什么问题</h2><p>数仓开发中因为开发的不规范问题，业务需求统计口径不一致，导致了数据质量差。</p>
+<h2 id="●-CRM（客户关系管理）"><a href="#●-CRM（客户关系管理）" class="headerlink" title="● CRM（客户关系管理）"></a>● CRM（客户关系管理）</h2><p>客户关系管理简称<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/CRM">CRM</a>（Customer Relationship Management）</p>
+<p>为提高核心竞争力，利用相应的信息技术以及<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BA%92%E8%81%94%E7%BD%91%E6%8A%80%E6%9C%AF/617749">互联网技术</a>协调企业与顾客间在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%94%80%E5%94%AE/239410">销售</a>、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%90%A5%E9%94%80/150434">营销</a>和服务上的交互，从而提升其<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F/260899">管理方式</a>，向客户提供创新式的个性化的客户交互和服务的过程。</p>
+<p>最终目标是吸引新客户、保留老客户以及将已有客户转为忠实<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AE%A2%E6%88%B7/1598984">客户</a>，增加市场。</p>
+<h2 id="●-RFM模型"><a href="#●-RFM模型" class="headerlink" title="● RFM模型"></a>● RFM模型</h2><p>这是电商项目中衡量客户价值和客户创利能力的重要工具和手段。</p>
+<p>RFM在众多的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AE%A2%E6%88%B7%E5%85%B3%E7%B3%BB%E7%AE%A1%E7%90%86/254554">客户关系管理</a>(CRM)的分析模式中，RFM模型是被广泛提到的。</p>
+<p>客户数据库中有3个神奇的要素，这3个要素构成了数据分析最好的指标：</p>
+<p>最近一次消费 (Recency)</p>
+<p>消费频率 (Frequency) 次数</p>
+<p>消费金额 (Monetary)</p>
+<h2 id="●-缓慢变化维"><a href="#●-缓慢变化维" class="headerlink" title="● 缓慢变化维"></a>● 缓慢变化维</h2><h3 id="●-关于缓慢变化维"><a href="#●-关于缓慢变化维" class="headerlink" title="● 关于缓慢变化维"></a>● 关于缓慢变化维</h3><pre><code>什么是缓慢变化维？有哪些常见的数据案例？数据仓库与缓慢变维的关系？
+</code></pre>
+<p>在从 OLTP 业务数据库向 DW 数据仓库抽取数据的过程中，特别是<strong>第一次导入之后的每一次增量抽取往往会遇到这样的问题</strong>、<strong>在新业务上会遇到占比很高的问题</strong>：业务数据库中的一些数据发生了更改，到底要不要将这些变化也反映到数据仓库中？在数据仓库中，<strong>哪些数据应该随之变化</strong>？<strong>哪些可以不用变化？</strong>考虑到这些变化，在数据仓库中的维度表又应该如何设计以满足这些需要。</p>
+<p>在业务数据库中数据的变化是非常自然和正常的，例如：顾客的<strong>联系方式</strong>、<strong>手机号码</strong>等信息可能随着顾客的所在地的更改发生变化；<strong>商品价格</strong>在不同时期有上涨和下降的变化。</p>
+<p>那么在业务数据库中，很自然的就会修改并马上反映到实际业务当中去。但是在<strong>数据仓库</strong>中，其<strong>数据主要的特征</strong>：<strong>①是静态历史数据</strong>，<strong>②是少改变不删除</strong>，<strong>③是定期增长</strong>，其作用主要用来<strong>数据分析</strong>。</p>
+<p>因此分析的过程中对历史数据就提出了要求，有一些数据是需要能够反映出在周期内的变化历史，有一些数据缺不需要，那么这些数据应该如何来控制。</p>
+<h3 id="●-案例解析"><a href="#●-案例解析" class="headerlink" title="● 案例解析"></a>● 案例解析</h3><pre><code>通过案例了解缓慢变化维
+</code></pre>
+<p>假设在第一次从业务数据库中加载了一批数据到数据仓库中，当时业务数据库有这样的一条顾客的信息。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20200910184044539.png" alt="image-20200910184044539"></p>
+<p>顾客BIWORK，居住在北京，目前是一名BI的开发工程师。假设BIWORK因为北京空气质量 PM2.5 等原因从北京搬到了三亚。那么这条信息在业务数据库中应该被更新了。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20200910184107053.png" alt="image-20200910184107053"></p>
+<p>那么当下次从业务数据库中抽取这类信息的时候，数据仓库又应该如何处理呢？我们假设在数据仓库中实现了与业务数据库之间的同步，数据仓库中也直接将词条数据修改更新。后来我们创建报表做一些简单的数据统计分析，这时在数据仓库中所有对顾客 BIWORK 的销售都指向了 BIWORK 新的所在地 - 城市三亚，但是实际上 BIWORK 在之前所有的购买都发生在 BIWORK 居住在北京的时候。这是一个非常简单的例子，它描述了因一些基本信息的更改可能会引起数据归纳和分析出现的问题。但是有时，这种场景的的确确可能是存在的。</p>
+<p>为了解决类似于这样的问题需要了解数据仓库中的一个非常重要的概念 - 缓慢渐变维度。</p>
+<h3 id="●-解决方案"><a href="#●-解决方案" class="headerlink" title="● 解决方案"></a>● 解决方案</h3><h4 id="●-不记录历史数据"><a href="#●-不记录历史数据" class="headerlink" title="● 不记录历史数据"></a>● 不记录历史数据</h4><pre><code>解决方案说明？该解决方案适用于哪些应用场景？
+</code></pre>
+<p><strong>不记录历史数据，新数据覆盖旧数据。</strong>在数据仓库中，我们可以保持业务数据和数据仓库中的数据始终处于一致。可以在 Customer 维度中使用来自业务数据库中的 Business Key - CustomerID 来追踪业务数据的变化，一旦发生变化那么就将旧的业务数据覆盖重写。DW中的记录根据业务数据库中的CustomerID 获取了最新的 City 信息，直接更新到 DW 中。针对无业务意义、无分析意义的数据可以直接进行覆盖，例如地区编码、国家名称，具体由实际业务情况决定。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20200910185336595.png" alt="image-20200910185336595"></p>
+<h4 id="●-保存每次变更"><a href="#●-保存每次变更" class="headerlink" title="● 保存每次变更"></a>● 保存每次变更</h4><pre><code>解决方案说明？该解决方案适用于哪些应用场景？
+</code></pre>
+<p><strong>保存多条记录,直接新添一条记录，同时保留原有记录，并用单独的专用的字段保存区别。</strong>在数据仓库中更多是对相对静态的历史数据进行数据的汇总和分析，因此会<strong>尽可能的维护来自业务系统中的历史数据</strong>，能够真正捕获到这种历史数据的变化。</p>
+<p><strong>（案例）</strong>假设 <code>BIWORK</code> 在 2012年的时候购买额度整体平稳，但是从2013年开始购买额度减少了，出现的原因可能与所在的城市有关系，在北京的门店可能比在三亚的门店相对要多一些。像这种情况，就不能很简单在数据仓库中将 BIWORK 当前所在城市直接更新，而应该新增加一条数据来说明现在 <code>BIWORK</code> 所在地是在 <code>Sanya</code>。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/11161730-a90e8ac2676840d8a1822761bc1e7d78.png" alt="img"></p>
+<h5 id="●-新增代理键-DW唯一键"><a href="#●-新增代理键-DW唯一键" class="headerlink" title="● 新增代理键\DW唯一键"></a>● 新增代理键\DW唯一键</h5><p>但是如果仅仅在 DW 中新增一条新的数据仍然会出现新的问题，因为在 DW 中标识这个顾客是通过<code>CustomerID</code> 来实现的，这条 <code>CustomerID</code> 来源于业务数据库，它是唯一的。然而在 DW 中新增一条数据来保存业务数据库中历史信息，就无法保证这条数据在 DW 中的唯一性了，其它的 DW 数据表关联到这张表就无法知道应该如何引用这个 <code>Customer</code> 的信息。实际上，如果 <code>CustomerID</code> 在 DW 中也作为主键来唯一标识 <code>Customer</code> 的话，在插入新数据的时候就会发生失败。</p>
+<p>因此我们需要继续保持 <code>Business Key</code> 业务键，因为它是关联到业务数据库的唯一纽带。做出改变的部分就是新增加一个 Key，一个数据仓库的键。在数据仓库的术语里面，这个唯一标识数据仓库表记录的键我们称之为 <code>Surrogate Key</code> 代理键，通常设置为DW表的主键。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20200910192338378.png" alt="image-20200910192338378"></p>
+<p>在上面这张表中，其中 <code>CustomerID - Business Key</code> 业务键，用来连接业务数据库和数据仓库的键，注意无论在业务数据库还是数据仓库无论任何时候都不应该发生改变。<code>DWID - Surrogate Key</code> 代理键，一般设置为 DW 维度表的主键，用来在数据仓库内部中的维度表和事实表建立关联。</p>
+<h5 id="●-新增有效性标识字段"><a href="#●-新增有效性标识字段" class="headerlink" title="● 新增有效性标识字段"></a>● 新增有效性标识字段</h5><p>接着上面的表结构讲，光这样设置了新的 Surrogate Key - DWID 是不够的，因为还需要告诉数据仓库哪一条信息是现在正在使用的。当然可以根据 DWID 的顺序来查出最新的记录，但是每次都要比较 CustomerID 然后找出最大的 DWID 这样的查询比较麻烦。因此可以额外一个标志表示这条数据是最新更改的。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20200910192434706.png" alt="image-20200910192434706"></p>
+<p>另外的一种方式就是通过起始时间来标识，<strong>Valid To 为 NULL</strong> 的标识当前数据。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20200911084924957.png" alt="image-20200911084924957"></p>
+<p>当然，也有将两者都综合的。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20200911084945336.png" alt="image-20200911084945336"></p>
+<p>还有一种情况就是混合使用 Type 1 和 Type 2 的，比如说 Occupation 这个字段在业务数据库中发生了变化，但是可以不用维护这个历史信息，因此可能的做法是直接将最新的 Occupation 在数据仓库中覆盖掉。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/11162011-2bff5e451a39412e93fe461c9e0797d2.png" alt="img"></p>
+<p>根据实际情况，还有一种做法就是全部覆盖掉。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/11162017-b197cc4bfd2943438fdb1845cafd0856.png" alt="img"></p>
+<h4 id="●-保存本次和上一次数据"><a href="#●-保存本次和上一次数据" class="headerlink" title="● 保存本次和上一次数据"></a>● 保存本次和上一次数据</h4><p><strong>添加历史列，用不同的字段保存变化痕迹.它只能保存两次变化记录.适用于变化不超过两次的维度。</strong>实际上 Type 1 and 2 可以满足大多数需求了，但是仍然有其它的解决方案，比如说 Type 3 SCD。 Type 3 SCD 希望只维护更少的历史记录。比如说把要维护的历史字段新增一列，然后每次只更新 Current Column 和 Previous Column。这样，只保存了最近两次的历史记录。但是如果要维护的字段比较多，就比较麻烦，因为要更多的 Current 和 Previous 字段。所以 Type 3 SCD 用的还是没有 Type 1 和 Type 2 那么普遍。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20200910192102887.png" alt="image-20200910192102887"></p>
+<h3 id="●-关于代理键的说明"><a href="#●-关于代理键的说明" class="headerlink" title="● 关于代理键的说明"></a>● 关于代理键的说明</h3><p>为什么使用代理键，有什么好处？</p>
+<ul>
+<li>假设业务数据库来自于不同的系统，对这些数据进行整合时有可能出现相同的 <code>Business Key</code>，这时通过<code>Surrogate Key</code>就可以解决这个问题。</li>
+<li>一般来自业务数据库中的 <code>Business Key</code> 可能字段较长，比如 GUID，长字符串标识等，使用 <code>Surrogate Key</code> 可以直接设置成整形的。事实表本身体积就很大，关联 <code>Surrogate Key</code> 与关联 <code>Business Key</code> 相比，<code>Surrogate Key</code> 效率更高，并且节省事实表体积。</li>
+<li>最重要的一点就是上面举到的这个例子，使用 <code>Surrogate Key</code> 可以更好的解决这种缓慢渐变维度，维护历史信息记录。</li>
+</ul>
+<p>什么时候可以不用代理键？我觉得可以结合我们的实际业务，比如像有些业务表本身的 <code>Business Key</code> 就已经是整形的了，并且表中的属性基本上不随着时间或地理发生改变。比如像某些国家名称，地区编码等等基本上不会怎么发生改变，即使改变了也不需要维护历史记录这样的情况下可以直接使用业务数据库中的 <code>Business Key</code> 而不需要设置新的 Surrogate Key。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/11161918-c7e4c8e4c2514526ba2ec55ef97088e2.png" alt="img"></p>
+<h3 id="●-问题总结"><a href="#●-问题总结" class="headerlink" title="● 问题总结"></a>● 问题总结</h3><p>问题的本身并不是在技术实现上有什么难度。最困难的地方在于，应该根据<strong>什么情况</strong>、<strong>业务场景</strong>、<strong>技术成本</strong>，来选择1还是2还是3。</p>
+<ul>
+<li>若遇到涉及关键数据指标的，则应尽可能保留所有记录；</li>
+<li>遇到没有太大业务价值的，可只保留最后一次记录即可；</li>
+<li>如果是就目前看来还没有使用到，但未来会使用到或者还不知道如何使用时，也可以先保留所有记录；</li>
+<li>如果是频繁发生变化、可能存在分析价值、但目前尚未发现其规律性，也可以先单独找个地方存储，以后再拿出来看如何处理；</li>
+</ul>
+<p>缓慢变化维一般常见于数据基础层，若存在上述3类方案的混用，则针对数据使用人员可能会产生困扰。此时应完善数据字典，针对独立的业务分析场景也可以在数据主题层和数据集市层解决这项问题。 </p>
+<pre><code class="mermaid">graph LR
+A[是否涉及关键数据指标\影响数据分析\是否有业务价值] --&gt; B[选取技术方案]
+B --&gt; C[A.不记录历史数据]
+B --&gt; D[B.保存本次和上一次数据]
+B --&gt; E[C.保存每次变更]
+      E --&gt; F[&quot;创建代理键(DW主键)&quot;]
+      E --&gt; G[创建有效性标识]
+            G --&gt; H[创建有效唯一标识]
+            G --&gt; I[创建起始日期时间戳]
+</code></pre>
+<h2 id="●-数据漂移"><a href="#●-数据漂移" class="headerlink" title="● 数据漂移"></a>● 数据漂移</h2><h3 id="●-关于数据漂移"><a href="#●-关于数据漂移" class="headerlink" title="● 关于数据漂移"></a>● 关于数据漂移</h3><p>通常我们把从源系统同步进人数据仓库的第一层数据称为ODS或者staging层数据，阿里巴巴统称为ODS 。数据漂移是ODS 数据的一个顽疾，通常是指 ODS 表的同一个业务日期数据中包含前一天或后凌晨附近的数据或者丢失当天的变更数据。</p>
+<p>由于ODS需要承接面向历史的细节数据查询需求，这就需要物理落地到数据仓库的ODS表按时间段来切分进行分区存储，通常的做法是按某些时间戳字段来切分，而实际上往往由于时间戳字段的准确性问题导致发生数据漂移。</p>
+<h3 id="●-常见的时间戳字段"><a href="#●-常见的时间戳字段" class="headerlink" title="● 常见的时间戳字段"></a>● 常见的时间戳字段</h3><p>常见的4类时间戳字段</p>
+<ul>
+<li><strong>数据库表</strong>中用来标识**”数据记录更新时间”**的时间戳字段（假设这类字段叫 <code>modified time</code> ）。</li>
+<li><strong>数据库日志</strong>中用来标识**”数据记录更新时间”**的时间戳字段·（假设这类宇段叫 <code>log_time</code> ）。</li>
+<li><strong>数据库表</strong>中用来记录具体**”业务过程发生时间”**的时间戳字段 （假设这类字段叫 <code>proc_time</code> ）。</li>
+<li>标识**”数据记录被抽取到时间”**的时间戳字段（假设这类字段 <code>extract time</code> ）。</li>
+</ul>
+<p>理论上这几个时间应该是一致的，但是在实际生产中，这几个时间往往会出现差异，可能的原因有以下几点：</p>
+<ul>
+<li>由于数据抽取是需要时间的 <code>extract_time</code> 往往会晚于前三个时间。</li>
+<li>前台业务系统手工订正数据时未更新 <code>modified_time</code></li>
+<li>由于网络或者系统压力问题，<code>log_time</code> 或者 <code>modified_time</code> 会晚 <code>proc_time</code></li>
+</ul>
+<h3 id="●-常见的数据漂移情况"><a href="#●-常见的数据漂移情况" class="headerlink" title="● 常见的数据漂移情况"></a>● 常见的数据漂移情况</h3><p>通常的做法是根据其中的某个字段来切分ODS表，这就导致产生数据漂移。常见的数据漂移几种场景如下：</p>
+<ul>
+<li>根据 <code>extract_time</code> 来获取数据。这种情况数据漂移的问题最明显</li>
+<li>根据 <code>modified_time</code> 限制。在实际生产中这种情况最常见，但是往往会发生不更新 <code>modified time</code> 而导致的数据遗漏，或者凌晨时间产生的数据记录漂移到后天。</li>
+<li>根据 <code>log_time</code> 限制。由于网络或者系统压力问题， <code>log_time</code> 会晚 <code>proc_time</code>，从而导致凌晨时间产生的数据记录漂移到后一天。例如，在淘宝“双 11 ”大促期间凌晨时间产生的数据量非常大，用户支付需要调用多个接口，从而导致 <code>log time</code> 晚于实际的支付时间。</li>
+<li>根据 <code>proc_time</code> 限制。仅仅根据 <code>proc_time</code> 限制，我们所获取的ODS 表只是包含一个业务过程所产生的记 ，会遗漏很多其他过程的变化记录，这违背了 ODS 和业务系统保持一致的设计原则。</li>
+</ul>
+<h3 id="●-两种处理方式"><a href="#●-两种处理方式" class="headerlink" title="● 两种处理方式"></a>● 两种处理方式</h3><p>处理方法主要有以下两种：</p>
+<ul>
+<li><p><strong>多获取后一天的数据：</strong>既然很难解决数据漂移的问题，那么就在ODS 每个时间分区中向前、向后多冗余一些数据，保障数据只会多不会少，而具体的数据切分让下游根据自身不同的业务场景用不同的业务时间proc_time 来限制。但是这种方式会有一些数据误差，例如一个订单是当天支付的，但是第二天凌晨申请退款关闭了该订单，那么这条记录的订单状态会被更新，下游在统计支付订单状态时会出现错误。</p>
+</li>
+<li><p><strong>通过多个时间戳字段限制时间来获取相对准确的数据</strong></p>
+</li>
+<li><p>首先根据log_time 分别冗余前一天最后15 分钟的数据和后一天凌晨开始15 分钟的数据，并用modified time过滤非当天数据，确保数据不会因为系统问题而遗漏。</p>
+</li>
+<li><p>然后根据log_ time 获取后一天15 分钟的数据z 针对此数据，按照主键根据log_time 做升序排列去重。因为我们需要获取的是最接近当天记录变化的数据（数据库日志将保留所有变化的数据，但是落地到O DS 表的是根据主键去重获取最后状态变化的数据）。</p>
+</li>
+<li><p>最后将前两步的结果数据做全外连</p>
+</li>
+</ul>
+<h3 id="●-淘宝交易订单案例"><a href="#●-淘宝交易订单案例" class="headerlink" title="● 淘宝交易订单案例"></a>● 淘宝交易订单案例</h3><p>下面来看处理淘宝交易订单的数据漂移的实际案例。</p>
+<p>我们在处理“双11”交易订单时发现，有一大批在11月11日23:59:59 左右支付的交易订单漂移到了12日。主要原因是用户下单支付后系统需要调用支付宝的接口而有所延迟，从而导致这些订单最终生成的时间跨天了。即<code>modified_time</code> 和 <code>log_time</code> 都晚于 <code>proc_time</code> 。</p>
+<p>如果订单只有一个支付业务过程，则可以用支付时间来限制就能获取到正确的数据。但是往往实际订单有多个业务过程： 下单、支付、成功，每个业务过程都有相应的时间戳字段，并不只有支付数据会漂移。</p>
+<p>如果直接通过多获取后一天的数据，然后限制这些时间，则可以获取到相关数据，但是后一天的数据可能已经更新多次，我们直接获取到的那条记录已经是更新多次后的状态，数据的准确性存在一定的问题。因此，我们可以根据实际情况获取后一天15 分钟的数据，并限制多个业务过程的时间戳字段（下单、支付、成功）都是“双l l ”当天<br>的，然后对这些数据按照订单的 <code>mo dified_time</code> 做升序排列，获取每个订单首次数据变更的那条记录。</p>
+<p>此外，我们可以根据 <code>log_time</code> 分别冗余前一天最后15 分钟的数据和后一天凌晨开始15 分钟的数据，并用<code>modified_time</code> 过滤非当天数据，针对每个订单按照 <code>log_time</code> 进行降序排列，取每个订单当天最后一次数据变更的那条记录。最后将两份数据根据订单做全外连接，将漂移数据回补到当天数据中。</p>
+<h2 id="●-参考文献资料"><a href="#●-参考文献资料" class="headerlink" title="● 参考文献资料"></a>● 参考文献资料</h2><table>
+<thead>
+<tr>
+<th>资料名称</th>
+<th>涉及内容</th>
+<th>资料来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><font size="2">缓慢变化维常见的三种类型及原型设计</font></td>
+<td><font size="2">缓慢变化维；</font></td>
+<td><font size="2"><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xqzt/p/4472005.html">CSDN</a></font></td>
+</tr>
+<tr>
+<td><font size="2">数据漂移</font></td>
+<td><font size="2">数据漂移；</font></td>
+<td><font size="2">大数据之路</font></td>
+</tr>
+</tbody></table>
+<h2 id="●-面试题"><a href="#●-面试题" class="headerlink" title="● 面试题"></a>● 面试题</h2><h3 id="DWD做了哪些事？"><a href="#DWD做了哪些事？" class="headerlink" title="DWD做了哪些事？"></a>DWD做了哪些事？</h3><p>清洗过滤，统一数据格式，去除掉废弃字段和json格式不正确的脏数据，过滤去除为空的数据，过滤缺少关键字段的记录，web端日志过滤请求爬虫，规范不一致，命名不规范的数据都会被处理。然后加工成面向数仓的基础明细表，这个时候可以加工一些面向分析的大宽表。DWD层应该是覆盖所有系统的、完整的、干净的、具有一致性的数据层。</p>
+<p><strong>统一数据格式</strong>：</p>
+<p>1&#x2F;-1还有true&#x2F;false  都变成Y&#x2F;N</p>
+<p>空字符串和null都变成null</p>
+<p>日期都统一成YYYY-MM-dd</p>
+<p><strong>地理位置维度集成</strong>：</p>
+<p>GPS经纬度解析成省市县	</p>
+<p>ip地址解析成省市县</p>
+<p><strong>新老用户标记</strong></p>
+<p><strong>设备和账号绑定</strong></p>
+<h3 id="DWS做了哪些事？"><a href="#DWS做了哪些事？" class="headerlink" title="DWS做了哪些事？"></a>DWS做了哪些事？</h3><h4 id="主题表和轻度聚合"><a href="#主题表和轻度聚合" class="headerlink" title="主题表和轻度聚合"></a>主题表和轻度聚合</h4><p>根据后续报表需求，做一些轻度聚合计算。按照主题来进行数据的聚合。</p>
+<p>做一些日粒度的，周粒度的，月粒度，季粒度的相关指标聚合计算；</p>
+<p>主题上，主要有流量分析，用户分析，交互事件分析，广告活动分析，转化分析，订单分析，GMV 分析、购物车分析等</p>
+<p>建立一些主题表，并按照不同粒度进行统计。</p>
+<h4 id="用户画像"><a href="#用户画像" class="headerlink" title="用户画像"></a>用户画像</h4><p>用户画像：性别，消费级别，价值等级，流失风险等</p>
+<p>用户的画像标签，分为 3 个层次： </p>
+<p> 事实标签；</p>
+<p>  模型标签；</p>
+<p>  决策标签；</p>
+<h3 id="说一个你负责的统计指标？"><a href="#说一个你负责的统计指标？" class="headerlink" title="说一个你负责的统计指标？"></a>说一个你负责的统计指标？</h3><p>每天的新用户留存统计报表、连续活跃天数统计月报表</p>
+<p><strong>DWS概况主题的会话聚合表</strong> ： 可以支撑的报表：日期，省份，手机型号，跳出页，入口页，时段，新老访客等维度随意组合的 ADS 日\周\月 报表</p>
+<p><strong>DWS用户分布分析主题的流量用户聚合表</strong> : 可以支撑的报表：新老访客，省市，手机型号，app版本，网络类型等 随意组合维度的 ADS 日\周\月 报表</p>
+<p><strong>Dws用户连续活跃区间记录表</strong> ：可以支撑的报表：<strong>每天的新用户留存天数统计报表</strong>，<strong>连续活跃天数统计月报表</strong></p>
+<p><strong>Dws漏斗分析模型：分析用户业务各个阶段的转换率</strong> ：<strong>搜索购买</strong>业务路径、<strong>秒杀购物业务路径</strong> </p>
+<h1 id="GPS-地理位置解析"><a href="#GPS-地理位置解析" class="headerlink" title="GPS 地理位置解析"></a>GPS 地理位置解析</h1><h2 id="经纬度获取地理位置"><a href="#经纬度获取地理位置" class="headerlink" title="经纬度获取地理位置"></a>经纬度获取地理位置</h2><p>使用Geohash编码来把经纬度变成一个字符串，代表被编码 gps 坐标点的一个矩形范围；</p>
+<h3 id="GEOHASH编码"><a href="#GEOHASH编码" class="headerlink" title="GEOHASH编码"></a>GEOHASH编码</h3><p>在地球经纬度范围内，不断通过二分来划分矩形范围，通过观察 gps 坐标点所落的范围，来反复生成 0&#x2F;1 二进制码。</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20211027142819263.png" alt="image-20211027142819263"></p>
+<p>然后在使用Base32来进行编码，把geohash编码生成的字符串，五位变成一位，缩短他的长度</p>
+<p><img src="/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/image-20211025212241563.png" alt="image-20211025212241563"></p>
+<h2 id="Ip获取地理位置"><a href="#Ip获取地理位置" class="headerlink" title="Ip获取地理位置"></a>Ip获取地理位置</h2><p>通过<strong>开源工具包ip2region（含ip数据库）</strong>来解析</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">三山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://star-light-star-bright.github.io/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/">https://star-light-star-bright.github.io/shu-ju-cang-ku/shu-ju-cang-ku-xue-xi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">三山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">
+                                    <span class="chip bg-color">数据仓库</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/presto/presto/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="presto学习笔记">
+                        
+                        <span class="card-title">presto学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-11
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/presto/" class="post-category">
+                                    presto
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/presto/">
+                        <span class="chip bg-color">presto</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/linux/shell-jiao-ben/hive-load-jiao-ben/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="hive load脚本">
+                        
+                        <span class="card-title">hive load脚本</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Shell/" class="post-category">
+                                    Shell
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Shell/">
+                        <span class="chip bg-color">Shell</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">三山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

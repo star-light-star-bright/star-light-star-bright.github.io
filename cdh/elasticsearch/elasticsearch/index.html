@@ -1,0 +1,1857 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Elasticsearch的学习使用, ZWHBlog">
+    <meta name="description" content="Elasticsearch当阅读本书时，将会遇到有关 Elasticsearch 分布式特性的补充章节。这些章节将介绍有关集群扩容、故障转移(集群内的原理) 、应对文档存储(分布式文档存储) 、执行分布式搜索(执行分布式检索) ，以及分区（">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>Elasticsearch的学习使用 | ZWHBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWHBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWHBlog</div>
+        <div class="logo-desc">
+            
+            这是我的博客网站
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Elasticsearch的学习使用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Elasticsearch/">
+                                <span class="chip bg-color">Elasticsearch</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Elasticsearch/" class="post-category">
+                                Elasticsearch
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-11-03
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h1><p>当阅读本书时，将会遇到有关 Elasticsearch 分布式特性的补充章节。这些章节将介绍有关集群扩容、故障转移(<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/distributed-cluster.html"><em>集群内的原理</em></a>) 、应对文档存储(<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/distributed-docs.html"><em>分布式文档存储</em></a>) 、执行分布式搜索(<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/distributed-search.html"><em>执行分布式检索</em></a>) ，以及分区（shard）及其工作原理(<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/inside-a-shard.html"><em>分片内部原理</em></a>) 。</p>
+<p>这些章节并非必读，完全可以无需了解内部机制就使用 Elasticsearch，但是它们将从另一个角度帮助你了解更完整的 Elasticsearch 知识。可以根据需要跳过它们，或者想更完整地理解时再回头阅读也无妨。</p>
+<p>一般存储文档库和索引库。</p>
+<h2 id="Elasticsearch是什么"><a href="#Elasticsearch是什么" class="headerlink" title="Elasticsearch是什么"></a>Elasticsearch是什么</h2><p>Elasticsearch 是一个开源的搜索引擎，建立在一个全文搜索引擎库 <a target="_blank" rel="noopener" href="https://lucene.apache.org/core/">Apache Lucene™</a> 基础之上。 Lucene 可以说是当下最先进、高性能、全功能的搜索引擎库—无论是开源还是私有。</p>
+<p>但是 Lucene 仅仅只是一个库。为了充分发挥其功能，你需要使用 Java 并将 Lucene 直接集成到应用程序中。 更糟糕的是，您可能需要获得信息检索学位才能了解其工作原理。Lucene <em>非常</em> 复杂。</p>
+<p>Elasticsearch 不仅仅是 Lucene，并且也不仅仅只是一个全文搜索引擎。 它可以被下面这样准确的形容：</p>
+<ul>
+<li>一个分布式的实时文档存储，<em>每个字段</em> 可以被索引与搜索</li>
+<li>一个分布式实时分析搜索引擎</li>
+<li>能胜任上百个服务节点的扩展，并支持 PB 级别的结构化或者非结构化数据</li>
+</ul>
+<p>Elasticsearch 天生就是分布式的，并且在设计时屏蔽了分布式的复杂性。</p>
+<p>Elasticsearch 在分布式方面几乎是透明的。教程中并不要求了解分布式系统、分片、集群发现或其他的各种分布式概念。</p>
+<p>Elasticsearch 尽可能地屏蔽了分布式系统的复杂性。这里列举了一些在后台自动执行的操作：</p>
+<ul>
+<li>分配文档到不同的容器 或 <em>分片</em> 中，文档可以储存在一个或多个节点中</li>
+<li>按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡</li>
+<li>复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失</li>
+<li>将集群中任一节点的请求路由到存有相关数据的节点</li>
+<li>集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复</li>
+</ul>
+<h2 id="Elasticsearch-安装"><a href="#Elasticsearch-安装" class="headerlink" title="Elasticsearch 安装"></a>Elasticsearch 安装</h2><p>1、在安装好jdk8.0以上版本的情况下，上传elasticSearch的jar包，进行解压，<strong>解压到普通目录下，除了root目录</strong>。</p>
+<p>2、修改配置文件config下面的elasticsearch.yml配置文件</p>
+<pre><code class="yml"># ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#集群名称
+cluster.name: my-application
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#指定当前节点名称
+node.name: node-1
+#
+# Add custom attributes to the node:
+#
+#node.attr.rack: r1
+
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#当前节点地址
+network.host: 192.168.247.20
+#
+# Set a custom port for HTTP:
+# 指定http访问端口(默认9200)
+http.port: 9200
+#
+# For more information, consult the network module documentation.
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is [&quot;127.0.0.1&quot;, &quot;[::1]&quot;]
+#配置为集群中所有节点的ip地址
+discovery.zen.ping.unicast.hosts: [&quot;Linux01&quot;, &quot;Linux02&quot;,&quot;Linux03&quot;]
+#
+# Prevent the &quot;split brain&quot; by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
+#配置集群节点数量(nodes/2+1)
+discovery.zen.minimum_master_nodes: 2
+#
+# For more information, consult the zen discovery module documentation.
+</code></pre>
+<p>3、创建新用户</p>
+<pre><code>//因为es不能用root来开启，得新建立一个用户来开启es
+useradd elk
+passwd  elk
+</code></pre>
+<p>4、开放权限</p>
+<pre><code>chmod -R 777 elasticsearch-6.2.4
+</code></pre>
+<p>5、所有机器切换用户elk到bin目录开启elasticSearch</p>
+<pre><code>[root@Linux01 elasticsearch-6.2.4]# su elk
+[elk@Linux01 elasticsearch-6.2.4]#  bin/elasticsearch
+</code></pre>
+<p><strong>注意：搭建集群如出现问题，请先删除data文件夹中内容，再启动集群</strong></p>
+<p>6、查看结果</p>
+<p>查看节点状态</p>
+<pre><code class="http">http:192.168.247.20:9200
+</code></pre>
+<p>查到以下内容则正常</p>
+<pre><code>&#123;
+  &quot;name&quot;: &quot;node-1&quot;,
+  &quot;cluster_name&quot;: &quot;my-application&quot;,
+  &quot;cluster_uuid&quot;: &quot;P6bOcKBgQ_61HKKgh5lNgA&quot;,
+  &quot;version&quot;: &#123;
+    &quot;number&quot;: &quot;6.2.4&quot;,
+    &quot;build_hash&quot;: &quot;ccec39f&quot;,
+    &quot;build_date&quot;: &quot;2018-04-12T20:37:28.497551Z&quot;,
+    &quot;build_snapshot&quot;: false,
+    &quot;lucene_version&quot;: &quot;7.2.1&quot;,
+    &quot;minimum_wire_compatibility_version&quot;: &quot;5.6.0&quot;,
+    &quot;minimum_index_compatibility_version&quot;: &quot;5.0.0&quot;
+  &#125;,
+  &quot;tagline&quot;: &quot;You Know, for Search&quot;
+&#125;
+</code></pre>
+<p>查看集群的状态</p>
+<pre><code class="http">http://192.168.247.20:9200/_cluster/health
+</code></pre>
+<p>查到以下内容则正常</p>
+<pre><code>&#123;
+    &quot;cluster_name&quot;: &quot;my-application&quot;,
+    &quot;status&quot;: &quot;green&quot;,
+    &quot;timed_out&quot;: false,
+    &quot;number_of_nodes&quot;: 3,
+    &quot;number_of_data_nodes&quot;: 3,
+    &quot;active_primary_shards&quot;: 10,
+    &quot;active_shards&quot;: 20,
+    &quot;relocating_shards&quot;: 0,
+    &quot;initializing_shards&quot;: 0,
+    &quot;unassigned_shards&quot;: 0,
+    &quot;delayed_unassigned_shards&quot;: 0,
+    &quot;number_of_pending_tasks&quot;: 0,
+    &quot;number_of_in_flight_fetch&quot;: 0,
+    &quot;task_max_waiting_in_queue_millis&quot;: 0,
+    &quot;active_shards_percent_as_number&quot;: 100.0
+&#125;
+
+//	green：正常
+//  yellow: 集群正常 数据正常，部分副本不正常
+//  red: 集群部分正常，数据可能丢失，需要紧急修复
+</code></pre>
+<h3 id="安装可能出现的问题"><a href="#安装可能出现的问题" class="headerlink" title="安装可能出现的问题"></a>安装可能出现的问题</h3><pre><code class="http">http://www.dajiangtai.com/community/18136.do?origin=csdn-geek&amp;dt=1214
+</code></pre>
+<h2 id="Elasticsearch-请求语句的组成"><a href="#Elasticsearch-请求语句的组成" class="headerlink" title="Elasticsearch 请求语句的组成"></a>Elasticsearch 请求语句的组成</h2><p>一个 Elasticsearch 请求和任何 HTTP 请求一样由若干相同的部件组成：</p>
+<pre><code>curl -X&lt;VERB&gt; &#39;&lt;PROTOCOL&gt;://&lt;HOST&gt;:&lt;PORT&gt;/&lt;PATH&gt;?&lt;QUERY_STRING&gt;&#39; -d &#39;&lt;BODY&gt;&#39;
+
+
+curl -XGET &#39;http://localhost:9200/_count?pretty&#39; -d &#39;
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;match_all&quot;: &#123;&#125;
+    &#125;
+&#125;
+&#39;
+
+
+Elasticsearch 返回一个 HTTP 状态码（例如：200 OK）和（除`HEAD`请求）一个 JSON 格式的返回值。前面的 curl 请求将返回一个像下面一样的 JSON 体：
+
+&#123;
+    &quot;count&quot; : 0,
+    &quot;_shards&quot; : &#123;
+        &quot;total&quot; : 5,
+        &quot;successful&quot; : 5,
+        &quot;failed&quot; : 0
+    &#125;
+&#125;
+
+
+
+在返回结果中没有看到 HTTP 头信息是因为我们没有要求`curl`显示它们。想要看到头信息，需要结合 -i 参数来使用 curl 命令：
+
+curl -i -XGET &#39;localhost:9200/&#39;
+
+
+
+缩写格式:
+
+省略请求中所有相同的部分，例如主机名、端口号以及 curl 命令本身。而不是像下面显示的那样用一个完整的请求：
+
+curl -XGET &#39;localhost:9200/_count?pretty&#39; -d &#39;
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;match_all&quot;: &#123;&#125;
+    &#125;
+&#125;&#39;
+变成了
+GET /_count
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;match_all&quot;: &#123;&#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="Elasticsearch-请求语句的参数"><a href="#Elasticsearch-请求语句的参数" class="headerlink" title="Elasticsearch 请求语句的参数"></a>Elasticsearch 请求语句的参数</h2><p>被 <code>&lt; &gt;</code> 标记的部件：</p>
+<table>
+<thead>
+<tr>
+<th><code>PROTOCOL</code></th>
+<th><code>http</code> 或者 <code>https</code>（如果你在 Elasticsearch 前面有一个 <code>https</code> 代理）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>VERB</code></td>
+<td>适当的 HTTP <em>方法</em> 或 <em>谓词</em> : <code>GET</code>、 <code>POST</code>、 <code>PUT</code>、 <code>HEAD</code> 或者 <code>DELETE</code>。</td>
+</tr>
+<tr>
+<td><code>HOST</code></td>
+<td>Elasticsearch 集群中任意节点的主机名，或者用 <code>localhost</code> 代表本地机器上的节点。</td>
+</tr>
+<tr>
+<td><code>PORT</code></td>
+<td>运行 Elasticsearch HTTP 服务的端口号，默认是 <code>9200</code> 。</td>
+</tr>
+<tr>
+<td><code>PATH</code></td>
+<td>API 的终端路径（例如 <code>_count</code> 将返回集群中文档数量）。Path 可能包含多个组件，例如：<code>_cluster/stats</code> 和 <code>_nodes/stats/jvm</code> 。</td>
+</tr>
+<tr>
+<td><code>QUERY_STRING</code></td>
+<td>任意可选的查询字符串参数 (例如 <code>?pretty</code> 将格式化地输出 JSON 返回值，使其更容易阅读)</td>
+</tr>
+<tr>
+<td><code>BODY</code></td>
+<td>一个 JSON 格式的请求体 (如果请求需要的话)</td>
+</tr>
+</tbody></table>
+<h2 id="ES-基本概念"><a href="#ES-基本概念" class="headerlink" title="ES 基本概念"></a>ES 基本概念</h2><p><strong>1）节点（Node）</strong></p>
+<p>运行了<strong>单个实例的ES主机称为节点</strong>，它是集群的一个成员，可以存储数据、参与集群索引及搜索操作。节点通过为其配置的ES集群名称确定其所要加入的集群。</p>
+<p><strong>2）集群（cluster）</strong></p>
+<p>ES可以作为一个独立的单个搜索服务器。不过，一般为了处理大型数据集，实现容错和高可用性，ES可以运行在许多互相合作的服务器上。这些服务器的集合称为集群。</p>
+<p><strong>3）分片（Shard）</strong></p>
+<p>ES的“分片(shard)”机制可将一个索引内部的数据分布地存储于多个节点，它通过<strong>将一个索引切分为多个</strong>底层物理的Lucene索引完成<strong>索引数据的分割存储</strong>功能，这每一个物理的Lucene索引称为一个分片(shard)。</p>
+<p>这样的好处是可以<strong>把一个大的索引拆分成多个，分布到不同的节点上</strong>。降低单服务器的压力，构成分布式搜索，<strong>提高整体检索的效率（分片数的最优值与硬件参数和数据量大小有关）。</strong>分片的数量<strong>只能在索引创建前指定，并且索引创建后不能更改。</strong></p>
+<p><strong>4）副本（Replica）</strong></p>
+<p>副本是一个分片的<strong>精确复制</strong>，每个分片可以有零个或多个副本。副本的作用一是<strong>提高系统的容错性</strong>，当某个节点某个分片损坏或丢失时可以从副本中恢复。二是<strong>提高es的查询效率</strong>，es会自动对搜索请求进行负载均衡。</p>
+<p>Elasticsearch中的每个索引默认分配5个主分片和1个副本</p>
+<h2 id="面向文档"><a href="#面向文档" class="headerlink" title="面向文档"></a>面向文档</h2><p>在应用程序中对象很少只是一个简单的键和值的列表。通常，它们拥有更复杂的数据结构，可能包括日期、地理信息、其他对象或者数组等。</p>
+<p>也许有一天你想把这些对象存储在数据库中。使用关系型数据库的行和列存储，这相当于是把一个表现力丰富的对象塞到一个非常大的电子表格中：为了适应表结构，你必须设法将这个对象扁平化—通常一个字段对应一列—而且每次查询时又需要将其重新构造为对象。</p>
+<p>Elasticsearch 是 <em>面向文档</em> 的，意味着它存储整个对象或 <em>文档</em>。<strong>Elasticsearch 不仅存储文档，而且 <em>索引</em> 每个文档的内容，使之可以被检索。在 Elasticsearch 中，我们对文档进行索引、检索、排序和过滤—而不是对行列数据</strong>。这是一种完全不同的思考数据的方式，也是 Elasticsearch 能支持复杂全文检索的原因。</p>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><p>Elasticsearch 使用 JavaScript Object Notation（或者 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Json"><em>JSON</em></a>）作为文档的序列化格式。JSON 序列化为大多数编程语言所支持，并且已经成为 NoSQL 领域的标准格式</p>
+<p>官方 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/client/index.html">Elasticsearch 客户端</a> 自动为您提供 JSON 转化。</p>
+<p>一个 Elasticsearch 集群可以 包含多个 <em>索引</em> ，相应的每个索引可以包含多个 <em>类型</em> 。 这些不同的类型存储着多个 <em>文档</em> ，每个文档又有 多个 <em>属性</em> 。</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><pre><code>核心数据类型
+字符串型：text、keyword
+数值型：long、integer、short、byte、double、float、half_float、scaled_float
+日期类型：date
+布尔类型：boolean
+二进制类型：binary
+范围类型：integer_range、float_range、long_range、double_range、date_range
+复杂数据类型
+数组类型：array
+对象类型：object
+嵌套类型：nested object
+
+地理位置数据类型
+geo_point(点)、geo_shape(形状)
+专用类型
+记录IP地址ip
+实现自动补全completion
+记录分词数：token_count
+记录字符串hash值 murmur3
+多字段特性multi-fields
+允许对同一个字段采用不同的配置，比如分词，例如对人名实现拼音搜索，只需要在人名中新增一个子字段为pinyin即可
+</code></pre>
+<h3 id="dynamic-严格性设置"><a href="#dynamic-严格性设置" class="headerlink" title="dynamic  严格性设置"></a>dynamic  严格性设置</h3><p>a.true：允许自动新增字段（默认的配置）<br>b.False：不允许自动新增字段，但是文档可以正常写入，无法对字段进行查询操作(可写不能查询)<br>c.strict：文档不能写入（如果写入会报错）</p>
+<h3 id="数据类型text和keyword的区别"><a href="#数据类型text和keyword的区别" class="headerlink" title="数据类型text和keyword的区别"></a>数据类型text和keyword的区别</h3><p>text:text类型的字段值 保存入的数据会被进行分词处理<br>keyword:保存入的数据不会被分词处理</p>
+<h2 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h2><p>Elasticsearch 使用一种称为 <em>倒排索引</em> 的结构，它适用于快速的全文搜索。一个倒排索引由文档中所有不重复词的列表构成，对于其中每个词，有一个包含它的文档列表。内存空间不够冷热交替，热点key放内存，冷的放磁盘，为了避免这个问题，设定好es的内存大小。</p>
+<p>例如，假设我们有两个文档，每个文档的 <code>content</code> 域包含如下内容：</p>
+<ol>
+<li>The quick brown fox jumped over the lazy dog</li>
+<li>Quick brown foxes leap over lazy dogs in summer</li>
+</ol>
+<p>为了创建倒排索引，我们首先将每个文档的 <code>content</code> 域拆分成单独的 词（我们称它为 <code>词条</code> 或 <code>tokens</code> ），创建一个包含所有不重复词条的排序列表，然后列出每个词条出现在哪个文档。结果如下所示：</p>
+<pre><code>Term      Doc_1  Doc_2
+-------------------------
+Quick   |       |  X
+The     |   X   |
+brown   |   X   |  X
+dog     |   X   |
+dogs    |       |  X
+fox     |   X   |
+foxes   |       |  X
+in      |       |  X
+jumped  |   X   |
+lazy    |   X   |  X
+leap    |       |  X
+over    |   X   |  X
+quick   |   X   |
+summer  |       |  X
+the     |   X   |
+------------------------
+</code></pre>
+<p>如果我们想搜索 <code>quick brown</code> ，我们只需要查找包含每个词条的文档：</p>
+<pre><code>Term      Doc_1  Doc_2
+-------------------------
+brown   |   X   |  X
+quick   |   X   |
+------------------------
+Total   |   2   |  1
+</code></pre>
+<h2 id="分析-的过程："><a href="#分析-的过程：" class="headerlink" title="分析 的过程："></a><em>分析</em> 的过程：</h2><ul>
+<li>首先，将一块文本分成适合于倒排索引的独立的 <em>词条</em> ，</li>
+<li>之后，将这些词条统一化为标准格式以提高它们的“可搜索性”，或者 <em>recall</em></li>
+</ul>
+<p>分析器执行上面的工作。 <em>分析器</em> 实际上是将三个功能封装到了一个包里：</p>
+<ul>
+<li><p><strong>字符过滤器</strong></p>
+<p>首先，字符串按顺序通过每个 <em>字符过滤器</em> 。他们的任务是在分词前整理字符串。一个字符过滤器可以用来去掉HTML，或者将 <code>&amp;</code> 转化成 <code>and</code>。</p>
+</li>
+<li><p><strong>分词器</strong></p>
+<p>其次，字符串被 <em>分词器</em> 分为单个的词条。一个简单的分词器遇到空格和标点的时候，可能会将文本拆分成词条。</p>
+</li>
+<li><p><strong>Token 过滤器</strong></p>
+<p>最后，词条按顺序通过每个 <em>token 过滤器</em> 。这个过程可能会改变词条（例如，小写化 <code>Quick</code> ），删除词条（例如， 像 <code>a</code>， <code>and</code>， <code>the</code> 等无用词），或者增加词条（例如，像 <code>jump</code> 和 <code>leap</code> 这种同义词）。</p>
+</li>
+</ul>
+<p>Elasticsearch提供了开箱即用的字符过滤器、分词器和token 过滤器。 这些可以组合起来形成自定义的分析器以用于不同的目的。我们会在 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/custom-analyzers.html">自定义分析器</a> 章节详细讨论。</p>
+<h2 id="分词器"><a href="#分词器" class="headerlink" title="分词器"></a>分词器</h2><p>Elasticsearch还附带了可以直接使用的预包装的分析器。接下来我们会列出最重要的分析器。为了证明它们的差异，我们看看每个分析器会从下面的字符串得到哪些词条：</p>
+<pre><code>&quot;Set the shape to semi-transparent by calling set_trans(5)&quot;
+</code></pre>
+<p>Standard（es默认）	支持多语言，按词切分并做小写处理<br>Simple	按照非字母切分，小写处理<br>Whitespace	按照空格来切分<br>Stop	去除语气助词，如the、an、的、这等<br>Keyword	不分词<br>Pattern	正则分词，默认\w+,即非字词符号做分割符<br>Language	常见语言的分词器（30+）</p>
+<ul>
+<li><p><strong>标准分析器</strong></p>
+<p>标准分析器是Elasticsearch默认使用的分析器。它是分析各种语言文本最常用的选择。它根据 <a target="_blank" rel="noopener" href="http://www.unicode.org/reports/tr29/">Unicode 联盟</a> 定义的 <em>单词边界</em> 划分文本。删除绝大部分标点。最后，将词条小写。它会产生<code>set, the, shape, to, semi, transparent, by, calling, set_trans, 5</code></p>
+</li>
+<li><p><strong>简单分析器</strong></p>
+<p>简单分析器在任何不是字母的地方分隔文本，将词条小写。它会产生<code>set, the, shape, to, semi, transparent, by, calling, set, trans</code></p>
+</li>
+<li><p><strong>空格分析器</strong></p>
+<p>空格分析器在空格的地方划分文本。它会产生<code>Set, the, shape, to, semi-transparent, by, calling, set_trans(5)</code></p>
+</li>
+<li><p><strong>语言分析器</strong></p>
+<p>特定语言分析器可用于 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/analysis-lang-analyzer.html">很多语言</a>。它们可以考虑指定语言的特点。例如， <code>英语</code> 分析器附带了一组英语无用词（常用单词，例如 <code>and</code> 或者 <code>the</code> ，它们对相关性没有多少影响），它们会被删除。 由于理解英语语法的规则，这个分词器可以提取英语单词的 <em>词干</em> 。<code>英语</code> 分词器会产生下面的词条：<code>set, shape, semi, transpar, call, set_tran, 5</code>注意看 <code>transparent</code>、 <code>calling</code> 和 <code>set_trans</code> 已经变为词根格式。</p>
+</li>
+</ul>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="添加内容"><a href="#添加内容" class="headerlink" title="添加内容"></a>添加内容</h3><pre><code class="sense">PUT /megacorp/employee/1
+&#123;
+    &quot;first_name&quot; : &quot;John&quot;,
+    &quot;last_name&quot; :  &quot;Smith&quot;,
+    &quot;age&quot; :        25,
+    &quot;about&quot; :      &quot;I love to go rock climbing&quot;,
+    &quot;interests&quot;: [ &quot;sports&quot;, &quot;music&quot; ]
+&#125;
+PUT /megacorp/employee/2
+&#123;
+    &quot;first_name&quot; :  &quot;Jane&quot;,
+    &quot;last_name&quot; :   &quot;Smith&quot;,
+    &quot;age&quot; :         32,
+    &quot;about&quot; :       &quot;I like to collect rock albums&quot;,
+    &quot;interests&quot;:  [ &quot;music&quot; ]
+&#125;
+
+PUT /megacorp/employee/3
+&#123;
+    &quot;first_name&quot; :  &quot;Douglas&quot;,
+    &quot;last_name&quot; :   &quot;Fir&quot;,
+    &quot;age&quot; :         35,
+    &quot;about&quot;:        &quot;I like to build cabinets&quot;,
+    &quot;interests&quot;:  [ &quot;forestry&quot; ]
+&#125;
+</code></pre>
+<p>注意，路径 <code>/megacorp/employee/1</code> 包含了三部分的信息：</p>
+<ul>
+<li><p><strong><code>megacorp</code></strong></p>
+<p>索引名称</p>
+</li>
+<li><p><strong><code>employee</code></strong></p>
+<p>类型名称</p>
+</li>
+<li><p><strong><code>1</code></strong></p>
+<p>特定雇员的ID</p>
+</li>
+</ul>
+<p>请求体 —— JSON 文档 —— 包含了这位员工的所有详细信息，他的名字叫 John Smith ，今年 25 岁，喜欢攀岩。</p>
+<h3 id="获取单条数据"><a href="#获取单条数据" class="headerlink" title="获取单条数据"></a>获取单条数据</h3><p>es查询方式都可以使用postman来进行访问</p>
+<pre><code class="sense">GET /megacorp/employee/1
+
+获取的值：
+&#123;
+  &quot;_index&quot; :   &quot;megacorp&quot;,
+  &quot;_type&quot; :    &quot;employee&quot;,
+  &quot;_id&quot; :      &quot;1&quot;,
+  &quot;_version&quot; : 1,
+  &quot;found&quot; :    true,
+  &quot;_source&quot; :  &#123;
+      &quot;first_name&quot; :  &quot;John&quot;,
+      &quot;last_name&quot; :   &quot;Smith&quot;,
+      &quot;age&quot; :         25,
+      &quot;about&quot; :       &quot;I love to go rock climbing&quot;,
+      &quot;interests&quot;:  [ &quot;sports&quot;, &quot;music&quot; ]
+  &#125;
+&#125;
+</code></pre>
+<h3 id="查询所有数据"><a href="#查询所有数据" class="headerlink" title="查询所有数据"></a>查询所有数据</h3><pre><code class="sense">GET /megacorp/employee/_search
+</code></pre>
+<p>可以看到，我们仍然使用索引库 megacorp 以及类型 employee，但与指定一个文档 ID 不同，这次使用 _search 。返回结果包括了所有三个文档，放在数组 hits 中。一个搜索默认返回十条结果。</p>
+<pre><code>&#123;
+   &quot;took&quot;:      6,
+   &quot;timed_out&quot;: false,
+   &quot;_shards&quot;: &#123; ... &#125;,
+   &quot;hits&quot;: &#123;
+      &quot;total&quot;:      3,
+      &quot;max_score&quot;:  1,
+      &quot;hits&quot;: [
+         &#123;
+            &quot;_index&quot;:         &quot;megacorp&quot;,
+            &quot;_type&quot;:          &quot;employee&quot;,
+            &quot;_id&quot;:            &quot;3&quot;,
+            &quot;_score&quot;:         1,
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;Douglas&quot;,
+               &quot;last_name&quot;:   &quot;Fir&quot;,
+               &quot;age&quot;:         35,
+               &quot;about&quot;:       &quot;I like to build cabinets&quot;,
+               &quot;interests&quot;: [ &quot;forestry&quot; ]
+            &#125;
+         &#125;,
+         &#123;
+            &quot;_index&quot;:         &quot;megacorp&quot;,
+            &quot;_type&quot;:          &quot;employee&quot;,
+            &quot;_id&quot;:            &quot;1&quot;,
+            &quot;_score&quot;:         1,
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;John&quot;,
+               &quot;last_name&quot;:   &quot;Smith&quot;,
+               &quot;age&quot;:         25,
+               &quot;about&quot;:       &quot;I love to go rock climbing&quot;,
+               &quot;interests&quot;: [ &quot;sports&quot;, &quot;music&quot; ]
+            &#125;
+         &#125;,
+         &#123;
+            &quot;_index&quot;:         &quot;megacorp&quot;,
+            &quot;_type&quot;:          &quot;employee&quot;,
+            &quot;_id&quot;:            &quot;2&quot;,
+            &quot;_score&quot;:         1,
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;Jane&quot;,
+               &quot;last_name&quot;:   &quot;Smith&quot;,
+               &quot;age&quot;:         32,
+               &quot;about&quot;:       &quot;I like to collect rock albums&quot;,
+               &quot;interests&quot;: [ &quot;music&quot; ]
+            &#125;
+         &#125;
+      ]
+   &#125;
+&#125;
+</code></pre>
+<h3 id="轻量搜索-条件查询"><a href="#轻量搜索-条件查询" class="headerlink" title="轻量搜索-条件查询"></a>轻量搜索-条件查询</h3><p>这个方法一般涉及到一个 <em>查询字符串</em> （<em>query-string</em>） 搜索，因为我们通过一个URL参数来传递查询信息给搜索接口：</p>
+<p>尝试下搜索姓氏为 <code>Smith</code> 的雇员：</p>
+<p>就是查询后面加上?q&#x3D;条件</p>
+<pre><code>GET /megacorp/employee/_search?q=last_name:Smith
+</code></pre>
+<pre><code>&#123;
+   ...
+   &quot;hits&quot;: &#123;
+      &quot;total&quot;:      2,
+      &quot;max_score&quot;:  0.30685282,
+      &quot;hits&quot;: [
+         &#123;
+            ...
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;John&quot;,
+               &quot;last_name&quot;:   &quot;Smith&quot;,
+               &quot;age&quot;:         25,
+               &quot;about&quot;:       &quot;I love to go rock climbing&quot;,
+               &quot;interests&quot;: [ &quot;sports&quot;, &quot;music&quot; ]
+            &#125;
+         &#125;,
+         &#123;
+            ...
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;Jane&quot;,
+               &quot;last_name&quot;:   &quot;Smith&quot;,
+               &quot;age&quot;:         32,
+               &quot;about&quot;:       &quot;I like to collect rock albums&quot;,
+               &quot;interests&quot;: [ &quot;music&quot; ]
+            &#125;
+         &#125;
+      ]
+   &#125;
+&#125;
+</code></pre>
+<h3 id="查询表达式-条件查询"><a href="#查询表达式-条件查询" class="headerlink" title="查询表达式-条件查询"></a>查询表达式-条件查询</h3><p>Query-string 搜索通过命令非常方便地进行临时性的即席搜索 ，但它有自身的局限性（参见 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/search-lite.html"><em>轻量</em> 搜索</a> ）。Elasticsearch 提供一个丰富灵活的查询语言叫做 <em>查询表达式</em> ， 它支持构建更加复杂和健壮的查询。</p>
+<p><em>领域特定语言</em> （DSL）， 使用 JSON 构造了一个请求。我们可以像这样重写之前的查询所有名为 Smith 的搜索 ：	</p>
+<pre><code>GET /megacorp/employee/_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;match&quot; : &#123;
+            &quot;last_name&quot; : &quot;Smith&quot;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>返回结果与之前的查询一样，但还是可以看到有一些变化。其中之一是，不再使用 <em>query-string</em> 参数，而是一个请求体替代。这个请求使用 JSON 构造，并使用了一个 <code>match</code> 查询（属于查询类型之一，后面将继续介绍）。</p>
+<h3 id="查询表达式-复杂查询"><a href="#查询表达式-复杂查询" class="headerlink" title="查询表达式-复杂查询"></a>查询表达式-复杂查询</h3><p>同样搜索姓氏为 Smith 的员工，但这次我们只需要年龄大于 30 的。查询需要稍作调整，使用过滤器 <em>filter</em> ，它支持高效地执行一个结构化查询。</p>
+<pre><code>GET /megacorp/employee/_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;bool&quot;: &#123;
+            &quot;must&quot;: &#123;
+                &quot;match&quot; : &#123;
+                    &quot;last_name&quot; : &quot;smith&quot; 
+                &#125;
+            &#125;,
+            &quot;filter&quot;: &#123;
+                &quot;range&quot; : &#123;
+                    &quot;age&quot; : &#123; &quot;gt&quot; : 30 &#125; 
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>这里使用了bool只要对应的，并且锁定age  的 range 是 gt 大于 30的 </p>
+<pre><code>结果：
+&#123;
+   ...
+   &quot;hits&quot;: &#123;
+      &quot;total&quot;:      1,
+      &quot;max_score&quot;:  0.30685282,
+      &quot;hits&quot;: [
+         &#123;
+            ...
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;Jane&quot;,
+               &quot;last_name&quot;:   &quot;Smith&quot;,
+               &quot;age&quot;:         32,
+               &quot;about&quot;:       &quot;I like to collect rock albums&quot;,
+               &quot;interests&quot;: [ &quot;music&quot; ]
+            &#125;
+         &#125;
+      ]
+   &#125;
+&#125;
+</code></pre>
+<h3 id="查询表达式-全文搜索"><a href="#查询表达式-全文搜索" class="headerlink" title="查询表达式-全文搜索"></a>查询表达式-全文搜索</h3><p>搜索下所有喜欢攀岩（rock climbing）的员工：</p>
+<pre><code>GET /megacorp/employee/_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;match&quot; : &#123;
+            &quot;about&quot; : &quot;rock climbing&quot;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>显然我们依旧使用之前的 <code>match</code> 查询在<code>about</code> 属性上搜索 “rock climbing” 。得到两个匹配的文档：</p>
+<pre><code>&#123;
+   ...
+   &quot;hits&quot;: &#123;
+      &quot;total&quot;:      2,
+      &quot;max_score&quot;:  0.16273327,
+      &quot;hits&quot;: [
+         &#123;
+            ...
+            &quot;_score&quot;:         0.16273327, 
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;John&quot;,
+               &quot;last_name&quot;:   &quot;Smith&quot;,
+               &quot;age&quot;:         25,
+               &quot;about&quot;:       &quot;I love to go rock climbing&quot;,
+               &quot;interests&quot;: [ &quot;sports&quot;, &quot;music&quot; ]
+            &#125;
+         &#125;,
+         &#123;
+            ...
+            &quot;_score&quot;:         0.016878016, 
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;Jane&quot;,
+               &quot;last_name&quot;:   &quot;Smith&quot;,
+               &quot;age&quot;:         32,
+               &quot;about&quot;:       &quot;I like to collect rock albums&quot;,
+               &quot;interests&quot;: [ &quot;music&quot; ]
+            &#125;
+         &#125;
+      ]
+   &#125;
+&#125;
+</code></pre>
+<p>找出一个属性中的独立单词是没有问题的，但有时候想要精确匹配一系列单词或者_短语_ 。 比如， 我们想执行这样一个查询，仅匹配同时包含 “rock” <em>和</em> “climbing” ，<em>并且</em> 二者以短语 “rock climbing” 的形式紧挨着的雇员记录。</p>
+<h3 id="查询表达式-短语搜索"><a href="#查询表达式-短语搜索" class="headerlink" title="查询表达式-短语搜索"></a>查询表达式-短语搜索</h3><p>短语就是指把查询的多个词看成一个整体来查询</p>
+<p>找出一个属性中的独立单词是没有问题的，但有时候想要精确匹配一系列单词或者_短语_ 。 比如， 我们想执行这样一个查询，仅匹配同时包含 “rock” <em>和</em> “climbing” ，<em>并且</em> 二者以短语 “rock climbing” 的形式紧挨着的雇员记录。</p>
+<p>为此对 <code>match</code> 查询稍作调整，使用一个叫做 <code>match_phrase</code> 的查询：</p>
+<pre><code class="sense">GET /megacorp/employee/_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;match_phrase&quot; : &#123;
+            &quot;about&quot; : &quot;rock climbing&quot;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<pre><code>结果：
+&#123;
+   ...
+   &quot;hits&quot;: &#123;
+      &quot;total&quot;:      1,
+      &quot;max_score&quot;:  0.23013961,
+      &quot;hits&quot;: [
+         &#123;
+            ...
+            &quot;_score&quot;:         0.23013961,
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;John&quot;,
+               &quot;last_name&quot;:   &quot;Smith&quot;,
+               &quot;age&quot;:         25,
+               &quot;about&quot;:       &quot;I love to go rock climbing&quot;,
+               &quot;interests&quot;: [ &quot;sports&quot;, &quot;music&quot; ]
+            &#125;
+         &#125;
+      ]
+   &#125;
+&#125;
+</code></pre>
+<h3 id="查询表达式-高亮搜索"><a href="#查询表达式-高亮搜索" class="headerlink" title="查询表达式-高亮搜索"></a>查询表达式-高亮搜索</h3><p>许多应用都倾向于在每个搜索结果中 <em>高亮</em> 部分文本片段，以便让用户知道为何该文档符合查询条件。在 Elasticsearch 中检索出高亮片段也很容易。</p>
+<p>再次执行前面的查询，并增加一个新的 <code>highlight</code> 参数：</p>
+<pre><code>GET /megacorp/employee/_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;match_phrase&quot; : &#123;
+            &quot;about&quot; : &quot;rock climbing&quot;
+        &#125;
+    &#125;,
+    &quot;highlight&quot;: &#123;
+        &quot;fields&quot; : &#123;
+            &quot;about&quot; : &#123;&#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>当执行该查询时，返回结果与之前一样，与此同时结果中还多了一个叫做 <code>highlight</code> 的部分。这个部分包含了 <code>about</code> 属性匹配的文本片段，并以 HTML 标签 <code>&lt;em&gt;&lt;/em&gt;</code> 封装：</p>
+<pre><code>结果：
+&#123;
+   ...
+   &quot;hits&quot;: &#123;
+      &quot;total&quot;:      1,
+      &quot;max_score&quot;:  0.23013961,
+      &quot;hits&quot;: [
+         &#123;
+            ...
+            &quot;_score&quot;:         0.23013961,
+            &quot;_source&quot;: &#123;
+               &quot;first_name&quot;:  &quot;John&quot;,
+               &quot;last_name&quot;:   &quot;Smith&quot;,
+               &quot;age&quot;:         25,
+               &quot;about&quot;:       &quot;I love to go rock climbing&quot;,
+               &quot;interests&quot;: [ &quot;sports&quot;, &quot;music&quot; ]
+            &#125;,
+            &quot;highlight&quot;: &#123;
+               &quot;about&quot;: [
+                  &quot;I love to go &lt;em&gt;rock&lt;/em&gt; &lt;em&gt;climbing&lt;/em&gt;&quot; 
+               ]
+            &#125;
+         &#125;
+      ]
+   &#125;
+&#125;
+</code></pre>
+<h3 id="查询表达式-聚合"><a href="#查询表达式-聚合" class="headerlink" title="查询表达式-聚合"></a>查询表达式-聚合</h3><p>支持管理者对员工目录做分析。 Elasticsearch 有一个功能叫聚合（aggregations），允许我们基于数据生成一些精细的分析结果。聚合与 SQL 中的 <code>GROUP BY</code> 类似但更强大。</p>
+<pre><code>GET /megacorp/employee/_search
+&#123;
+  &quot;aggs&quot;: &#123;
+    &quot;all_interests&quot;: &#123;
+      &quot;terms&quot;: &#123; &quot;field&quot;: &quot;interests&quot; &#125;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<pre><code>结果：
+&#123;
+   ...
+   &quot;hits&quot;: &#123; ... &#125;,
+   &quot;aggregations&quot;: &#123;
+      &quot;all_interests&quot;: &#123;
+         &quot;buckets&quot;: [
+            &#123;
+               &quot;key&quot;:       &quot;music&quot;,
+               &quot;doc_count&quot;: 2
+            &#125;,
+            &#123;
+               &quot;key&quot;:       &quot;forestry&quot;,
+               &quot;doc_count&quot;: 1
+            &#125;,
+            &#123;
+               &quot;key&quot;:       &quot;sports&quot;,
+               &quot;doc_count&quot;: 1
+            &#125;
+         ]
+      &#125;
+   &#125;
+&#125;
+</code></pre>
+<p>可以看到，两位员工对音乐感兴趣，一位对林业感兴趣，一位对运动感兴趣。这些聚合的结果数据并非预先统计，而是根据匹配当前查询的文档即时生成的。</p>
+<h3 id="查询表达式-组合查询"><a href="#查询表达式-组合查询" class="headerlink" title="查询表达式-组合查询"></a>查询表达式-组合查询</h3><p>如果想知道叫 Smith 的员工中最受欢迎的兴趣爱好，可以直接构造一个组合查询：</p>
+<pre><code>GET /megacorp/employee/_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;match&quot;: &#123;
+      &quot;last_name&quot;: &quot;smith&quot;
+    &#125;
+  &#125;,
+  &quot;aggs&quot;: &#123;
+    &quot;all_interests&quot;: &#123;
+      &quot;terms&quot;: &#123;
+        &quot;field&quot;: &quot;interests&quot;
+      &#125; 
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<p><code>all_interests</code> 聚合已经变为只包含匹配查询的文档：</p>
+<pre><code>结果：
+...
+  &quot;all_interests&quot;: &#123;
+     &quot;buckets&quot;: [
+        &#123;
+           &quot;key&quot;: &quot;music&quot;,
+           &quot;doc_count&quot;: 2
+        &#125;,
+        &#123;
+           &quot;key&quot;: &quot;sports&quot;,
+           &quot;doc_count&quot;: 1
+        &#125;
+     ]
+  &#125;
+</code></pre>
+<h3 id="新增索引"><a href="#新增索引" class="headerlink" title="新增索引"></a>新增索引</h3><pre><code>PUT index_name/?pretty
+
+curl -XPUT &#39;192.168.247.20:9200/index_name?pretty&#39;
+//例子:
+//在创建索引时还可以设置默认的分片数量、备份数量和刷新的秒数
+curl -XPUT &#39;http://192.168..247.20:9200/index_name?pretty&#39; -H &#39;Content-Type: application/json&#39; -d&#39;
+    &#123;
+    &quot;settings&quot; : &#123;
+    &quot;number_of_shards&quot;:8,
+    &quot;number_of_replicas&quot; : 1,
+    &quot;refresh_interval&quot;:&quot;30s&quot;
+        &#125;
+       &#125;
+</code></pre>
+<h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><pre><code>curl -XDELETE &#39;192.168.247.20:9200/index_name?pretty&#39;
+DELETE index_name
+</code></pre>
+<h5 id><a href="#" class="headerlink" title></a></h5><h2 id="相关性得分"><a href="#相关性得分" class="headerlink" title="相关性得分"></a>相关性得分</h2><p>Elasticsearch 默认按照相关性得分排序，即每个文档跟查询的匹配程度。第一个最高得分的结果很明显：John Smith 的 <code>about</code> 属性清楚地写着 “rock climbing” 。</p>
+<p>但为什么 Jane Smith 也作为结果返回了呢？原因是她的 <code>about</code> 属性里提到了 “rock” 。因为只有 “rock” 而没有 “climbing” ，所以她的相关性得分低于 John 的。</p>
+<p>这是一个很好的案例，阐明了 Elasticsearch 如何 <em>在</em> 全文属性上搜索并返回相关性最强的结果。Elasticsearch中的 <em>相关性</em> 概念非常重要，也是完全区别于传统关系型数据库的一个概念，数据库中的一条记录要么匹配要么不匹配。</p>
+<h1 id="常用搜索引擎框架"><a href="#常用搜索引擎框架" class="headerlink" title="常用搜索引擎框架"></a>常用搜索引擎框架</h1><p>1、<strong>Lucene</strong></p>
+<p>Apache下面的一个开源项目，高性能的、可扩展的工具库，提供搜索的基本架构，如果开发人员需用使用的话，需用自己进行开发,成本比较大，但是性能高</p>
+<p>2、<strong>Solr</strong></p>
+<p>Solr基于Lucene的全文搜索框架，提供了比Lucene更为丰富的功能，同时实现了可配置、可扩展并对查询性能进行了优化<br>建立索引时，搜索效率下降，实时索引搜索效率不高<br>数据量的增加，Solr的搜索效率会变得更低,适合小的搜索应用，对应java客户端的是solrj</p>
+<p>3、<strong>ElasticSearch</strong></p>
+<p>基于Lucene的搜索框架, 它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口<br>上手容易，拓展节点方便，可用于存储和检索海量数据，接近实时搜索，海量数据量增加，搜索响应性能几乎不受影响，分布式搜索框架，自动发现节点，副本机制，保障可用性</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">三山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://star-light-star-bright.github.io/cdh/elasticsearch/elasticsearch/">https://star-light-star-bright.github.io/cdh/elasticsearch/elasticsearch/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">三山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Elasticsearch/">
+                                    <span class="chip bg-color">Elasticsearch</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/shu-ju-cang-ku/huan-man-bian-hua-wei/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="缓慢变化维解决的几种方式">
+                        
+                        <span class="card-title">缓慢变化维解决的几种方式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" class="post-category">
+                                    数据仓库
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">
+                        <span class="chip bg-color">数据仓库</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BC%93%E6%85%A2%E5%8F%98%E5%8C%96%E7%BB%B4/">
+                        <span class="chip bg-color">缓慢变化维</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/cdh/hadoop/hadoop-federation-lian-bang/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Hadoop Federation">
+                        
+                        <span class="card-title">Hadoop Federation</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Hadoop/" class="post-category">
+                                    Hadoop
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hadopp/">
+                        <span class="chip bg-color">Hadopp</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">三山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,2145 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="SpringMvc学习, ZWHBlog">
+    <meta name="description" content="SpringMvc是什么？SpringMvc是一个表现层框架
+后面框架整合的时候是先通过springmvc，spring
+底层是Servlet，处理请求的机制是一个核心控制器
+springmvc是一个基于servlet的mvc框架
+执行流程">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>SpringMvc学习 | ZWHBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWHBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWHBlog</div>
+        <div class="logo-desc">
+            
+            这是我的博客网站
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">SpringMvc学习</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/SrpingMvc/">
+                                <span class="chip bg-color">SrpingMvc</span>
+                            </a>
+                        
+                            <a href="/tags/Java%E6%A1%86%E6%9E%B6/">
+                                <span class="chip bg-color">Java框架</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java%E6%A1%86%E6%9E%B6/" class="post-category">
+                                Java框架
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-16
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="SpringMvc是什么？"><a href="#SpringMvc是什么？" class="headerlink" title="SpringMvc是什么？"></a>SpringMvc是什么？</h2><p>SpringMvc是一个表现层框架</p>
+<p>后面框架整合的时候是先通过springmvc，spring</p>
+<p>底层是Servlet，处理请求的机制是一个核心控制器</p>
+<p>springmvc是一个基于servlet的mvc框架</p>
+<h2 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h2><ol>
+<li>request请求发送过来</li>
+<li>请求查找handler</li>
+<li>由处理器映射器handlermappering 进行处理这个请求，<br>能够知道发送过来的请求让controller中哪个方法来帮你执行<br>通过请求路径来匹配<br>采用适配器的模式，</li>
+<li>请求适配器执行 handleradapter 去执行hadnler(handler也叫做Controller)</li>
+<li>去执行，返回返回结果</li>
+<li>controller(handler)执行并返回 ModleAndView 对象给 DispatcherServlet</li>
+<li>DispatcherServlet 让viewResolver 来进行视图解析</li>
+<li>viewResolver 解析完毕后返回一个View对象</li>
+<li>视图渲染，将结果交给request域，然后相应客户端请求</li>
+</ol>
+<h2 id="Springmvc组件"><a href="#Springmvc组件" class="headerlink" title="Springmvc组件"></a>Springmvc组件</h2><p>在SpringMvc各个组件：<br><strong>处理器映射器</strong>，<br><strong>处理器适配器</strong>，<br><strong>视图解析器配</strong><br>成为Springmvc的三大组件</p>
+<pre><code class="xml">&lt;mvc:annotation-driven&gt;
+注解在xml中配置可以 开启springmvc的框架注解支持
+</code></pre>
+<h2 id="SpringMvc环境配置"><a href="#SpringMvc环境配置" class="headerlink" title="SpringMvc环境配置"></a>SpringMvc环境配置</h2><p><strong>springmvc.xml环境配置</strong>：</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;!-- 开启注解扫描 --&gt;
+    &lt;context:component-scan base-package=&quot;cn.itcast&quot;/&gt;
+
+    &lt;!-- 视图解析器对象 --&gt;
+    &lt;bean id=&quot;internalResourceViewResolver&quot; class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/pages/&quot;/&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置自定义类型转换器--&gt;
+    &lt;bean id=&quot;conversionService&quot; class=&quot;org.springframework.context.support.ConversionServiceFactoryBean&quot;&gt;
+        &lt;property name=&quot;converters&quot;&gt;
+            &lt;set&gt;
+                &lt;bean class=&quot;cn.itcast.utils.StringToDateConverter&quot;/&gt;
+            &lt;/set&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+
+
+    &lt;!-- 开启SpringMVC框架注解的支持 --&gt;
+    &lt;mvc:annotation-driven conversion-service=&quot;conversionService&quot;/&gt;
+
+&lt;/beans&gt;
+</code></pre>
+<p><strong>web.xml配置</strong>：</p>
+<pre><code class="xml">&lt;!DOCTYPE web-app PUBLIC
+ &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;
+ &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot; &gt;
+
+&lt;web-app&gt;
+  &lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;
+
+  &lt;!--配置Spring的监听器，默认只加载WEB-INF目录下的applicationContext.xml配置文件--&gt;
+  &lt;listener&gt;
+    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;
+  &lt;/listener&gt;
+    
+  &lt;!--设置配置文件的路径--&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;
+  &lt;/context-param&gt;
+    
+  &lt;context-param&gt;
+    &lt;param-name/&gt;
+    &lt;param-value/&gt;
+  &lt;/context-param&gt;
+
+  &lt;!--配置前端控制器--&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;!--加载springmvc.xml配置文件--&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+      &lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;!--启动服务器，创建该servlet--&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+    
+    &lt;!--引用前端控制器，并配置他的作用范围--&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+
+  &lt;!--解决中文乱码的过滤器--&gt;
+  &lt;filter&gt;
+    &lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;encoding&lt;/param-name&gt;
+      &lt;param-value&gt;UTF-8&lt;/param-value&gt;
+    &lt;/init-param&gt;
+  &lt;/filter&gt;
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+  
+&lt;/web-app&gt;
+</code></pre>
+<h3 id="请求参数的绑定"><a href="#请求参数的绑定" class="headerlink" title="请求参数的绑定"></a>请求参数的绑定</h3><p>springmvc可以利用反射的机制进行参数的绑定 </p>
+<p>将你请求中的参数，自定映射到方法@RequestMapper的方法字段中</p>
+<pre><code class="java">    /**
+     * 请求参数绑定入门
+     * @return
+     */
+    @RequestMapping(&quot;/testParam&quot;)
+    public String testParam(String username,String password)&#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(&quot;用户名：&quot;+username);
+        System.out.println(&quot;密码：&quot;+password);
+        return &quot;success&quot;;
+    &#125;
+
+    &lt;a href=&quot;anno/testRequestParam?name=哈哈&quot;&gt;RequestParam&lt;/a&gt;
+</code></pre>
+<h3 id="请求对象的绑定"><a href="#请求对象的绑定" class="headerlink" title="请求对象的绑定"></a>请求对象的绑定</h3><p>注意！ 名称必须一致，它是通过调用set方法来进行赋值的。</p>
+<pre><code class="java">public class Account implements Serializable&#123;
+    private String username;
+    private String password;
+    private Double money;    
+    get set.....
+&#125;
+
+/**
+     * 请求参数绑定把数据封装到JavaBean的类中
+     * @return
+     */
+    @RequestMapping(&quot;/saveAccount&quot;)
+    public String saveAccount(Account account)&#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(account);
+        return &quot;success&quot;;
+    &#125;
+</code></pre>
+<pre><code class="html">    &lt;!--把数据封装Account类中--&gt;
+    &lt;form action=&quot;param/saveAccount&quot; method=&quot;post&quot;&gt;
+        姓名：&lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;&lt;br/&gt;
+        密码：&lt;input type=&quot;text&quot; name=&quot;password&quot; /&gt;&lt;br/&gt;
+        金额：&lt;input type=&quot;text&quot; name=&quot;money&quot; /&gt;&lt;br/&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+    &lt;/form&gt;
+</code></pre>
+<h3 id="请求对象中引用对象的绑定"><a href="#请求对象中引用对象的绑定" class="headerlink" title="请求对象中引用对象的绑定"></a>请求对象中引用对象的绑定</h3><pre><code class="java">//java bean
+public class Account implements Serializable&#123;
+
+    private String username;
+    private String password;
+    private Double money;
+
+       private User user;
+&#125;
+
+public class User implements Serializable&#123;
+    private String uname;
+    private Integer age;
+&#125;
+</code></pre>
+<pre><code class="java">    /**
+     * 请求参数绑定把数据封装到JavaBean的类中
+     * @return
+     */
+    @RequestMapping(&quot;/saveAccount&quot;)
+    public String saveAccount(Account account)&#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(account);
+        return &quot;success&quot;;
+    &#125;
+</code></pre>
+<pre><code class="html">  jsp页面
+  &lt;!--把数据封装Account类中--&gt;
+    &lt;form action=&quot;param/saveAccount&quot; method=&quot;post&quot;&gt;
+        姓名：&lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;&lt;br/&gt;
+        密码：&lt;input type=&quot;text&quot; name=&quot;password&quot; /&gt;&lt;br/&gt;
+        金额：&lt;input type=&quot;text&quot; name=&quot;money&quot; /&gt;&lt;br/&gt;
+        用户姓名：&lt;input type=&quot;text&quot; name=&quot;user.uname&quot; /&gt;&lt;br/&gt;
+        用户年龄：&lt;input type=&quot;text&quot; name=&quot;user.age&quot; /&gt;&lt;br/&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+    &lt;/form&gt;
+</code></pre>
+<h3 id="集合类型的绑定"><a href="#集合类型的绑定" class="headerlink" title="集合类型的绑定"></a>集合类型的绑定</h3><pre><code class="java">//java bean
+public class Account implements Serializable&#123;
+
+    private String username;
+    private String password;
+    private Double money;
+
+   // private User user;
+
+    private List&lt;User&gt; list;
+    private Map&lt;String,User&gt; map;
+&#125;
+
+public class User implements Serializable&#123;
+    private String uname;
+    private Integer age;
+&#125;
+</code></pre>
+<pre><code class="java">    /**
+     * 请求参数绑定把数据封装到JavaBean的类中
+     * @return
+     */
+    @RequestMapping(&quot;/saveAccount&quot;)
+    public String saveAccount(Account account)&#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(account);
+        return &quot;success&quot;;
+    &#125;
+</code></pre>
+<pre><code class="html">&lt;!--jsp 页面--&gt;
+    &lt;form action=&quot;param/saveAccount&quot; method=&quot;post&quot;&gt;
+        姓名：&lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;&lt;br/&gt;
+        密码：&lt;input type=&quot;text&quot; name=&quot;password&quot; /&gt;&lt;br/&gt;
+        金额：&lt;input type=&quot;text&quot; name=&quot;money&quot; /&gt;&lt;br/&gt;
+        &lt;!--指定list的下标位置--&gt;
+        用户姓名：&lt;input type=&quot;text&quot; name=&quot;list[0].uname&quot; /&gt;&lt;br/&gt;
+        用户年龄：&lt;input type=&quot;text&quot; name=&quot;list[0].age&quot; /&gt;&lt;br/&gt;
+        &lt;!--指定map的key是one，v是--&gt;
+        用户姓名：&lt;input type=&quot;text&quot; name=&quot;map[&#39;one&#39;].uname&quot; /&gt;&lt;br/&gt;
+        用户年龄：&lt;input type=&quot;text&quot; name=&quot;map[&#39;one&#39;].age&quot; /&gt;&lt;br/&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+    &lt;/form&gt;
+</code></pre>
+<h2 id="SpringMvc过滤器-解决post请求乱码问题"><a href="#SpringMvc过滤器-解决post请求乱码问题" class="headerlink" title="SpringMvc过滤器,解决post请求乱码问题"></a>SpringMvc过滤器,解决post请求乱码问题</h2><p>前端多滤器，设置他们的字符编码</p>
+<p>post方法会乱码，get方式不会乱码</p>
+<p>在web.xml中配置全局过滤器，配置时过滤器位置放在servlet位置前面</p>
+<pre><code class="xml">&lt;web-app&gt;
+  &lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;
+    
+  &lt;!--配置解决中文乱码的过滤器--&gt;
+  &lt;filter&gt;
+    &lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;encoding&lt;/param-name&gt;
+      &lt;param-value&gt;UTF-8&lt;/param-value&gt;
+    &lt;/init-param&gt;
+  &lt;/filter&gt;
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+    
+  &lt;!--配置前端控制器--&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+      &lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+<h2 id="类型转换器"><a href="#类型转换器" class="headerlink" title="类型转换器"></a>类型转换器</h2><p>Springmvc会对一些简单属性进行转换 如 input输入age是22 自动转换成Integer，<strong>但是复杂类型需要自己来实现转换</strong></p>
+<pre><code class="java">//java bean
+public class User implements Serializable&#123;
+
+    private String uname;
+    private Integer age;
+
+    private Date date;
+&#125;
+</code></pre>
+<pre><code class="java">    /**
+     * 使用了自定义类型转换器
+     * @param user
+     * @return
+     */
+    @RequestMapping(&quot;/saveUser&quot;)
+    public String saveUser(User user)&#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(user);
+        return &quot;success&quot;;
+    &#125;
+</code></pre>
+<pre><code class="html">&lt;!--jsp 页面--&gt;
+    &lt;form action=&quot;param/saveUser&quot; method=&quot;post&quot;&gt;
+        用户姓名：&lt;input type=&quot;text&quot; name=&quot;uname&quot; /&gt;&lt;br/&gt;
+        用户年龄：&lt;input type=&quot;text&quot; name=&quot;age&quot; /&gt;&lt;br/&gt;
+        用户生日：&lt;input type=&quot;text&quot; name=&quot;date&quot; /&gt;&lt;br/&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+    &lt;/form&gt;
+</code></pre>
+<h3 id="自定义类型转换器编写"><a href="#自定义类型转换器编写" class="headerlink" title="自定义类型转换器编写"></a><strong>自定义类型转换器编写</strong></h3><ol>
+<li><p>需要实现converter接口，定义泛型&lt;String,Date&gt;</p>
+<p> 左边类型是原始类型，右边类型是转换类型</p>
+</li>
+</ol>
+<pre><code class="java">/**
+ * 把字符串转换日期
+ */
+public class StringToDateConverter implements Converter&lt;String,Date&gt;&#123;
+
+    /**
+     * String source    传入进来字符串
+     * @param source    
+     * @return
+     */
+    public Date convert(String source) &#123;
+        // 判断
+        if(source == null)&#123;
+            throw new RuntimeException(&quot;请您传入数据&quot;);
+        &#125;
+        DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
+
+        try &#123;
+            // 把字符串转换日期
+            return df.parse(source);
+        &#125; catch (Exception e) &#123;
+            throw new RuntimeException(&quot;数据类型转换出现错误&quot;);
+        &#125;
+    &#125;
+
+&#125;
+</code></pre>
+<ol start="2">
+<li>在springmvc.xml中注册类型转换器</li>
+</ol>
+<pre><code class="xml">    &lt;!--配置自定义类型转换器--&gt;
+    &lt;bean id=&quot;conversionService&quot; class=&quot;org.springframework.context.support.ConversionServiceFactoryBean&quot;&gt;
+        &lt;property name=&quot;converters&quot;&gt;
+            &lt;set&gt;
+                &lt;bean class=&quot;cn.itcast.utils.StringToDateConverter&quot;/&gt;
+            &lt;/set&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;!-- 开启SpringMVC框架注解的支持 --&gt;
+    &lt;mvc:annotation-driven conversion-service=&quot;conversionService&quot;/&gt;
+</code></pre>
+<h2 id="调用Servlet原生API"><a href="#调用Servlet原生API" class="headerlink" title="调用Servlet原生API"></a>调用Servlet原生API</h2><p>在Springmvc中获取到原来servlet的内置对象request，response，session和servletcontext	</p>
+<pre><code class="java">/**
+ * 原生的API
+ * @return
+ */
+@RequestMapping(&quot;/testServlet&quot;)
+public String testServlet(HttpServletRequest request, HttpServletResponse response)&#123;
+    System.out.println(&quot;执行了...&quot;);
+    System.out.println(request);
+
+    HttpSession session = request.getSession();
+    System.out.println(session);
+
+    ServletContext servletContext = session.getServletContext();
+    System.out.println(servletContext);
+
+    System.out.println(response);
+    return &quot;success&quot;;
+&#125;
+</code></pre>
+<pre><code class="html">&lt;a href=&quot;param/testServlet&quot;&gt;Servlet原生的API&lt;/a&gt;
+</code></pre>
+<h2 id="SpringMvc常用注解"><a href="#SpringMvc常用注解" class="headerlink" title="SpringMvc常用注解"></a>SpringMvc常用注解</h2><h3 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h3><p> @Controller 用于标记在一个类上，使用它标记的类就是一个SpringMVC Controller 对象。分发处理器将会扫描使用了该注解的类的方法，并检测该方法是否使用了@RequestMapping 注解。</p>
+<p>@Controller 只是定义了一个控制器类，而使用@RequestMapping 注解的方法才是真正处理请求的处理器。</p>
+<h3 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h3><p>时间里请求URL和处理请求方法之间的关系</p>
+<p><strong>属性：</strong></p>
+<p>value，path	这两个作用是一样的，都是指定访问请求路径</p>
+<p>method 	指定他的请求方式，指定Post就只能Post请求</p>
+<pre><code class="java">@RequestMapping(value=&quot;/username&quot;,params =&#123;username&#125;,method=RequestMethod.PUT)
+</code></pre>
+<p>params	指定他的参数，调用时必须传入这个名称的参数才能调用</p>
+<pre><code class="java">@RequestMapping(value=&quot;/username&quot;,params =&#123;username&#125;)
+指定了调用时必须有username这个字段
+
+@RequestMapping(value=&quot;/username&quot;,params =&#123;username=heihei&#125;)
+指定了调用时必须有username这个字段，并且字段的值只能是heihei
+</code></pre>
+<p><strong>headers</strong>	指定限制请求消息头的条件</p>
+<pre><code class="java">@RequestMapper(value=&quot;/username&quot;,params =&#123;username=heihei&#125;,headers=&#123;&quot;Accept&quot;&#125;)
+</code></pre>
+<h3 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a><strong>@RequestParam</strong></h3><p>把请求指定名称的参数给控制器中的形参赋值，用于参数名称和你方法参数名称不匹配的情况。</p>
+<p><strong>属性</strong>：</p>
+<p>value	请求参数中的名称</p>
+<p>required	请求参数中是否必须提供此参数，默认true，表示必须提供，不提供就报错</p>
+<p>例子：</p>
+<pre><code class="java">@Controller
+@RequestMapping(&quot;/anno&quot;)
+public class AnnoController &#123;
+
+    @RequestMapping(&quot;/testRequestParam&quot;)
+    public String testRequestParam(@RequestParam(name=&quot;name&quot;) String username)&#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(username);
+        return &quot;success&quot;;
+    &#125;
+&#125;
+//在这里默认使用了required，默认是true，前端必须只能传name字段的值，字段name变成uname都会报错
+</code></pre>
+<pre><code class="jsp">//jsp
+    &lt;a href=&quot;anno/testRequestParam?name=哈哈&quot;&gt;RequestParam&lt;/a&gt;
+</code></pre>
+<h3 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h3><p>用于获取请求体内容，直接使用得到 key&#x3D;value&amp;key&#x3D;value 结构的数据，可以直接<strong>名称调用</strong>，也可以直接<strong>封装到对象中</strong></p>
+<p>get方法不适用（get请求都封装到了地址栏上，没有请求体）</p>
+<p><strong>属性：</strong></p>
+<p>required	是否必须有请求体，默认是true。true的时候get方法会报错，取值为false，get请求得到的是null</p>
+<p>例子：</p>
+<pre><code class="html">    &lt;form action=&quot;anno/testRequestBody&quot; method=&quot;post&quot;&gt;
+        用户姓名：&lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;&lt;br/&gt;
+        用户年龄：&lt;input type=&quot;text&quot; name=&quot;age&quot; /&gt;&lt;br/&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+    &lt;/form&gt;
+</code></pre>
+<pre><code class="java">    /**
+     * 获取到请求体的内容
+     * @return
+     */
+    @RequestMapping(&quot;/testRequestBody&quot;)
+    public String testRequestBody(@RequestBody String body)&#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(body);
+        return &quot;success&quot;;
+    &#125;
+</code></pre>
+<p>图片</p>
+<h3 id="ResponseBody"><a href="#ResponseBody" class="headerlink" title="@ResponseBody"></a>@ResponseBody</h3><p>和RequestBody作用相反，用来响应客户端请求，返回指定类型</p>
+<h3 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a><strong>@PathVariable</strong></h3><p>拥有绑定url中的占位符，例如url中 &#x2F;delete&#x2F;{id} 这个{id} 就是url占位符</p>
+<p>url支持占位符是spring3.0之后加入的，是SpringMvc支持rest分隔url的一个重要标志</p>
+<p><strong>Restful编程风格</strong></p>
+<p>请求地址一样，但是能够根据请求方式的不同(get,put,post)来执行不同的方法</p>
+<p><strong>属性：</strong></p>
+<p>value	用于指定url占位符的名称</p>
+<p>required	是否必须提供占位符</p>
+<p><strong>例子：</strong></p>
+<pre><code class="html">    &lt;a href=&quot;anno/testPathVariable/10&quot;&gt;testPathVariable&lt;/a&gt;
+</code></pre>
+<pre><code class="java">    /**
+     * PathVariable注解
+     * @return
+     */
+    @RequestMapping(value=&quot;/testPathVariable/&#123;sid&#125;&quot;)
+    public String testPathVariable(@PathVariable(name=&quot;sid&quot;) String id)&#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(id);
+        return &quot;success&quot;;
+    &#125;
+</code></pre>
+<h3 id="HiddentHttpMethodFilter"><a href="#HiddentHttpMethodFilter" class="headerlink" title="@HiddentHttpMethodFilter"></a>@HiddentHttpMethodFilter</h3><p>了解即可，是为了模拟不同的发送请求方式</p>
+<p>浏览器的form表单只支持get和post请求，而Delelte，put等method并不支持，Spring3.0添加了一个过滤器，可以将浏览器请求去改为指定的请求方式，发送给我们的控制器方法，使得支持get，post，put与delete请求</p>
+<p>使用方法:</p>
+<ol>
+<li>在web.xml中配置过滤器</li>
+<li>请求法师必须使用post请求</li>
+<li>按照要求提供_method请求参数，该参数的取值就是我们需要的请求方式</li>
+</ol>
+<h3 id="RequestHeader"><a href="#RequestHeader" class="headerlink" title="@RequestHeader"></a>@RequestHeader</h3><p>开发中不怎么用</p>
+<p>用于 获取请求消息头的值</p>
+<p><strong>属性：</strong></p>
+<p>value	提供消息头名称</p>
+<p>required	是否必须有此消息头</p>
+<p><strong>例子：</strong></p>
+<pre><code class="jsp">    &lt;a href=&quot;anno/testRequestHeader&quot;&gt;RequestHeader&lt;/a&gt;
+</code></pre>
+<pre><code class="java">    /**
+     * 获取请求头的值
+     * @param header
+     * @return
+     */
+    @RequestMapping(value=&quot;/testRequestHeader&quot;)
+    public String testRequestHeader(@RequestHeader(value=&quot;Accept&quot;) String header, HttpServletRequest request,HttpServletResponse response) throws IOException &#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(header);
+        // return &quot;success&quot;;
+        // response.sendRedirect(request.getContextPath()+&quot;/anno/testCookieValue&quot;);
+        return &quot;redirect:/param.jsp&quot;;
+    &#125;
+</code></pre>
+<p>图片</p>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="@Cookie"></a>@Cookie</h3><p>把指定cookie名称传入控制器方法参数</p>
+<p><strong>属性：</strong></p>
+<p>value	指定cookie名称</p>
+<p>required 	是否必须由此cookie</p>
+<p><strong>例子：</strong></p>
+<pre><code class="jsp">    &lt;a href=&quot;anno/testCookieValue&quot;&gt;CookieValue&lt;/a&gt;
+</code></pre>
+<pre><code class="java">    /**
+     * 获取Cookie的值
+     * @return
+     */
+    @RequestMapping(value=&quot;/testCookieValue&quot;)
+    public String testCookieValue(@CookieValue(value=&quot;JSESSIONID&quot;) String cookieValue)&#123;
+        System.out.println(&quot;执行了...&quot;);
+        System.out.println(cookieValue);
+        return &quot;success&quot;;
+    &#125;
+</code></pre>
+<h3 id="MouelAttribute"><a href="#MouelAttribute" class="headerlink" title="@MouelAttribute"></a>@MouelAttribute</h3><p>该注解SpringMVC4.3版本之后加入的，可以用于修饰方法和参数</p>
+<p>出现在方法上，在控制前方法执行之前，先执行。可以修饰没有返回值的方法，也可以修饰具有返回值的方法</p>
+<p><strong>属性：</strong></p>
+<p>Value	用于获取数据的key，key可以是pojo的属性名称，也可以是map结构的key</p>
+<p><strong>应用场景：</strong></p>
+<p>但表单提交不是完整的实体类数据时，保证没有提交数据的字段使用数据库对象原来的数据</p>
+<p><strong>例子：</strong></p>
+<p>没有返回值的类型 </p>
+<pre><code class="java">    /** 没有返回值的类型   参数中使用@ModelAttribute 指定key来获取值
+     * ModelAttribute注解
+     * @return
+     */
+    @RequestMapping(value=&quot;/testModelAttribute&quot;)
+    public String testModelAttribute(@ModelAttribute(&quot;abc&quot;) User user)&#123;
+        System.out.println(&quot;testModelAttribute执行了...&quot;);
+        System.out.println(user);
+        return &quot;success&quot;;
+    &#125;
+
+
+///////没有返回值的类型，值需要添加一个Map集合
+    @ModelAttribute
+    public void showUser(String uname, Map&lt;String,User&gt; map)&#123;
+        System.out.println(&quot;showUser执行了...&quot;);
+        // 通过用户查询数据库（模拟）
+        User user = new User();
+        user.setUname(uname);
+        user.setAge(20);
+        user.setDate(new Date());
+        map.put(&quot;abc&quot;,user);
+    &#125;
+</code></pre>
+<p>有返回值的类型 </p>
+<pre><code class="java">    /**有返回值的类型   
+     * ModelAttribute注解
+     * @return
+     */
+    @RequestMapping(value=&quot;/testModelAttribute&quot;)
+    public String testModelAttribute(User user)&#123;
+        System.out.println(&quot;testModelAttribute执行了...&quot;);
+        System.out.println(user);
+        return &quot;success&quot;;
+    &#125;   
+
+
+/**  有返回值的类型
+     * 该方法会先执行
+     */
+    @ModelAttribute
+    public User showUser(String uname)&#123;
+        System.out.println(&quot;showUser执行了...&quot;);
+        // 通过用户查询数据库（模拟）
+        User user = new User();
+        user.setUname(uname);
+        user.setAge(20);
+        user.setDate(new Date());
+        return user;
+    &#125;
+</code></pre>
+<h3 id="SessoinAttribute"><a href="#SessoinAttribute" class="headerlink" title="@SessoinAttribute"></a>@SessoinAttribute</h3><p>只能作用在类上,没听太懂，视频182</p>
+<p>多次执行控制器方法将的参数共享</p>
+<p><strong>属性：</strong></p>
+<p>value	属性的名称</p>
+<p>type 	属性的类型</p>
+<p><strong>例子：</strong></p>
+<pre><code class="java">import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+
+
+@Controller
+@RequestMapping(&quot;/anno&quot;)
+@SessionAttributes(value=&#123;&quot;msg&quot;&#125;)   // 把 msg=美美 存入到session域对中
+public class AnnoController &#123;
+    /**
+     * SessionAttributes的注解
+     * @return
+     */
+    @RequestMapping(value=&quot;/testSessionAttributes&quot;)
+    public String testSessionAttributes(Model model)&#123;
+        System.out.println(&quot;testSessionAttributes...&quot;);
+        // 底层会存储到request域对象中
+        model.addAttribute(&quot;msg&quot;,&quot;美美&quot;);
+        return &quot;success&quot;;
+    &#125;
+
+    /**
+     * 获取值
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value=&quot;/getSessionAttributes&quot;)
+    public String getSessionAttributes(ModelMap modelMap)&#123;
+        System.out.println(&quot;getSessionAttributes...&quot;);
+        String msg = (String) modelMap.get(&quot;msg&quot;);
+        System.out.println(msg);
+        return &quot;success&quot;;
+    &#125;
+
+    /**
+     * 清除
+     * @param status
+     * @return
+     */
+    @RequestMapping(value=&quot;/delSessionAttributes&quot;)
+    public String delSessionAttributes(SessionStatus status)&#123;
+        System.out.println(&quot;getSessionAttributes...&quot;);
+        status.setComplete();
+        return &quot;success&quot;;
+    &#125;
+    
+&#125;
+</code></pre>
+<pre><code class="html">&lt;a href=&quot;anno/testSessionAttributes&quot;&gt;testSessionAttributes&lt;/a&gt;
+
+
+success.jsp：
+
+&lt;body&gt;
+
+    &lt;h3&gt;入门成功&lt;/h3&gt;
+
+    $&#123; msg &#125;
+
+    $&#123;sessionScope&#125;
+
+&lt;/body&gt;
+</code></pre>
+<h2 id="SpringMvc响应方式"><a href="#SpringMvc响应方式" class="headerlink" title="SpringMvc响应方式"></a>SpringMvc响应方式</h2><h3 id="根据返回值分类"><a href="#根据返回值分类" class="headerlink" title="根据返回值分类"></a>根据返回值分类</h3><h4 id="1、字符串"><a href="#1、字符串" class="headerlink" title="1、字符串"></a>1、字符串</h4><p>字符串类型的返回值 	前端控制器会按照返回值跳转到对应的jsp页面</p>
+<h4 id="2、void"><a href="#2、void" class="headerlink" title="2、void"></a>2、void</h4><p>SpringMvc提供的转发和重定向</p>
+<p>没有返回值的时候，它默认是按照RequestMapping的value去寻找.jsp页面</p>
+<p>在跳转的时候通过request 进行转发，response进行重定向</p>
+<pre><code class="java">    /**
+     * 是void
+     * 请求转发一次请求，不用编写项目的名称
+     * 重定向是两次请求，需要编写项目名称
+     */
+    @RequestMapping(&quot;/testVoid&quot;)
+    public void testVoid(HttpServletRequest request, HttpServletResponse response) throws Exception &#123;
+        System.out.println(&quot;testVoid方法执行了...&quot;);
+         // 编写请求转发的程序
+         request.getRequestDispatcher(&quot;/WEB-INF/pages/success.jsp&quot;).forward(request,response);
+
+         // 重定向   是重新发了个请求  web-inf是直接进不去的
+        //request.getContextPath()  获取项目名称
+        response.sendRedirect(request.getContextPath()+&quot;/index.jsp&quot;);
+
+        // 设置中文乱码
+        response.setCharacterEncoding(&quot;UTF-8&quot;);
+        response.setContentType(&quot;text/html;charset=UTF-8&quot;);
+
+        // 直接会进行响应浏览器
+        response.getWriter().print(&quot;你好&quot;);
+
+        return;
+    &#125;
+
+
+    /**
+     * 使用关键字的方式进行转发或者重定向
+     * @return
+     */
+    @RequestMapping(&quot;/testForwardOrRedirect&quot;)
+    public String testForwardOrRedirect()&#123;
+        System.out.println(&quot;testForwardOrRedirect方法执行了...&quot;);
+
+        // 请求的转发
+        // return &quot;forward:/WEB-INF/pages/success.jsp&quot;;
+
+        // 重定向
+        return &quot;redirect:/index.jsp&quot;;
+    &#125;
+</code></pre>
+<h2 id="前端控制器配置拦截资源"><a href="#前端控制器配置拦截资源" class="headerlink" title="前端控制器配置拦截资源"></a>前端控制器配置拦截资源</h2><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;!-- 开启注解扫描 --&gt;
+    &lt;context:component-scan base-package=&quot;cn.itcast&quot;/&gt;
+
+    &lt;!-- 视图解析器对象 --&gt;
+    &lt;bean id=&quot;internalResourceViewResolver&quot; class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/pages/&quot;/&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--前端控制器，哪些静态资源不拦截--&gt;
+    &lt;mvc:resources location=&quot;/css/&quot; mapping=&quot;/css/**&quot;/&gt;
+    &lt;mvc:resources location=&quot;/images/&quot; mapping=&quot;/images/**&quot;/&gt;
+    &lt;mvc:resources location=&quot;/js/&quot; mapping=&quot;/js/**&quot;/&gt;
+
+    &lt;!-- 开启SpringMVC框架注解的支持 --&gt;
+    &lt;mvc:annotation-driven /&gt;
+
+&lt;/beans&gt;
+</code></pre>
+<h2 id="ModelAndView对象"><a href="#ModelAndView对象" class="headerlink" title="ModelAndView对象"></a>ModelAndView对象</h2><p>这个对象底层用的modelMap对象，是request范围的</p>
+<pre><code class="java">    /**
+     * 返回ModelAndView
+     * @return
+     */
+    @RequestMapping(&quot;/testModelAndView&quot;)
+    public ModelAndView testModelAndView()&#123;
+        // 创建ModelAndView对象
+        ModelAndView mv = new ModelAndView();
+        System.out.println(&quot;testModelAndView方法执行了...&quot;);
+        // 模拟从数据库中查询出User对象
+        User user = new User();
+        user.setUsername(&quot;小凤&quot;);
+        user.setPassword(&quot;456&quot;);
+        user.setAge(30);
+
+        // 把user对象存储到mv对象中，也会把user对象存入到request对象
+        mv.addObject(&quot;user&quot;,user);
+
+        // 跳转到哪个页面
+        mv.setViewName(&quot;success&quot;);
+
+        return mv;
+    &#125;
+</code></pre>
+<pre><code class="xml">&lt;%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2018/5/1
+  Time: 1:18
+  To change this template use File | Settings | File Templates.
+--%&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; isELIgnored=&quot;false&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;h3&gt;执行成功&lt;/h3&gt;
+
+    $&#123;user.username&#125;
+    $&#123;user.password&#125;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="ajax请求响应json数据"><a href="#ajax请求响应json数据" class="headerlink" title="ajax请求响应json数据"></a>ajax请求响应json数据</h2><pre><code class="js">    &lt;script&gt;
+        // 页面加载，绑定单击事件
+        $(function()&#123;
+            $(&quot;#btn&quot;).click(function()&#123;
+                // alert(&quot;hello btn&quot;);
+                // 发送ajax请求
+                $.ajax(&#123;
+                    // 编写json格式，设置属性和值
+                    url:&quot;user/testAjax&quot;,
+                    contentType:&quot;application/json;charset=UTF-8&quot;,
+                    data:&#39;&#123;&quot;username&quot;:&quot;hehe&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:30&#125;&#39;,
+                    dataType:&quot;json&quot;,
+                    type:&quot;post&quot;,
+                    success:function(data)&#123;
+                        // data服务器端响应的json的数据，进行解析
+                        alert(data);
+                        alert(data.username);
+                        alert(data.password);
+                        alert(data.age);
+                    &#125;
+                &#125;);
+
+            &#125;);
+        &#125;);
+
+    &lt;/script&gt;
+</code></pre>
+<pre><code class="java">    /**
+     * 模拟异步请求响应
+     */
+    @RequestMapping(&quot;/testAjax&quot;)
+    public @ResponseBody User testAjax(@RequestBody String body)&#123;
+        System.out.println(&quot;testAjax方法执行了...&quot;);
+        System.out.println(body);
+    &#125;
+
+//控制台会输出 ：
+&#123;&quot;username&quot;:&quot;hehe&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:30&#125;
+</code></pre>
+<h2 id="Json字符串封装到-Java-Bean中"><a href="#Json字符串封装到-Java-Bean中" class="headerlink" title="Json字符串封装到 Java Bean中"></a>Json字符串封装到 Java Bean中</h2><p>Json字符串转换成对象、对象转换成Json字符串  都是spring给我们转换，我们只需要导入 <strong>jackson</strong> 的包</p>
+<pre><code class="xml">   &lt;dependency&gt;
+      &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+      &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+      &lt;version&gt;2.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+      &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+      &lt;version&gt;2.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+      &lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;
+      &lt;version&gt;2.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre>
+<h2 id="使用-ResponseBody-和-RequestBody-注解来进行转换"><a href="#使用-ResponseBody-和-RequestBody-注解来进行转换" class="headerlink" title="使用 ResponseBody 和 RequestBody 注解来进行转换"></a>使用 ResponseBody 和 RequestBody 注解来进行转换</h2><pre><code class="java">//java bean
+    public class User implements Serializable&#123;
+
+    private String username;
+    private String password;
+    private Integer age;
+    &#125;
+
+    /**
+     * 模拟异步请求响应
+     * responseBody 相应的  将bean转换成 json字符串
+     * responseBody返回的类型跟你ajax设置的datetype相关
+     * requestBody 接受的
+     */
+    @RequestMapping(&quot;/testAjax&quot;)
+    public @ResponseBody User testAjax(@RequestBody User user)&#123;
+        System.out.println(&quot;testAjax方法执行了...&quot;);
+        // 客户端发送ajax的请求，传的是json字符串，后端把json字符串封装到user对象中
+        System.out.println(user);
+        // 做响应，模拟查询数据库
+        user.setUsername(&quot;haha&quot;);
+        user.setAge(40);
+        // 做响应
+        return user;
+    &#125;
+
+//控制台会输出 ：
+&#123;&quot;username&quot;:&quot;hehe&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:30&#125;
+</code></pre>
+<h2 id="SpringMvc异常处理"><a href="#SpringMvc异常处理" class="headerlink" title="SpringMvc异常处理"></a>SpringMvc异常处理</h2><ol>
+<li><p>编写自定义异常类（做提示信息的）</p>
+</li>
+<li><p>编写异常处理器</p>
+</li>
+<li><p>配置异常处理器（跳转到提示页面）</p>
+</li>
+</ol>
+<pre><code class="java">/**
+ * 自定义异常类
+ */
+public class SysException extends Exception&#123;
+
+    // 存储提示信息的
+    private String message;
+
+    public String getMessage() &#123;
+        return message;
+    &#125;
+
+    public void setMessage(String message) &#123;
+        this.message = message;
+    &#125;
+
+    public SysException(String message) &#123;
+        this.message = message;
+    &#125;
+
+&#125;
+</code></pre>
+<pre><code class="java">/**
+ * 异常处理器    需要实现handlerExceptionResolver接口，处理异常
+ */
+public class SysExceptionResolver implements HandlerExceptionResolver&#123;
+
+    /**
+     * 处理异常业务逻辑
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @return
+     */
+    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) &#123;
+        // 获取到异常对象
+        SysException e = null;
+        if(ex instanceof SysException)&#123;
+            e = (SysException)ex;
+        &#125;else&#123;
+            e = new SysException(&quot;系统正在维护....&quot;);
+        &#125;
+        // 创建ModelAndView对象
+        ModelAndView mv = new ModelAndView();
+        //request范围的值kv入参
+        mv.addObject(&quot;errorMsg&quot;,e.getMessage());
+        //使用modelandview  进行页面的跳转
+        mv.setViewName(&quot;error&quot;);
+        return mv;
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">&lt;!--发生error跳转的页面--&gt;
+&lt;%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2018/5/5
+  Time: 22:28
+  To change this template use File | Settings | File Templates.
+--%&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; isELIgnored=&quot;false&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    $&#123;errorMsg&#125;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<pre><code class="xml">//在xml文件中配置这个  异常处理器
+&lt;bean id=&quot;sysExceptionResolver&quot; class=&quot;cn.itcast.exception.SysExceptionResolver&quot;/&gt;
+</code></pre>
+<h2 id="SpringMvc拦截器配置"><a href="#SpringMvc拦截器配置" class="headerlink" title="SpringMvc拦截器配置"></a>SpringMvc拦截器配置</h2><p>编写拦截器步骤：</p>
+<ol>
+<li><p>编写拦截器类，实现MandlerIntercepter接口</p>
+</li>
+<li><p>配置拦截器</p>
+</li>
+</ol>
+<pre><code class="java">/**
+ * 自定义拦截器
+ */
+public class MyInterceptor1 implements HandlerInterceptor&#123;
+
+    /**
+     * 预处理，controller方法执行前
+     * return true 放行，执行下一个拦截器，如果没有，执行controller中的方法
+     * return false不放行  就不会执行controller中的方法
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception &#123;
+        System.out.println(&quot;MyInterceptor1执行了...前1111&quot;);
+        // request.getRequestDispatcher(&quot;/WEB-INF/pages/error.jsp&quot;).forward(request,response);
+        return true;
+    &#125;
+
+    /**
+     * 后处理方法，controller方法执行后，success.jsp执行之前
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     */
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception &#123;
+        System.out.println(&quot;MyInterceptor1执行了...后1111&quot;);
+        // request.getRequestDispatcher(&quot;/WEB-INF/pages/error.jsp&quot;).forward(request,response);
+    &#125;
+
+    /**
+     * success.jsp页面执行后，该方法会执行  可用于释放资源
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception &#123;
+        System.out.println(&quot;MyInterceptor1执行了...最后1111&quot;);
+    &#125;
+
+&#125;
+</code></pre>
+<pre><code class="java">在SpringMvc.xml中配置这个拦截器
+
+ &lt;!--配置拦截器--&gt;
+    &lt;mvc:interceptors&gt;
+        &lt;!--配置拦截器--&gt;
+        &lt;mvc:interceptor&gt;
+            &lt;!--要拦截的具体的方法--&gt;
+            &lt;mvc:mapping path=&quot;/user/*&quot;/&gt;
+            &lt;!--不要拦截的方法
+            &lt;mvc:exclude-mapping path=&quot;&quot;/&gt;
+            --&gt;
+            &lt;!--配置拦截器对象--&gt;
+            &lt;bean class=&quot;cn.itcast.controller.cn.itcast.interceptor.MyInterceptor1&quot; /&gt;
+        &lt;/mvc:interceptor&gt;
+
+        &lt;!--配置第二个拦截器--&gt;
+        &lt;mvc:interceptor&gt;
+            &lt;!--要拦截的具体的方法--&gt;
+            &lt;mvc:mapping path=&quot;/**&quot;/&gt;
+            &lt;!--不要拦截的方法
+            &lt;mvc:exclude-mapping path=&quot;&quot;/&gt;
+            --&gt;
+            &lt;!--配置拦截器对象--&gt;
+            &lt;bean class=&quot;cn.itcast.controller.cn.itcast.interceptor.MyInterceptor2&quot; /&gt;
+        &lt;/mvc:interceptor&gt;
+    &lt;/mvc:interceptors&gt;
+</code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">三山</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://star-light-star-bright.github.io/java/spring/springmvc-jian-dan-shi-yong-kuang-jia-san/">https://star-light-star-bright.github.io/java/spring/springmvc-jian-dan-shi-yong-kuang-jia-san/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">三山</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/SrpingMvc/">
+                                    <span class="chip bg-color">SrpingMvc</span>
+                                </a>
+                            
+                                <a href="/tags/Java%E6%A1%86%E6%9E%B6/">
+                                    <span class="chip bg-color">Java框架</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/cdh/zookeeper/zookeeper/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Zookeeper">
+                        
+                        <span class="card-title">Zookeeper</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Zookeeper/" class="post-category">
+                                    Zookeeper
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Zookeeper/">
+                        <span class="chip bg-color">Zookeeper</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/java/spring/spring-ssm-zheng-he-kuang-jia-si/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="SSM">
+                        
+                        <span class="card-title">SSM</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    Java框架
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">Java框架</span>
+                    </a>
+                    
+                    <a href="/tags/SSM/">
+                        <span class="chip bg-color">SSM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">三山</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
