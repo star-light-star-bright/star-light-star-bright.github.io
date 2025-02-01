@@ -1051,21 +1051,34 @@ DML：数据操作语言 用来操作数据库
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/mysql/mysql-de-you-hua/">
+                        <a href="/mysql/mysql-cun-chu-yin-qing-he-suo-yin/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Mysql优化">
+                                <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Mysql存储引擎和索引">
                                 
-                                <span class="card-title">Mysql优化</span>
+                                <span class="card-title">Mysql存储引擎和索引</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    MySQLSQL优化1、插入数据insert优化批量插入insert into table_name values(value),(value)
+                                    Mysql体系架构
+连接层
 
-大批量插入数据一次性插入大批量数据，使用insert性能低，使用Mysql提供的load指令
+客户端的连接请求，进行授权，验证，校验权限等
+
+服务层
+
+SQL接口，解析器，优化器，缓存。
+
+引擎层
+
+索引在这一层实现，不同的存储引擎索引结构不同的，可插拔。
+
+存储层
+
+数据库索引和相关的日志文件存储在磁
                                 
                             </div>
                             <div class="publish-info">
@@ -1112,34 +1125,21 @@ DML：数据操作语言 用来操作数据库
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/mysql/mysql-cun-chu-yin-qing-he-suo-yin/">
+                        <a href="/mysql/mysql-de-you-hua/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Mysql存储引擎和索引">
+                                <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Mysql优化">
                                 
-                                <span class="card-title">Mysql存储引擎和索引</span>
+                                <span class="card-title">Mysql优化</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    Mysql体系架构
-连接层
+                                    MySQLSQL优化1、插入数据insert优化批量插入insert into table_name values(value),(value)
 
-客户端的连接请求，进行授权，验证，校验权限等
-
-服务层
-
-SQL接口，解析器，优化器，缓存。
-
-引擎层
-
-索引在这一层实现，不同的存储引擎索引结构不同的，可插拔。
-
-存储层
-
-数据库索引和相关的日志文件存储在磁
+大批量插入数据一次性插入大批量数据，使用insert性能低，使用Mysql提供的load指令
                                 
                             </div>
                             <div class="publish-info">
