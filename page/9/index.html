@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="ZWHBlog">
+    <meta name="keywords" content="张文辉的笔记">
     <meta name="description" content="这是我的博客网站">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -13,16 +13,13 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="referrer" content="no-referrer-when-downgrade">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    
-
-    <title>ZWHBlog</title>
+    <title>张文辉的笔记</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
     <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
@@ -30,9 +27,11 @@
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
-    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 6.2.0"></head>
+
+
 
 
 <body>
@@ -44,7 +43,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">ZWHBlog</span>
+                    <span class="logo-span">张文辉的笔记</span>
                 </a>
             </div>
             
@@ -143,13 +142,15 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">ZWHBlog</div>
+        <div class="logo-name">张文辉的笔记</div>
         <div class="logo-desc">
             
             这是我的博客网站
             
         </div>
     </div>
+
+    
 
     <ul class="menu-list mobile-menu-list">
         
@@ -320,16 +321,10 @@
             <div class="description center-align">
                 
                 <span id="subtitle"></span>
-                <script src="/libs/typed/typed.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
                 <script>
                     var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "从来没有真正的绝境, 只有心灵的迷途",
-                            
-                                "Never really desperate, only the lost of the soul",
-                            
-                        ],
+                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
                         startDelay: 300,
                         typeSpeed: 100,
                         loop: true,
@@ -365,59 +360,6 @@
     <article id="articles" class="container articles">
         <div class="row article-row">
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="NTP时间服务器配置">
-                            
-                            <span class="card-title">NTP时间服务器配置</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                NTP时间服务器配置最近服务器中时间和现实时间不对应，需要修改服务器时间，这时候需要安装时间同步的服务器。
-ntp配置有两种:
-第一种是自己定制一台服务器为主节点，其他节点进行同步.
-第二种是连接别人已经配好的时间服务器进行时间同步。这里N
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/NTP/" class="post-category">
-                                    NTP
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/NTP%E9%85%8D%E7%BD%AE/">
-                            <span class="chip bg-color">NTP配置</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/rabbit/rabbit/">
@@ -473,9 +415,7 @@ https://www.ra
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/da-shu-ju/da-shu-ju-zhi-shi-zong-jie/">
@@ -524,9 +464,7 @@ NFS Gateway工具可以将HDFS上面的空间映射到linux本地磁盘上，然
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/shu-ju-cang-ku/huan-man-bian-hua-wei/">
@@ -578,9 +516,7 @@ NFS Gateway工具可以将HDFS上面的空间映射到linux本地磁盘上，然
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/cdh/elasticsearch/elasticsearch/">
@@ -627,9 +563,7 @@ NFS Gateway工具可以将HDFS上面的空间映射到linux本地磁盘上，然
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/cdh/hadoop/hadoop-federation-lian-bang/">
@@ -678,9 +612,7 @@ https://www.cnblogs.com/jifengblog/p/9307702.html
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/cdh/hadoop/hadoop/">
@@ -728,9 +660,7 @@ https://www.cnblogs.com/jifengblog/p/9307702.html
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/si-fang-cai-zi-liao-zheng-li/mian-shi-ti/ge-ren-zheng-li/">
@@ -782,9 +712,7 @@ spark.driver.cores
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/da-shu-ju/fu-wu-qi-zu-jian-ban-ben/">
@@ -859,67 +787,7 @@ MapRedu
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/cdh/spark/spark/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Spark学习笔记">
-                            
-                            <span class="card-title">Spark学习笔记</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                SparkSpark是什么？Apache Spark 是专为大规模数据处理而设计的快速通用的计算引擎，Spark是用Scala编写的
-Spark和mr的区别？1、mr读取数据应该是多次,如果运算比较复杂应该是多个mr联合在一起使用的，处理的
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/CDH/" class="post-category">
-                                    CDH
-                                </a>
-                                
-                                <a href="/categories/CDH/Spark/" class="post-category">
-                                    Spark
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/CDH/">
-                            <span class="chip bg-color">CDH</span>
-                        </a>
-                        
-                        <a href="/tags/Spark/">
-                            <span class="chip bg-color">Spark</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/cdh/spark/sparksql/">
@@ -976,9 +844,63 @@ SparkSQL的4个特点1.易整合
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/cdh/spark/spark/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Spark学习笔记">
+                            
+                            <span class="card-title">Spark学习笔记</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                SparkSpark是什么？Apache Spark 是专为大规模数据处理而设计的快速通用的计算引擎，Spark是用Scala编写的
+Spark和mr的区别？1、mr读取数据应该是多次,如果运算比较复杂应该是多个mr联合在一起使用的，处理的
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/CDH/" class="post-category">
+                                    CDH
+                                </a>
+                                
+                                <a href="/categories/CDH/Spark/" class="post-category">
+                                    Spark
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/CDH/">
+                            <span class="chip bg-color">CDH</span>
+                        </a>
+                        
+                        <a href="/tags/Spark/">
+                            <span class="chip bg-color">Spark</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/scala/scala-suan-zi/">
@@ -1028,7 +950,58 @@ def sortBy[B](f: A =&gt; B)(impli
                     
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/scala/scala/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Scala学习笔记">
+                            
+                            <span class="card-title">Scala学习笔记</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                ScalaScala是一门以java虚拟机为运行环境，并将面向对象和函数式编程最佳特性结合在一起的静态类型编程语言
+在大数据中
+海量数据的采集、存储、计算
+存储hbase
+计算mapreduce
+java编写完成后，由javac编译成.cl
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-27
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Scala/" class="post-category">
+                                    Scala
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Scala/">
+                            <span class="chip bg-color">Scala</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
             
         </div>
     </article>
@@ -1047,12 +1020,11 @@ def sortBy[B](f: A =&gt; B)(impli
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">9 / 10</div>
+            <div class="center-align b-text-gray">9 / 9</div>
         </div>
         <div class="col s6 m4 l4">
             
-            <a href="/page/10/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
+            <a class="right btn-floating btn-large disabled">
                 <i class="fas fa-angle-right"></i>
             </a>
             
@@ -1116,17 +1088,16 @@ def sortBy[B](f: A =&gt; B)(impli
 </div>
 
 <script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 
     
-
-    <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
                 <span id="year">2019-2025</span>
             
+            <span id="year">2019</span>
             <a href="/about" target="_blank">三山</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
@@ -1134,23 +1105,21 @@ def sortBy[B](f: A =&gt; B)(impli
             
             
             
-                
             
             
-                <span id="busuanzi_container_site_pv">
-                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
-                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
             </span>
             
             
-                <span id="busuanzi_container_site_uv">
-                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
-                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
             </span>
             
             <br>
-
-            <!-- 运行天数提醒. -->
             
             <br>
             
@@ -1172,7 +1141,7 @@ def sortBy[B](f: A =&gt; B)(impli
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2234607886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2234607886" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1312,31 +1281,6 @@ $(function () {
     <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
     <script src="/js/matery.js"></script>
 
-    
-
-    
-        
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
-            }
-        </script>
-    
-
-    <!-- 雪花特效 -->
-    
-
-    <!-- 鼠标星星特效 -->
-    
-
-     
-        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
-        <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
-    
-
     <!-- Baidu Analytics -->
 
     <!-- Baidu Push -->
@@ -1356,6 +1300,8 @@ $(function () {
 </script>
 
     
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1364,8 +1310,7 @@ $(function () {
 
     
 
-    <!--腾讯兔小巢-->
-    
+	
     
 
     
