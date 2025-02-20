@@ -950,20 +950,26 @@ Redis 是一个开源的使用 ANSI C 语言编写、遵守 BSD 协议、支
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/linux/shell-jiao-ben/jian-kong-flume-zhuang-tai-yi-chang-zhi-hou-zi-dong-chong-qi/">
+                        <a href="/linux/shell-jiao-ben/hive-load-jiao-ben/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="hive 状态异常自动重启脚本">
+                                <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="hive load脚本">
                                 
-                                <span class="card-title">hive 状态异常自动重启脚本</span>
+                                <span class="card-title">hive load脚本</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    #!&#x2F;bin&#x2F;bash
-export FLUME_HOME&#x3D;&#x2F;opt&#x2F;apps&#x2F;flume-1.9.0while truedopc&#x3D;ps -ef | grep flume
+                                    #!/bin/bash
+
+# 定义变量方便修改
+APP=gmall
+hive=/opt/modules/hive/bin/hive
+
+# 如果是输入的日期按照取输入日期；如果没输入日期取当前时间的前一天
+if [ -n &quot;$1&q
                                 
                             </div>
                             <div class="publish-info">
@@ -1010,26 +1016,20 @@ export FLUME_HOME&#x3D;&#x2F;opt&#x2F;apps&#x2F;flume-1.9.0while truedopc&#x3D;p
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/linux/shell-jiao-ben/hive-load-jiao-ben/">
+                        <a href="/linux/shell-jiao-ben/jian-kong-flume-zhuang-tai-yi-chang-zhi-hou-zi-dong-chong-qi/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="hive load脚本">
+                                <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="hive 状态异常自动重启脚本">
                                 
-                                <span class="card-title">hive load脚本</span>
+                                <span class="card-title">hive 状态异常自动重启脚本</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    #!/bin/bash
-
-# 定义变量方便修改
-APP=gmall
-hive=/opt/modules/hive/bin/hive
-
-# 如果是输入的日期按照取输入日期；如果没输入日期取当前时间的前一天
-if [ -n &quot;$1&q
+                                    #!&#x2F;bin&#x2F;bash
+export FLUME_HOME&#x3D;&#x2F;opt&#x2F;apps&#x2F;flume-1.9.0while truedopc&#x3D;ps -ef | grep flume
                                 
                             </div>
                             <div class="publish-info">

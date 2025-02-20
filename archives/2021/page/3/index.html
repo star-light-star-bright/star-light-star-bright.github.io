@@ -927,70 +927,6 @@ zk服
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Spring Alibaba概述">
-                                
-                                <span class="card-title">Spring Alibaba概述</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    什么是Spring cloud Alibaba？Spring Netflix 的项目进入到了维护模式。不会再添加新功能。
-Spring Alibaba 是来代替他们组件的一个框架。
-主要功能：
-服务限流降级：默认支持 WebServlet、
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                    
-                                    <a href="/categories/Spring/" class="post-category">
-                                    Spring
-                                    </a>
-                                    
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                        <div class="card-action article-tags">
-                            
-                            <a href="/tags/Spring/"><span class="chip bg-color">Spring</span></a>
-                            
-                            <a href="/tags/Spring-Alibaba/"><span class="chip bg-color">Spring Alibaba</span></a>
-                            
-                        </div>
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>25</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
                         <a href="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/">
                             <div class="card-image">
                                 
@@ -1116,6 +1052,70 @@ Spring Alibaba 是来代替他们组件的一个框架。
 
             
             <div class="cd-timeline-img day" data-aos="zoom-in-up">
+                <span>25</span>
+            </div>
+            <article class="cd-timeline-content" data-aos="fade-up">
+                <div class="article col s12 m6">
+                    <div class="card">
+                        <a href="/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/">
+                            <div class="card-image">
+                                
+                                
+                                <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Spring Alibaba概述">
+                                
+                                <span class="card-title">Spring Alibaba概述</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="summary block-with-text">
+                                
+                                    什么是Spring cloud Alibaba？Spring Netflix 的项目进入到了维护模式。不会再添加新功能。
+Spring Alibaba 是来代替他们组件的一个框架。
+主要功能：
+服务限流降级：默认支持 WebServlet、
+                                
+                            </div>
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/Spring/" class="post-category">
+                                    Spring
+                                    </a>
+                                    
+                                    
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-action article-tags">
+                            
+                            <a href="/tags/Spring/"><span class="chip bg-color">Spring</span></a>
+                            
+                            <a href="/tags/Spring-Alibaba/"><span class="chip bg-color">Spring Alibaba</span></a>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="cd-timeline-block">
+
+            
+            
+
+            
+            
+
+            
+            <div class="cd-timeline-img day" data-aos="zoom-in-up">
                 <span>20</span>
             </div>
             <article class="cd-timeline-content" data-aos="fade-up">
@@ -1183,22 +1183,34 @@ DML：数据操作语言 用来操作数据库
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/mysql/mysql-de-you-hua/">
+                        <a href="/mysql/mysql-cun-chu-yin-qing-he-suo-yin/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Mysql优化">
+                                <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Mysql存储引擎和索引">
                                 
-                                <span class="card-title">Mysql优化</span>
+                                <span class="card-title">Mysql存储引擎和索引</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    MySQLSQL优化1、插入数据insert优化批量插入insert into table_name values(value),(value)
-/*后面不要有;号   他是一次性发送多条sql，给你拼接的
+                                    Mysql体系架构
+连接层
 
-大批量插入数据一次性插入大批量
+客户端的连接请求，进行授权，验证，校验权限等
+
+服务层
+
+SQL接口，解析器，优化器，缓存。
+
+引擎层
+
+索引在这一层实现，不同的存储引擎索引结构不同的，可插拔。
+
+存储层
+
+数据库索引和相关的日志文件存储在磁
                                 
                             </div>
                             <div class="publish-info">
