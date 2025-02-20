@@ -494,14 +494,14 @@
 <p>SQl问题：如SQL中包含join,group by, order by，非索引字段条件查询等，增加CPU运算的操作-&gt;SQL优化，建立合适的索引，在业务Service层进行业务计算。</p>
 <p>第二种：</p>
 <p>单表数据量太大，查询时扫描的行太多，SQl效率低，增加CPU运算的操作。-&gt;水平分表。</p>
-<h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><h2 id="水平分库"><a href="#水平分库" class="headerlink" title="水平分库"></a>水平分库</h2><p><img src="https://img-blog.csdnimg.cn/20201111123353102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY3NTg0NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>一张表的数据通过不同的分发策略发送到不同的数据库中</p>
+<h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><h2 id="水平分库"><a href="#水平分库" class="headerlink" title="水平分库"></a>水平分库</h2><p>一张表的数据通过不同的分发策略发送到不同的数据库中</p>
 <ul>
 <li>两个数据库中的表结构完全一致</li>
 <li>他们的数据完全不同</li>
 <li>两个库中的所有数据的并集是全部的数据</li>
 </ul>
 <p>适用场景：<br>库多了，并发就上去了，解决了你的并发量问题</p>
-<h2 id="垂直分库"><a href="#垂直分库" class="headerlink" title="垂直分库"></a>垂直分库</h2><p><img src="https://img-blog.csdnimg.cn/20201111124105338.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY3NTg0NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据表中业务的不同来进行划分不同字段到不同的库中</p>
+<h2 id="垂直分库"><a href="#垂直分库" class="headerlink" title="垂直分库"></a>垂直分库</h2><p>根据表中业务的不同来进行划分不同字段到不同的库中</p>
 <ul>
 <li>每个库中表结构都不同</li>
 <li>每个库中数据和字段不一样</li>
@@ -510,8 +510,7 @@
 <p>适用场景：</p>
 <p>划分成多个库，提高了并发度，并且需要按照业务模块划分到不同表中</p>
 <p>表中业务模块都定义好的情况下，才能够使用，否则后期使用是灾难</p>
-<h2 id="水平分表"><a href="#水平分表" class="headerlink" title="水平分表"></a>水平分表</h2><p><img src="https://img-blog.csdnimg.cn/20201111124945960.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY3NTg0NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>将一张表的数据按照某种策略拆分到多个表中</p>
+<h2 id="水平分表"><a href="#水平分表" class="headerlink" title="水平分表"></a>水平分表</h2><p>将一张表的数据按照某种策略拆分到多个表中</p>
 <ul>
 <li>每个表的字段结构都相同</li>
 <li>每个表的数据不一样</li>
@@ -519,7 +518,7 @@
 </ul>
 <p>适用场景：</p>
 <p>系统并发量没有到瓶颈，就是单表数据过多，导致查询缓慢，加重了CPU的负担，这种情况可以使用水平分表</p>
-<h2 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h2><p><img src="https://img-blog.csdnimg.cn/2020111112551481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY3NTg0NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>将一张表的字段按照字段的活跃性拆分到不同的表中</p>
+<h2 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h2><p>将一张表的字段按照字段的活跃性拆分到不同的表中</p>
 <ul>
 <li>每个表的字段结构不一样</li>
 <li>每个表的数据没有相同的，但是会有一个交集，通常是一个主键，用于关联数据</li>
@@ -822,55 +821,6 @@ SELECT LAST_INSERT_ID();
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/kylin/kylin/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Kylin学习笔记">
-                        
-                        <span class="card-title">Kylin学习笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Kylin/" class="post-category">
-                                    Kylin
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Kylin/">
-                        <span class="chip bg-color">Kylin</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
                 <a href="/nginx/nginx/">
                     <div class="card-image">
                         
@@ -887,9 +837,9 @@ SELECT LAST_INSERT_ID();
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -907,6 +857,55 @@ SELECT LAST_INSERT_ID();
                     
                     <a href="/tags/Nginx/">
                         <span class="chip bg-color">Nginx</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/cdh/hbase/hbase/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Hbase的学习笔记">
+                        
+                        <span class="card-title">Hbase的学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Hbase/" class="post-category">
+                                    Hbase
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hbase/">
+                        <span class="chip bg-color">Hbase</span>
                     </a>
                     
                 </div>

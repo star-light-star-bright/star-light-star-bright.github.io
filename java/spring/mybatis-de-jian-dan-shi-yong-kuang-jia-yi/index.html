@@ -577,7 +577,7 @@
 <h3 id="2、动态代理"><a href="#2、动态代理" class="headerlink" title="2、动态代理"></a>2、动态代理</h3><p>动态代理是在运行时，通过反射机制实现动态代理，并且能够代理各种类型的对象</p>
 <p>在程序运行时运用反射机制动态创建而成。<br>在Java中要想实现动态代理机制，需要java.lang.reflect.InvocationHandler  接口和 java.lang.reflect.Proxy 类的支持</p>
 <p>java.lang.reflect.InvocationHandler接口的定义如下：</p>
-<pre><code>//Object proxy:被代理的对象  
+<pre><code class="java">//Object proxy:被代理的对象  
 //Method method:要调用的方法  
 //Object[] args:方法调用时所需要参数  
 public interface InvocationHandler &#123;  
@@ -585,7 +585,7 @@ public interface InvocationHandler &#123;
 &#125;  
 </code></pre>
 <p>java.lang.reflect.Proxy类的定义如下：</p>
-<pre><code>//CLassLoader loader:类的加载器
+<pre><code class="java">//CLassLoader loader:类的加载器
 //Class&lt;?&gt; interfaces:得到全部的接口
 //InvocationHandler h:得到InvocationHandler接口的子类的实例
 public static Object newProxyInstance(ClassLoader loader, Class&lt;?&gt;[] interfaces, InvocationHandler h) throws IllegalArgumentException

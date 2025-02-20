@@ -478,6 +478,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h2><h3 id="1、插入数据"><a href="#1、插入数据" class="headerlink" title="1、插入数据"></a>1、插入数据</h3><h4 id="insert优化"><a href="#insert优化" class="headerlink" title="insert优化"></a>insert优化</h4><h5 id="批量插入"><a href="#批量插入" class="headerlink" title="批量插入"></a>批量插入</h5><pre><code class="sql">insert into table_name values(value),(value)
+/*后面不要有;号   他是一次性发送多条sql，给你拼接的
 </code></pre>
 <h5 id="大批量插入数据"><a href="#大批量插入数据" class="headerlink" title="大批量插入数据"></a>大批量插入数据</h5><p>一次性插入大批量数据，使用insert性能低，使用Mysql提供的load指令进行插入。</p>
 <pre><code class="sql">#1.连接服务端时，加上参数 local-infile 
@@ -819,13 +820,13 @@ create index index_name on table_name(a asc,b desc);
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/mysql/mysql-cun-chu-yin-qing-he-suo-yin/">
+                <a href="/mysql/mysql-bu-chang-yong-ming-ling/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Mysql存储引擎和索引">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Mysql命令总结">
                         
-                        <span class="card-title">Mysql存储引擎和索引</span>
+                        <span class="card-title">Mysql命令总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -868,13 +869,13 @@ create index index_name on table_name(a asc,b desc);
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/cdh/cdh5.16-xie-zai/">
+                <a href="/mysql/mysql-cun-chu-yin-qing-he-suo-yin/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="CDH5.16卸载">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Mysql存储引擎和索引">
                         
-                        <span class="card-title">CDH5.16卸载</span>
+                        <span class="card-title">Mysql存储引擎和索引</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -885,14 +886,14 @@ create index index_name on table_name(a asc,b desc);
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-20
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/CDH/" class="post-category">
-                                    CDH
+                            <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                             
                             
@@ -902,8 +903,8 @@ create index index_name on table_name(a asc,b desc);
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/CDH/">
-                        <span class="chip bg-color">CDH</span>
+                    <a href="/tags/Mysql/">
+                        <span class="chip bg-color">Mysql</span>
                     </a>
                     
                 </div>
